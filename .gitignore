@@ -1,0 +1,9 @@
+node_modules/
+.expo/
+expo-env.d.ts
+dist/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+*.log

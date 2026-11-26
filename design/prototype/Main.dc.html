@@ -1,0 +1,1452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sushifyyyy creator app</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#08090B}
+.app,.app *{box-sizing:border-box}.app{font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.tex{background-color:#08090B;background-image:radial-gradient(rgba(246,246,244,.045) .6px,transparent .8px),radial-gradient(rgba(163,165,174,.035) .5px,transparent .7px),radial-gradient(120% 60% at 50% 0%,rgba(51,54,61,.22),transparent 70%);background-size:3px 3px,7px 7px,100% 100%;background-position:0 0,1px 2px,0 0}
+.gloss{background:linear-gradient(180deg,#FFFFFF 0%,#F6F6F4 48%,#E2E2DF 100%);color:#14161A;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.10),0 8px 20px rgba(0,0,0,.45)}
+.knob{background:linear-gradient(180deg,#FFFFFF,#DCDCD8);box-shadow:0 2px 6px rgba(0,0,0,.55),inset 0 1px 0 #fff}
+.app button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}.app button:disabled{cursor:default}
+.press{transition:transform 140ms ease,opacity 140ms ease,background 200ms,color 200ms}.press:active:not(:disabled){transform:scale(.96)}
+svg.i{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}svg.f{fill:currentColor;stroke:none;flex-shrink:0}
+.scr{animation:scrIn 280ms cubic-bezier(.2,.8,.2,1) both}@keyframes scrIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sheet{animation:sheetUp 340ms cubic-bezier(.2,.9,.25,1) both}@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.fade{animation:fadeIn 250ms ease both}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{animation:modalIn 250ms cubic-bezier(.2,.9,.3,1) both}@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.pulse{animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.halo{animation:halo 1.9s ease-out infinite}@keyframes halo{0%{transform:scale(1);opacity:.45}100%{transform:scale(1.32);opacity:0}}
+.pop{animation:pop 360ms cubic-bezier(.3,1.4,.5,1) both}@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.sbar{animation:sbar 1.1s ease-in-out infinite;transform-origin:center}@keyframes sbar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+.spin{animation:spin .9s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.noscroll::-webkit-scrollbar{display:none}.noscroll{scrollbar-width:none}
+.app input[type=text],.app input[type=email],.app input[type=password],.app input[type=search]{font-family:inherit;outline:none}.app input::placeholder{color:#7C7F88}
+.app input:focus-visible,.app button:focus-visible{outline:2px solid #FF6370;outline-offset:2px}
+.rm *,.rm *::before,.rm *::after{animation:none!important;transition:none!important}
+</style>
+</helmet>
+<div class="app tex {{rmClass}}" style="position: relative; width: 390px; height: 844px; overflow: hidden; color: #F6F6F4; background-color: #08090B">
+
+<!-- ============ SCREEN 01 · SPLASH ============ -->
+<sc-if value="{{isSplash}}" hint-placeholder-val="{{false}}">
+<button onClick="{{skipSplash}}" aria-label="Continue" class="fade" style="position: absolute; inset: 0; background: transparent; border: 0; color: #F6F6F4; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px">
+<span style="display: flex; align-items: center; gap: 4px; height: 44px" aria-hidden="true">
+<sc-for list="{{splashBars}}" as="b" hint-placeholder-count="9"><span class="sbar" style="display: block; width: 4px; border-radius: 3px; height: {{b.h}}px; background: {{b.c}}; animation-delay: {{b.d}}ms"></span></sc-for>
+</span>
+<span style="font-size: 32px; font-weight: 600; letter-spacing: -0.03em">Sushifyyyy</span>
+<span style="font-size: 13px; color: #A3A5AE; letter-spacing: 0.01em">Your Voice. Your Vibe. Your Stage.</span>
+</button>
+</sc-if>
+
+<!-- ============ SCREEN 02 · LOGIN ============ -->
+<sc-if value="{{isLogin}}" hint-placeholder-val="{{false}}">
+<div class="scr noscroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 56px 24px 32px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 14px">
+<div style="width: 52px; height: 52px; border-radius: 16px; background: #14161A; border: 1px solid #26282E; display: flex; align-items: center; justify-content: center; color: #EF3349"><svg class="i" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.wave}}"></path></svg></div>
+<div>
+<h1 style="margin: 0; font-size: 30px; font-weight: 600; letter-spacing: -0.03em">Sushifyyyy</h1>
+<p style="margin: 6px 0 0; font-size: 15px; color: #A3A5AE">Your Voice. Your Vibe. Your Stage.</p>
+</div>
+</div>
+<div style="height: 76px; border-radius: 20px; background: #14161A; border: 1px solid #1F2126; overflow: hidden; display: flex; align-items: center; padding: 0 14px" aria-hidden="true">
+<svg width="330" height="56" viewBox="0 0 330 56"><path d="{{loginWave.bot}}" stroke="#701C2B" stroke-width="{{loginWave.sw}}" stroke-linecap="round" opacity="0.8"></path><path d="{{loginWave.top}}" stroke="#EF3349" stroke-width="{{loginWave.sw}}" stroke-linecap="round"></path><path d="{{loginWave.hi}}" stroke="#FF6370" stroke-width="{{loginWave.sw}}" stroke-linecap="round"></path></svg>
+</div>
+
+<sc-if value="{{loginNoAccess}}" hint-placeholder-val="{{false}}">
+<div class="pop" style="background: #14161A; border: 1px solid #26282E; border-radius: 24px; padding: 22px; display: flex; flex-direction: column; gap: 12px">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: #F6F6F4"><svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.lock}}"></path></svg></div>
+<h2 style="margin: 0; font-size: 20px; font-weight: 600">Studio access is pending</h2>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #A3A5AE">You're signed in as {{email}}, but this account hasn't been approved for the Studio yet. The Super Admin grants access to each creator. You'll be able to record as soon as you're approved.</p>
+<button onClick="{{loginReset}}" class="press gloss" style="height: 50px; border-radius: 14px; border: 0; font-size: 15px; font-weight: 600">Use another account</button>
+</div>
+</sc-if>
+
+<sc-if value="{{loginForm}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<sc-if value="{{loginNetwork}}" hint-placeholder-val="{{false}}">
+<div class="fade" role="alert" style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: #1D1F24; border: 1px solid #33363D; font-size: 13px; line-height: 1.45; color: #F6F6F4"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF6370; margin-top: 1px"><path d="{{ic.wifiOff}}"></path></svg><span>Can't reach Sushifyyyy right now. Check your connection and try again.</span></div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="li-email" style="font-size: 13px; color: #A3A5AE; font-weight: 500">Email</label>
+<input id="li-email" type="email" value="{{email}}" onChange="{{setEmail}}" autocomplete="email" style="height: 52px; border-radius: 14px; background: #14161A; border: 1px solid {{loginBorder}}; color: #F6F6F4; padding: 0 16px; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="li-pw" style="font-size: 13px; color: #A3A5AE; font-weight: 500">Password</label>
+<input id="li-pw" type="password" value="{{pw}}" onChange="{{setPw}}" placeholder="Your password" autocomplete="current-password" style="height: 52px; border-radius: 14px; background: #14161A; border: 1px solid {{loginBorder}}; color: #F6F6F4; padding: 0 16px; font-size: 16px">
+</div>
+<sc-if value="{{loginInvalid}}" hint-placeholder-val="{{false}}"><p class="fade" role="alert" style="margin: -4px 0 0; font-size: 13px; color: #FF6370">That email and password don't match. Try again.</p></sc-if>
+<button onClick="{{signIn}}" disabled="{{loginLoading}}" class="press gloss" style="height: 54px; border-radius: 16px; border: 0; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px">
+<sc-if value="{{loginLoading}}" hint-placeholder-val="{{false}}"><span class="spin" style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(20,22,26,.25); border-top-color: #14161A"></span></sc-if>
+<span>{{signInLabel}}</span>
+</button>
+<div style="display: flex; align-items: center; gap: 12px; color: #7C7F88; font-size: 12px"><span style="flex: 1; height: 1px; background: #26282E"></span>or<span style="flex: 1; height: 1px; background: #26282E"></span></div>
+<button onClick="{{signIn}}" disabled="{{loginLoading}}" class="press" style="height: 52px; border-radius: 16px; background: #14161A; border: 1px solid #33363D; color: #F6F6F4; font-size: 15px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 10px"><span style="width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #F6F6F4; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700">G</span>Continue with Google</button>
+<div style="display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #0E0F12; border: 1px solid #1F2126; font-size: 12px; line-height: 1.5; color: #A3A5AE"><svg class="i" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 1px"><path d="{{ic.lock}}"></path></svg><span>Sushifyyyy is a private studio. Only creators approved by the Super Admin can sign in and record.</span></div>
+</div>
+</sc-if>
+
+<div style="margin-top: auto; padding-top: 6px">
+<div style="font-size: 11px; color: #7C7F88; margin-bottom: 6px">Prototype · sign-in outcome</div>
+<div role="radiogroup" aria-label="Prototype sign-in outcome" style="display: flex; padding: 3px; gap: 3px; background: #0E0F12; border: 1px solid #1F2126; border-radius: 12px">
+<sc-for list="{{outcomeSeg}}" as="o" hint-placeholder-count="4"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="flex: 1; min-height: 34px; border: 0; border-radius: 9px; font-size: 11px; font-weight: 500; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<!-- ============ TAB SCREENS ============ -->
+<sc-if value="{{isApp}}" hint-placeholder-val="{{true}}">
+
+<!-- SCREEN 03 · HOME -->
+<sc-if value="{{tabHome}}" hint-placeholder-val="{{true}}">
+<div class="scr noscroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 24px 16px 124px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<div>
+<div style="font-size: 14px; color: #A3A5AE">Good morning,</div>
+<h1 style="margin: 2px 0 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">{{artist}}</h1>
+</div>
+<button onClick="{{goProfile}}" aria-label="Open profile" class="press" style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid #33363D; background: #1D1F24; color: #F6F6F4; font-size: 16px; font-weight: 600">S</button>
+</div>
+<button onClick="{{toggleHp}}" class="press" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: #14161A; border: 1px solid #1F2126; color: #F6F6F4; text-align: left">
+<span style="width: 36px; height: 36px; border-radius: 12px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: {{hpIconColor}}"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.hp}}"></path></svg></span>
+<span style="flex: 1"><span style="display: block; font-size: 14px; font-weight: 500">{{hpTitle}}</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px">{{hpSub}}</span></span>
+<span style="width: 8px; height: 8px; border-radius: 50%; background: {{hpDot}}"></span>
+</button>
+<button onClick="{{newRec}}" class="press gloss" style="height: 76px; border: 0; border-radius: 22px; display: flex; align-items: center; gap: 14px; padding: 0 18px; text-align: left">
+<span style="width: 46px; height: 46px; border-radius: 50%; background: #EF3349; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(239,51,73,.35)"><svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.2"><path d="{{ic.plus}}"></path></svg></span>
+<span style="flex: 1"><span style="display: block; font-size: 18px; font-weight: 600">New Recording</span><span style="display: block; font-size: 13px; color: #4A4D55; margin-top: 2px">Start a fresh take</span></span>
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.chev}}"></path></svg>
+</button>
+
+<section style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 600">Continue where you left off</h2>
+<sc-if value="{{hasRecent}}" hint-placeholder-val="{{true}}">
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="height: 64px; border-radius: 14px; background: #F2F2F1; display: flex; align-items: center; padding: 0 10px" aria-hidden="true">
+<svg width="306" height="48" viewBox="0 0 306 48"><path d="{{recentWave.bot}}" stroke="#701C2B" stroke-width="{{recentWave.sw}}" stroke-linecap="round" opacity="0.55"></path><path d="{{recentWave.top}}" stroke="#EF3349" stroke-width="{{recentWave.sw}}" stroke-linecap="round"></path><path d="{{recentWave.hi}}" stroke="#FF6370" stroke-width="{{recentWave.sw}}" stroke-linecap="round"></path></svg>
+</div>
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="flex: 1; min-width: 0">
+<div style="font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{recent.name}}</div>
+<div style="font-size: 12px; color: #A3A5AE; margin-top: 3px">{{recent.date}} · {{recent.durL}} · {{recent.status}}</div>
+</div>
+<button onClick="{{recent.open}}" class="press gloss" style="height: 40px; padding: 0 16px; border: 0; border-radius: 12px; font-size: 14px; font-weight: 600">Continue</button>
+</div>
+</div>
+</sc-if>
+</section>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<button onClick="{{goDrafts}}" class="press" style="background: #14161A; border: 1px solid #1F2126; border-radius: 18px; padding: 14px; color: #F6F6F4; text-align: left; display: flex; flex-direction: column; gap: 10px">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #A3A5AE"><path d="{{ic.edit}}"></path></svg>
+<span><span style="display: block; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums">{{draftCount}}</span><span style="display: block; font-size: 13px; color: #A3A5AE">Drafts</span></span>
+</button>
+<button onClick="{{goExports}}" class="press" style="background: #14161A; border: 1px solid #1F2126; border-radius: 18px; padding: 14px; color: #F6F6F4; text-align: left; display: flex; flex-direction: column; gap: 10px">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #A3A5AE"><path d="{{ic.exp}}"></path></svg>
+<span><span style="display: block; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums">{{exportCount}}</span><span style="display: block; font-size: 13px; color: #A3A5AE">Exports</span></span>
+</button>
+</div>
+
+<section style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; justify-content: space-between"><h2 style="margin: 0; font-size: 18px; font-weight: 600">Recent projects</h2><button onClick="{{goProjects}}" style="background: none; border: 0; color: #A3A5AE; font-size: 13px; min-height: 44px; padding: 0 4px">See all</button></div>
+<sc-for list="{{recentList}}" as="p" hint-placeholder-count="3">
+<button onClick="{{p.open}}" class="press" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 16px; background: #0E0F12; border: 1px solid #1A1C20; color: #F6F6F4; text-align: left">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: #A3A5AE"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{p.mediaIcon}}"></path></svg></span>
+<span style="flex: 1; min-width: 0"><span style="display: block; font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px">{{p.date}} · {{p.durL}}</span></span>
+<span style="font-size: 11px; font-weight: 500; padding: 4px 8px; border-radius: 8px; border: 1px solid #33363D; color: {{p.badgeFg}}">{{p.status}}</span>
+</button>
+</sc-for>
+</section>
+
+<div style="padding: 14px; border-radius: 16px; border: 1px solid #1A1C20; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; font-size: 12px; color: #A3A5AE"><span>Phone storage</span><span>{{storageL}}</span></div>
+<div style="height: 6px; border-radius: 6px; background: #1D1F24; overflow: hidden"><div style="height: 100%; width: {{storagePct}}%; background: linear-gradient(90deg,#A3A5AE,#F6F6F4); border-radius: 6px"></div></div>
+</div>
+</div>
+</sc-if>
+
+<!-- SCREEN 04 · PROJECTS -->
+<sc-if value="{{tabProjects}}" hint-placeholder-val="{{false}}">
+<div class="scr noscroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 24px 16px 124px; display: flex; flex-direction: column; gap: 14px">
+<div><h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">Projects</h1><div style="font-size: 13px; color: #A3A5AE; margin-top: 4px">{{projCountL}} · saved on this phone</div></div>
+<div style="position: relative">
+<svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 14px; top: 15px; color: #7C7F88"><path d="{{ic.search}}"></path></svg>
+<input type="search" aria-label="Search projects" value="{{query}}" onChange="{{setQuery}}" placeholder="Search projects" style="width: 100%; height: 48px; border-radius: 14px; background: #14161A; border: 1px solid #26282E; color: #F6F6F4; padding: 0 14px 0 42px; font-size: 15px">
+</div>
+<div role="radiogroup" aria-label="Filter" style="display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{filterSeg}}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 38px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<sc-for list="{{projList}}" as="p" hint-placeholder-count="4">
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 44px; height: 44px; border-radius: 14px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: #F6F6F4"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{p.mediaIcon}}"></path></svg></span>
+<div style="flex: 1; min-width: 0"><div style="font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.name}}</div><div style="font-size: 12px; color: #A3A5AE; margin-top: 3px">{{p.date}} · {{p.durL}} · {{p.mediaL}}</div></div>
+<button onClick="{{p.menu}}" aria-label="More options" class="press" style="width: 44px; height: 44px; border-radius: 12px; background: transparent; border: 0; color: #A3A5AE; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.6"><path d="{{ic.more}}"></path></svg></button>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="font-size: 11px; font-weight: 500; padding: 5px 9px; border-radius: 8px; border: 1px solid #33363D; color: {{p.badgeFg}}; display: flex; align-items: center; gap: 6px"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{p.badgeDot}}"></span>{{p.status}}</span>
+<svg width="150" height="24" viewBox="0 0 150 24" aria-hidden="true" style="flex: 1"><path d="{{p.wave.top}}" stroke="#701C2B" stroke-width="{{p.wave.sw}}" stroke-linecap="round"></path><path d="{{p.wave.bot}}" stroke="#33363D" stroke-width="{{p.wave.sw}}" stroke-linecap="round"></path></svg>
+<button onClick="{{p.open}}" class="press gloss" style="height: 36px; padding: 0 14px; border: 0; border-radius: 11px; font-size: 13px; font-weight: 600">Open</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{projEmpty}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="padding: 40px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px">
+<div style="width: 64px; height: 64px; border-radius: 20px; background: #14161A; border: 1px solid #26282E; display: flex; align-items: center; justify-content: center; color: #EF3349"><svg class="i" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.wave}}"></path></svg></div>
+<div style="font-size: 18px; font-weight: 600">{{emptyTitle}}</div>
+<div style="font-size: 14px; color: #A3A5AE; line-height: 1.5; max-width: 260px">{{emptyBody}}</div>
+<button onClick="{{newRec}}" class="press gloss" style="height: 46px; padding: 0 20px; border: 0; border-radius: 14px; font-size: 15px; font-weight: 600; margin-top: 4px">Start recording</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- SCREEN 12 · EXPORT HISTORY -->
+<sc-if value="{{tabExports}}" hint-placeholder-val="{{false}}">
+<div class="scr noscroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 24px 16px 124px; display: flex; flex-direction: column; gap: 14px">
+<div><h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">Exports</h1><div style="font-size: 13px; color: #A3A5AE; margin-top: 4px">Finished files saved to your phone</div></div>
+<sc-for list="{{expList}}" as="e" hint-placeholder-count="3">
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 12px">
+<button onClick="{{e.play}}" aria-label="{{e.playL}}" class="press" style="width: 46px; height: 46px; border-radius: 50%; border: 0; background: #EF3349; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(239,51,73,.3)"><svg class="{{e.iconClass}}" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.6"><path d="{{e.icon}}"></path></svg></button>
+<div style="flex: 1; min-width: 0"><div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{e.name}}</div><div style="font-size: 12px; color: #A3A5AE; margin-top: 3px">{{e.date}} · {{e.durL}} · {{e.size}}</div></div>
+<span style="font-size: 11px; font-weight: 600; padding: 5px 8px; border-radius: 8px; background: #1D1F24; color: #F6F6F4">{{e.fmtShort}}</span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="font-size: 11px; color: #A3A5AE; font-variant-numeric: tabular-nums; width: 34px">{{e.posL}}</span>
+<div style="flex: 1; height: 4px; border-radius: 4px; background: #26282E; overflow: hidden"><div style="height: 100%; width: {{e.pct}}%; background: #FF6370"></div></div>
+<button onClick="{{e.info}}" aria-label="File information" class="press" style="width: 40px; height: 40px; border-radius: 12px; background: #1D1F24; border: 0; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.info}}"></path></svg></button>
+<button onClick="{{e.share}}" aria-label="Save or share" class="press" style="width: 40px; height: 40px; border-radius: 12px; background: #1D1F24; border: 0; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.share}}"></path></svg></button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{expEmpty}}" hint-placeholder-val="{{false}}">
+<div style="padding: 48px 20px; text-align: center; color: #A3A5AE; font-size: 14px; line-height: 1.5">No exports yet. Finish a recording and export it — it'll show up here.</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- SCREEN 13 · PROFILE -->
+<sc-if value="{{tabProfile}}" hint-placeholder-val="{{false}}">
+<div class="scr noscroll" style="position: absolute; inset: 0; overflow-y: auto; padding: 24px 16px 124px; display: flex; flex-direction: column; gap: 16px">
+<h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">Profile</h1>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 24px; padding: 20px; display: flex; align-items: center; gap: 16px">
+<div style="width: 68px; height: 68px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #3A3D44, #1D1F24); border: 1px solid #33363D; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 600">S</div>
+<div style="flex: 1; min-width: 0">
+<div style="font-size: 20px; font-weight: 600">{{artist}}</div>
+<div style="font-size: 13px; color: #A3A5AE; margin-top: 2px; overflow: hidden; text-overflow: ellipsis">{{email}}</div>
+<div style="display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: #1D1F24; color: #F6F6F4"><span style="width: 6px; height: 6px; border-radius: 50%; background: #EF3349"></span>Studio access · Approved</div>
+</div>
+</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 15px; font-weight: 600">Recording quality</div>
+<div role="radiogroup" aria-label="Recording quality" style="display: flex; padding: 4px; gap: 4px; background: #0E0F12; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{qualitySeg}}" as="o" hint-placeholder-count="2"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 40px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<div style="font-size: 12px; color: #A3A5AE">Higher quality sounds best but uses more space.</div>
+</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; font-size: 15px; font-weight: 600"><span>Local storage</span><span style="font-weight: 500; color: #A3A5AE; font-size: 13px">1.2 GB used by Sushifyyyy</span></div>
+<div style="height: 8px; border-radius: 8px; background: #1D1F24; overflow: hidden; display: flex"><div style="width: 6%; background: #EF3349"></div><div style="width: 65%; background: #33363D"></div></div>
+<div style="font-size: 12px; color: #A3A5AE">{{storageL}} on this phone. Recordings never leave your device.</div>
+</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; overflow: hidden">
+<sc-for list="{{profileRows}}" as="r" hint-placeholder-count="4">
+<button onClick="{{r.go}}" class="press" style="width: 100%; display: flex; align-items: center; gap: 14px; padding: 0 16px; min-height: 56px; background: transparent; border: 0; border-bottom: 1px solid #1D1F24; color: #F6F6F4; text-align: left; font-size: 15px">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #A3A5AE"><path d="{{r.icon}}"></path></svg>
+<span style="flex: 1">{{r.label}}</span>
+<svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #7C7F88"><path d="{{ic.chev}}"></path></svg>
+</button>
+</sc-for>
+</div>
+<button onClick="{{askSignOut}}" class="press" style="height: 52px; border-radius: 16px; background: transparent; border: 1px solid #33363D; color: #FF6370; font-size: 15px; font-weight: 500">Sign out</button>
+<div style="text-align: center; font-size: 12px; color: #7C7F88">Sushifyyyy Studio · Version 1.0 prototype</div>
+</div>
+</sc-if>
+
+<!-- ============ SCREEN 05 · BOTTOM NAVIGATION ============ -->
+<sc-if value="{{showDock}}" hint-placeholder-val="{{true}}">
+<nav aria-label="Main" style="position: absolute; left: 0; right: 0; bottom: 0; height: 88px; z-index: 20">
+<div style="position: absolute; inset: 0; background: #14161A; border-top: 1px solid #23252B; box-shadow: 0 -12px 30px rgba(0,0,0,.45)"></div>
+<div style="position: absolute; left: 0; top: 8px; width: 20%; height: 52px; z-index: 1; transform: translateX({{indX}}%); transition: transform 460ms cubic-bezier(.34,1.42,.56,1); pointer-events: none" aria-hidden="true">
+<div class="gloss" style="margin: 0 auto; width: 62px; height: 52px; border-radius: 18px; transform: scaleX({{indScale}}); opacity: {{indOpacity}}; transition: transform 240ms cubic-bezier(.3,.8,.3,1), opacity 240ms; box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.35)"></div>
+</div>
+<div style="position: absolute; left: 0; right: 0; top: 8px; height: 52px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); z-index: 2">
+<sc-for list="{{tabsLeft}}" as="t" hint-placeholder-count="2">
+<button onClick="{{t.go}}" aria-label="{{t.label}}" aria-current="{{t.cur}}" style="background: transparent; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: {{t.color}}; transition: color 260ms">
+<svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="transform: translateY({{t.lift}}px); transition: transform 300ms"><path d="{{t.d}}"></path></svg>
+<span style="font-size: 10.5px; font-weight: {{t.fw}}; letter-spacing: 0.01em">{{t.label}}</span>
+</button>
+</sc-for>
+<span aria-hidden="true"></span>
+<sc-for list="{{tabsRight}}" as="t" hint-placeholder-count="2">
+<button onClick="{{t.go}}" aria-label="{{t.label}}" aria-current="{{t.cur}}" style="background: transparent; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: {{t.color}}; transition: color 260ms">
+<svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="transform: translateY({{t.lift}}px); transition: transform 300ms"><path d="{{t.d}}"></path></svg>
+<span style="font-size: 10.5px; font-weight: {{t.fw}}; letter-spacing: 0.01em">{{t.label}}</span>
+</button>
+</sc-for>
+</div>
+<div style="position: absolute; left: 50%; top: -24px; width: 80px; height: 25px; margin-left: -40px; overflow: hidden; z-index: 3" aria-hidden="true"><div style="width: 80px; height: 80px; border-radius: 50%; background: #14161A; border: 1px solid #23252B"></div></div>
+<sc-if value="{{inStudio}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" style="position: absolute; left: 50%; top: -23px; width: 70px; height: 70px; margin-left: -35px; border-radius: 50%; border: 2px solid rgba(246,246,244,.85); z-index: 4; pointer-events: none"></span></sc-if>
+<button onClick="{{createPress}}" aria-label="New recording" class="press" style="position: absolute; left: 50%; top: -18px; width: 60px; height: 60px; margin-left: -30px; border-radius: 50%; border: 0; z-index: 4; color: #FFFFFF; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 36% 28%, #FF7C88 0%, #EF3349 46%, #CF2A3F 100%); box-shadow: 0 0 22px rgba(239,51,73,.38), 0 8px 16px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -2px 4px rgba(112,28,43,.45)">
+<svg class="i" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.4"><path d="{{ic.plus}}"></path></svg>
+</button>
+</nav>
+</sc-if>
+
+<!-- ============ SCREEN 05 · RECORDING STUDIO ============ -->
+<sc-if value="{{fRecorder}}" hint-placeholder-val="{{false}}">
+<div class="scr noscroll" style="position: absolute; inset: 0 0 88px 0; overflow-y: auto; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{backRecorder}}" aria-label="Back" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.back}}"></path></svg></button>
+<div style="flex: 1; min-width: 0; text-align: center"><div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{curName}}</div><div style="font-size: 12px; color: #A3A5AE">Record your voice</div></div>
+<button onClick="{{saveDraft}}" class="press" style="height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; font-size: 13px; font-weight: 500">Save draft</button>
+</div>
+<div style="display: flex; gap: 6px; padding: 4px 16px 10px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5"><button onClick="{{s.go}}" disabled="{{s.locked}}" style="flex: 1; background: none; border: 0; padding: 6px 0 0; display: flex; flex-direction: column; gap: 6px; align-items: stretch; color: {{s.fg}}; font-size: 11px; font-weight: 500"><span style="height: 3px; border-radius: 3px; background: {{s.bar}}"></span><span>{{s.label}}</span></button></sc-for>
+</div>
+
+<div style="padding: 0 16px; display: flex; align-items: center; justify-content: space-between">
+<span class="{{recChipClass}}" role="status" style="display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 12px; border-radius: 999px; background: #14161A; border: 1px solid #26282E; font-size: 12px; font-weight: 500"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{recDot}}"></span>{{recLabel}}</span>
+<button onClick="{{openSim}}" style="height: 30px; padding: 0 10px; border-radius: 999px; background: transparent; border: 1px dashed #33363D; color: #A3A5AE; font-size: 11px">Prototype states</button>
+</div>
+
+<sc-if value="{{showHpBanner}}" hint-placeholder-val="{{false}}">
+<div class="fade" role="alert" style="margin: 10px 16px 0; display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #1D1F24; border: 1px solid #33363D; font-size: 13px; line-height: 1.45"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF6370"><path d="{{ic.hp}}"></path></svg><span style="flex: 1">Earphones disconnected. Live monitoring is off so your speaker doesn't leak into the mic.</span><button onClick="{{dismissHp}}" aria-label="Dismiss" style="background: none; border: 0; color: #A3A5AE; width: 28px; height: 28px; padding: 0"><svg class="i" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.x}}"></path></svg></button></div>
+</sc-if>
+<sc-if value="{{interrupted}}" hint-placeholder-val="{{false}}">
+<div class="fade" role="alert" style="margin: 10px 16px 0; display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #1D1F24; border: 1px solid #33363D; font-size: 13px; line-height: 1.45"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF6370"><path d="{{ic.alert}}"></path></svg><span style="flex: 1">Recording paused — a call or another app took the microphone. Your take is safe. Resume when you're ready.</span></div>
+</sc-if>
+<sc-if value="{{storageLow}}" hint-placeholder-val="{{false}}">
+<div class="fade" role="alert" style="margin: 10px 16px 0; display: flex; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #1D1F24; border: 1px solid #33363D; font-size: 13px; line-height: 1.45"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF6370"><path d="{{ic.alert}}"></path></svg><span style="flex: 1">Storage almost full — about 9 minutes of recording left. Free up space to record longer takes.</span></div>
+</sc-if>
+
+<sc-if value="{{micDenied}}" hint-placeholder-val="{{false}}">
+<div class="pop" style="margin: 16px; padding: 24px 20px; border-radius: 24px; background: #14161A; border: 1px solid #26282E; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px">
+<div style="width: 60px; height: 60px; border-radius: 50%; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: #FF6370"><svg class="i" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.micOff}}"></path></svg></div>
+<div style="font-size: 20px; font-weight: 600">Microphone access is off</div>
+<div style="font-size: 14px; color: #A3A5AE; line-height: 1.5">Sushifyyyy needs your microphone to record. Turn it on in Settings › Apps › Sushifyyyy › Permissions.</div>
+<button onClick="{{grantMic}}" class="press gloss" style="height: 50px; width: 100%; border: 0; border-radius: 14px; font-size: 15px; font-weight: 600; margin-top: 4px">Open phone settings</button>
+<button onClick="{{backRecorder}}" style="height: 44px; background: none; border: 0; color: #A3A5AE; font-size: 14px">Not now</button>
+</div>
+</sc-if>
+
+<sc-if value="{{micOk}}" hint-placeholder-val="{{true}}">
+<div style="text-align: center; padding: 18px 16px 10px">
+<div role="timer" aria-label="Recording time" style="font-size: 56px; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: {{timerColor}}; line-height: 1">{{timerL}}<span style="font-size: 28px; color: #7C7F88">{{timerCs}}</span></div>
+<div style="font-size: 12px; color: #A3A5AE; margin-top: 8px">{{qualityL}} · Mono · {{noiseL}}</div>
+</div>
+
+<div style="margin: 4px 16px 0; position: relative; height: 170px; border-radius: 22px; background: #F2F2F1; overflow: hidden; box-shadow: inset 0 1px 0 #fff, 0 10px 30px rgba(0,0,0,.5)">
+<sc-for list="{{recGrid}}" as="g" hint-placeholder-count="8"><div style="position: absolute; top: 22px; bottom: 0; width: 1px; left: {{g.x}}px; background: {{g.c}}"></div><span style="position: absolute; top: 6px; left: {{g.lx}}px; font-size: 10px; font-weight: 500; color: #5C5F67; font-variant-numeric: tabular-nums">{{g.label}}</span></sc-for>
+<svg width="358" height="148" viewBox="0 0 358 148" aria-hidden="true" style="position: absolute; left: 0; top: 22px"><line x1="0" y1="74" x2="358" y2="74" stroke="#D9D9D6" stroke-width="1"></line><path d="{{recWave.bot}}" stroke="#701C2B" stroke-width="{{recWave.sw}}" stroke-linecap="round" opacity="0.55"></path><path d="{{recWave.top}}" stroke="#EF3349" stroke-width="{{recWave.sw}}" stroke-linecap="round"></path><path d="{{recWave.hi}}" stroke="#FF6370" stroke-width="{{recWave.sw}}" stroke-linecap="round"></path></svg>
+<div style="position: absolute; top: 18px; bottom: 0; width: 2px; left: {{playX}}px; background: #EF3349"><div style="position: absolute; top: -2px; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: #EF3349"></div></div>
+<sc-if value="{{recIdleHint}}" hint-placeholder-val="{{false}}"><div style="position: absolute; inset: 22px 0 0; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #5C5F67">Tap the red button to start recording</div></sc-if>
+<sc-if value="{{recProcessing}}" hint-placeholder-val="{{false}}"><div class="fade" style="position: absolute; inset: 0; background: rgba(242,242,241,.86); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #14161A"><span class="spin" style="width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid rgba(239,51,73,.25); border-top-color: #EF3349"></span><span style="font-size: 14px; font-weight: 500">Processing your take…</span></div></sc-if>
+<sc-if value="{{recFinished}}" hint-placeholder-val="{{false}}"><div class="fade" style="position: absolute; inset: 0; background: rgba(242,242,241,.9); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #14161A"><span class="pop" style="width: 44px; height: 44px; border-radius: 50%; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.4"><path d="{{ic.check}}"></path></svg></span><span style="font-size: 14px; font-weight: 600">Take saved · {{takeL}}</span></div></sc-if>
+</div>
+
+<div style="margin: 12px 16px 0; display: flex; align-items: center; gap: 10px">
+<span style="font-size: 11px; color: #A3A5AE; width: 34px">Input</span>
+<div role="meter" aria-label="Microphone input level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{levelPct}}" style="flex: 1; display: flex; gap: 3px; height: 12px">
+<sc-for list="{{meter}}" as="m" hint-placeholder-count="28"><span style="flex: 1; border-radius: 2px; background: {{m.c}}; transition: background 90ms"></span></sc-for>
+</div>
+<span style="font-size: 11px; color: #A3A5AE; width: 44px; text-align: right; font-variant-numeric: tabular-nums">{{levelDb}}</span>
+</div>
+
+<div style="display: flex; align-items: center; justify-content: center; gap: 30px; padding: 22px 16px 14px">
+<button onClick="{{toggleMonitor}}" disabled="{{monDisabled}}" aria-label="Live monitoring" aria-pressed="{{monOn}}" class="press" style="width: 56px; height: 56px; border-radius: 50%; border: 1px solid #33363D; background: {{monBg}}; color: {{monFg}}; display: flex; align-items: center; justify-content: center; opacity: {{monOpacity}}"><svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.hp}}"></path></svg></button>
+<div style="position: relative; width: 88px; height: 88px">
+<sc-if value="{{isRecording}}" hint-placeholder-val="{{false}}"><span class="halo" style="position: absolute; inset: 0; border-radius: 50%; border: 2px solid #EF3349"></span></sc-if>
+<button onClick="{{recMain}}" disabled="{{recMainDisabled}}" aria-label="{{recMainL}}" class="press" style="position: absolute; inset: 0; border-radius: 50%; border: 4px solid #2A2C32; background: radial-gradient(circle at 36% 28%, #FF7C88 0%, #EF3349 48%, #CF2A3F 100%); color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(239,51,73,.35), 0 10px 22px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.3)">
+<sc-if value="{{recShowSpinner}}" hint-placeholder-val="{{false}}"><span class="spin" style="width: 28px; height: 28px; border-radius: 50%; border: 3px solid rgba(255,255,255,.35); border-top-color: #FFFFFF"></span></sc-if>
+<sc-if value="{{recShowIcon}}" hint-placeholder-val="{{true}}"><svg class="{{recIconClass}}" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 3"><path d="{{recIcon}}"></path></svg></sc-if>
+</button>
+</div>
+<button onClick="{{stopRec}}" disabled="{{stopDisabled}}" aria-label="Stop and finish take" class="press" style="width: 56px; height: 56px; border-radius: 50%; border: 1px solid #33363D; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center; opacity: {{stopOpacity}}"><span style="width: 18px; height: 18px; border-radius: 4px; background: #F6F6F4"></span></button>
+</div>
+<div style="text-align: center; font-size: 12px; color: #A3A5AE; margin-top: -4px">{{recHint}}</div>
+
+<div style="margin: 16px 16px 24px; background: #14161A; border: 1px solid #1F2126; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 600">Live monitoring</div><div style="font-size: 12px; color: #A3A5AE; margin-top: 2px; line-height: 1.4">{{monSub}}</div></div>
+<button onClick="{{toggleMonitor}}" disabled="{{monDisabled}}" role="switch" aria-checked="{{monOn}}" aria-label="Live monitoring" style="width: 52px; height: 32px; border-radius: 999px; border: 0; padding: 3px; background: {{monTrack}}; opacity: {{monOpacity}}; transition: background 220ms"><span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: #F6F6F4; transform: translateX({{monKnob}}px); transition: transform 260ms cubic-bezier(.3,1.3,.5,1); box-shadow: 0 2px 4px rgba(0,0,0,.4)"></span></button>
+</div>
+<div style="height: 1px; background: #1D1F24"></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 15px; font-weight: 600">Noise reduction</div>
+<div role="radiogroup" aria-label="Noise reduction" style="display: flex; padding: 4px; gap: 4px; background: #0E0F12; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{noiseSeg}}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 40px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<div style="font-size: 12px; color: #A3A5AE; line-height: 1.45">{{noiseDesc}} Results depend on your phone and room — it softens steady background noise but can't remove everything.</div>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ============ SCREEN 06 · VOCAL EDITOR ============ -->
+<sc-if value="{{fEditor}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{backEditor}}" aria-label="Back to recorder" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.back}}"></path></svg></button>
+<div style="flex: 1; min-width: 0; text-align: center"><div style="font-size: 15px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{curName}}</div><div style="font-size: 12px; color: #A3A5AE">Enhance your vocals</div></div>
+<button onClick="{{undo}}" disabled="{{noUndo}}" aria-label="Undo" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: {{undoFg}}; display: flex; align-items: center; justify-content: center"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.undo}}"></path></svg></button>
+<button onClick="{{redo}}" disabled="{{noRedo}}" aria-label="Redo" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: {{redoFg}}; display: flex; align-items: center; justify-content: center"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.redo}}"></path></svg></button>
+</div>
+<div style="display: flex; gap: 6px; padding: 4px 16px 8px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5"><button onClick="{{s.go}}" disabled="{{s.locked}}" style="flex: 1; background: none; border: 0; padding: 6px 0 0; display: flex; flex-direction: column; gap: 6px; align-items: stretch; color: {{s.fg}}; font-size: 11px; font-weight: 500"><span style="height: 3px; border-radius: 3px; background: {{s.bar}}"></span><span>{{s.label}}</span></button></sc-for>
+</div>
+<div class="noscroll" style="flex: 1; overflow-y: auto; padding: 0 16px 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 10px">
+<div role="radiogroup" aria-label="Compare" style="flex: 1; display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{compareSeg}}" as="o" hint-placeholder-count="2"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 36px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<div style="display: flex; gap: 4px">
+<button onClick="{{zoomOut}}" aria-label="Zoom out" class="press" style="width: 36px; height: 44px; border-radius: 10px; border: 1px solid #26282E; background: #14161A; color: #F6F6F4; font-size: 18px">−</button>
+<button onClick="{{zoomIn}}" aria-label="Zoom in" class="press" style="width: 36px; height: 44px; border-radius: 10px; border: 1px solid #26282E; background: #14161A; color: #F6F6F4; font-size: 18px">+</button>
+</div>
+</div>
+<button onClick="{{seek}}" aria-label="Waveform — tap to move the playhead" style="position: relative; height: 150px; padding: 0; border: 0; border-radius: 20px; background: #F2F2F1; overflow: hidden; box-shadow: inset 0 1px 0 #fff, 0 10px 30px rgba(0,0,0,.45); cursor: pointer; flex-shrink: 0">
+<sc-for list="{{edGrid}}" as="g" hint-placeholder-count="6"><span style="position: absolute; top: 20px; bottom: 0; width: 1px; left: {{g.x}}%; background: #E1E1DE"></span><span style="position: absolute; top: 5px; left: {{g.x}}%; margin-left: 4px; font-size: 10px; font-weight: 500; color: #5C5F67; font-variant-numeric: tabular-nums">{{g.label}}</span></sc-for>
+<svg width="358" height="130" viewBox="0 0 358 130" aria-hidden="true" style="position: absolute; left: 0; top: 20px"><path d="{{edWave.dim}}" stroke="#C9C9C5" stroke-width="{{edWave.sw}}" stroke-linecap="round"></path><path d="{{edWave.bot}}" stroke="#701C2B" stroke-width="{{edWave.sw}}" stroke-linecap="round" opacity="0.5"></path><path d="{{edWave.top}}" stroke="#EF3349" stroke-width="{{edWave.sw}}" stroke-linecap="round"></path><path d="{{edWave.hi}}" stroke="#FF6370" stroke-width="{{edWave.sw}}" stroke-linecap="round"></path></svg>
+<span style="position: absolute; top: 0; bottom: 0; left: 0; width: {{trimLPct}}%; background: rgba(20,22,26,.10)"></span>
+<span style="position: absolute; top: 0; bottom: 0; right: 0; width: {{trimRPct}}%; background: rgba(20,22,26,.10)"></span>
+<span style="position: absolute; top: 0; bottom: 0; left: {{trimLPct}}%; width: 12px; margin-left: -6px; display: flex; justify-content: center"><span style="width: 4px; height: 100%; background: #14161A; border-radius: 2px"></span><span style="position: absolute; top: 56px; width: 12px; height: 32px; border-radius: 6px; background: #14161A"></span></span>
+<span style="position: absolute; top: 0; bottom: 0; right: {{trimRPct}}%; width: 12px; margin-right: -6px; display: flex; justify-content: center"><span style="width: 4px; height: 100%; background: #14161A; border-radius: 2px"></span><span style="position: absolute; top: 56px; width: 12px; height: 32px; border-radius: 6px; background: #14161A"></span></span>
+<span style="position: absolute; top: 16px; bottom: 0; width: 2px; left: {{edPlayPct}}%; background: #EF3349"><span style="position: absolute; top: -2px; left: -4px; width: 10px; height: 10px; border-radius: 50%; background: #EF3349"></span></span>
+</button>
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="font-size: 13px; font-variant-numeric: tabular-nums; color: #F6F6F4; width: 46px">{{edPosL}}</span>
+<button onClick="{{edToggle}}" aria-label="{{edPlayL}}" class="press gloss" style="width: 52px; height: 52px; border-radius: 50%; border: 0; display: flex; align-items: center; justify-content: center"><svg class="{{edIconClass}}" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.8"><path d="{{edIcon}}"></path></svg></button>
+<div style="flex: 1; font-size: 12px; color: #A3A5AE; line-height: 1.4">{{trimInfo}}<br>Zoom {{zoomL}} · Original stays safe</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 600">Effects</h2>
+<button onClick="{{askRestore}}" style="background: none; border: 0; color: #A3A5AE; font-size: 13px; min-height: 44px; padding: 0 4px">Restore defaults</button>
+</div>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="7">
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 18px; overflow: hidden; flex-shrink: 0">
+<button onClick="{{g.toggle}}" aria-expanded="{{g.open}}" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: none; border: 0; color: #F6F6F4; text-align: left; min-height: 56px">
+<span style="flex: 1; min-width: 0"><span style="display: block; font-size: 15px; font-weight: 600">{{g.title}}</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px">{{g.desc}}</span></span>
+<span style="font-size: 13px; color: #FF6370; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap">{{g.sub}}</span>
+<svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #7C7F88; transform: rotate({{g.rot}}deg); transition: transform 260ms"><path d="{{ic.chev}}"></path></svg>
+</button>
+<sc-if value="{{g.open}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="padding: 0 16px 14px; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{g.sliders}}" as="s" hint-placeholder-count="2">
+<div>
+<div style="display: flex; justify-content: space-between; align-items: baseline"><label for="{{s.key}}" style="font-size: 13px; font-weight: 500">{{s.label}}</label><span style="font-size: 13px; color: #F6F6F4; font-variant-numeric: tabular-nums; font-weight: 600">{{s.disp}}</span></div>
+<div style="font-size: 12px; color: #A3A5AE; margin-top: 2px">{{s.hint}}</div>
+<div style="position: relative; height: 32px; margin-top: 2px">
+<span style="position: absolute; left: 0; right: 0; top: 14px; height: 4px; border-radius: 4px; background: #33363D"></span>
+<span style="position: absolute; left: 0; top: 14px; height: 4px; border-radius: 4px; background: linear-gradient(90deg,#701C2B,#EF3349); width: {{s.pct}}%"></span>
+<span class="knob" style="position: absolute; top: 5px; left: calc({{s.pct}}% - 11px); width: 22px; height: 22px; border-radius: 50%; pointer-events: none"></span>
+<input id="{{s.key}}" type="range" min="{{s.min}}" max="{{s.max}}" step="{{s.step}}" value="{{s.value}}" onChange="{{s.on}}" style="position: absolute; inset: 0; width: 100%; height: 32px; opacity: 0; margin: 0; cursor: pointer">
+</div>
+</div>
+</sc-for>
+<sc-if value="{{g.isCleanup}}" hint-placeholder-val="{{false}}">
+<div role="radiogroup" aria-label="Noise cleanup" style="display: flex; padding: 4px; gap: 4px; background: #0E0F12; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{cleanSeg}}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 40px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<div style="font-size: 12px; color: #A3A5AE; line-height: 1.45">Softens hiss, fans and room hum. Stronger settings can make a voice sound thinner.</div>
+</sc-if>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="padding: 12px 16px 14px; background: #0B0C0F; border-top: 1px solid #1A1C20; display: flex; gap: 10px">
+<button onClick="{{skipToVideo}}" class="press" style="flex: 1; height: 52px; border-radius: 16px; background: #14161A; border: 1px solid #33363D; color: #F6F6F4; font-size: 14px; font-weight: 500">Skip to Video</button>
+<button onClick="{{toKaraoke}}" class="press gloss" style="flex: 1.4; height: 52px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600">Continue to Karaoke</button>
+</div>
+</div>
+</sc-if>
+
+<!-- ============ SCREEN 07 · KARAOKE ============ -->
+<sc-if value="{{fKaraoke}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{goEditor}}" aria-label="Back to editor" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.back}}"></path></svg></button>
+<div style="flex: 1; min-width: 0; text-align: center"><div style="font-size: 15px; font-weight: 600">Karaoke</div><div style="font-size: 12px; color: #A3A5AE">Optional · add your instrumental</div></div>
+<button onClick="{{skipKaraoke}}" class="press" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid #33363D; background: #14161A; color: #F6F6F4; font-size: 13px; font-weight: 600">Skip</button>
+</div>
+<div style="display: flex; gap: 6px; padding: 4px 16px 8px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5"><button onClick="{{s.go}}" disabled="{{s.locked}}" style="flex: 1; background: none; border: 0; padding: 6px 0 0; display: flex; flex-direction: column; gap: 6px; align-items: stretch; color: {{s.fg}}; font-size: 11px; font-weight: 500"><span style="height: 3px; border-radius: 3px; background: {{s.bar}}"></span><span>{{s.label}}</span></button></sc-for>
+</div>
+<div class="noscroll" style="flex: 1; overflow-y: auto; padding: 4px 16px 16px; display: flex; flex-direction: column; gap: 12px">
+
+<sc-if value="{{kNone}}" hint-placeholder-val="{{true}}">
+<div class="fade" style="border: 1.5px dashed #33363D; border-radius: 24px; padding: 30px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; background: #0E0F12">
+<div style="width: 64px; height: 64px; border-radius: 20px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: #F6F6F4"><svg class="i" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.music}}"></path></svg></div>
+<div style="font-size: 20px; font-weight: 600">Sing over your own track</div>
+<div style="font-size: 14px; color: #A3A5AE; line-height: 1.5">Pick a karaoke or instrumental file from your phone. MP3, M4A or WAV. It stays on your device.</div>
+<button onClick="{{importK}}" class="press gloss" style="height: 50px; padding: 0 24px; border: 0; border-radius: 14px; font-size: 15px; font-weight: 600; margin-top: 4px">Choose a file</button>
+</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 18px; padding: 14px 16px; font-size: 13px; color: #A3A5AE; line-height: 1.5">No backing track? That's fine — skip this step and export your voice on its own, or add video next.</div>
+</sc-if>
+
+<sc-if value="{{kImporting}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="background: #14161A; border: 1px solid #1F2126; border-radius: 24px; padding: 28px 20px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+<span class="spin" style="width: 30px; height: 30px; border-radius: 50%; border: 3px solid #26282E; border-top-color: #F6F6F4"></span>
+<div style="font-size: 15px; font-weight: 500">Reading your file…</div>
+<div style="font-size: 12px; color: #A3A5AE">Moonlit Instrumental.m4a</div>
+</div>
+</sc-if>
+
+<sc-if value="{{kReady}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="display: flex; align-items: center; gap: 12px; background: #14161A; border: 1px solid #1F2126; border-radius: 16px; padding: 10px 12px">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: #A3A5AE"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.music}}"></path></svg></span>
+<span style="flex: 1; min-width: 0"><span style="display: block; font-size: 14px; font-weight: 500">Moonlit Instrumental.m4a</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px">3:42 · 44.1 kHz · demo file</span></span>
+<button onClick="{{askRemoveK}}" aria-label="Remove karaoke track" class="press" style="width: 40px; height: 40px; border-radius: 12px; background: #1D1F24; border: 0; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.trash}}"></path></svg></button>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; flex: 1">Your vocals</span>
+<button onClick="{{toggleVM}}" aria-pressed="{{vMute}}" class="press" style="width: 40px; height: 32px; border-radius: 9px; border: 1px solid #33363D; font-size: 12px; font-weight: 600; background: {{vMBg}}; color: {{vMFg}}">M</button>
+<button onClick="{{toggleVS}}" aria-pressed="{{vSolo}}" class="press" style="width: 40px; height: 32px; border-radius: 9px; border: 1px solid #33363D; font-size: 12px; font-weight: 600; background: {{vSBg}}; color: {{vSFg}}">S</button>
+</div>
+<div style="position: relative; height: 72px; border-radius: 16px; background: #F2F2F1; overflow: hidden; opacity: {{vOpacity}}; transition: opacity 200ms">
+<svg width="358" height="72" viewBox="0 0 358 72" aria-hidden="true"><path d="{{kvWave.bot}}" stroke="#701C2B" stroke-width="{{kvWave.sw}}" stroke-linecap="round" opacity="0.5"></path><path d="{{kvWave.top}}" stroke="#EF3349" stroke-width="{{kvWave.sw}}" stroke-linecap="round"></path></svg>
+<span style="position: absolute; top: 0; bottom: 0; width: 2px; left: {{kPlayPct}}%; background: #14161A"></span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; margin-top: 6px">
+<span style="font-size: 13px; font-weight: 600; flex: 1">Karaoke track</span>
+<button onClick="{{toggleKM}}" aria-pressed="{{kMute}}" class="press" style="width: 40px; height: 32px; border-radius: 9px; border: 1px solid #33363D; font-size: 12px; font-weight: 600; background: {{kMBg}}; color: {{kMFg}}">M</button>
+<button onClick="{{toggleKS}}" aria-pressed="{{kSolo}}" class="press" style="width: 40px; height: 32px; border-radius: 9px; border: 1px solid #33363D; font-size: 12px; font-weight: 600; background: {{kSBg}}; color: {{kSFg}}">S</button>
+</div>
+<div style="position: relative; height: 72px; border-radius: 16px; background: #1D1F24; border: 1px solid #26282E; overflow: hidden; opacity: {{kOpacity}}; transition: opacity 200ms">
+<svg width="358" height="72" viewBox="0 0 358 72" aria-hidden="true" style="transform: translateX({{kShift}}px); transition: transform 160ms"><path d="{{kkWave.bot}}" stroke="#4A4D55" stroke-width="{{kkWave.sw}}" stroke-linecap="round"></path><path d="{{kkWave.top}}" stroke="#C9CAD0" stroke-width="{{kkWave.sw}}" stroke-linecap="round"></path></svg>
+<span style="position: absolute; top: 0; bottom: 0; left: 0; width: {{kTrimPct}}%; background: rgba(8,9,11,.6); border-right: 3px solid #F6F6F4"></span>
+<span style="position: absolute; top: 0; bottom: 0; width: 2px; left: {{kPlayPct}}%; background: #F6F6F4"></span>
+</div>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px">
+<button onClick="{{kToggle}}" aria-label="{{kPlayL}}" class="press gloss" style="width: 52px; height: 52px; border-radius: 50%; border: 0; display: flex; align-items: center; justify-content: center"><svg class="{{kIconClass}}" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.8"><path d="{{kIcon}}"></path></svg></button>
+<div style="flex: 1"><div style="font-size: 14px; font-weight: 500">Preview mix</div><div style="font-size: 12px; color: #A3A5AE; font-variant-numeric: tabular-nums">{{kPosL}} · {{mixL}}</div></div>
+</div>
+
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{kSliders}}" as="s" hint-placeholder-count="4">
+<div>
+<div style="display: flex; justify-content: space-between; align-items: baseline"><label for="{{s.key}}" style="font-size: 13px; font-weight: 500">{{s.label}}</label><span style="font-size: 13px; font-variant-numeric: tabular-nums; font-weight: 600">{{s.disp}}</span></div>
+<div style="font-size: 12px; color: #A3A5AE; margin-top: 2px">{{s.hint}}</div>
+<div style="position: relative; height: 32px; margin-top: 2px">
+<span style="position: absolute; left: 0; right: 0; top: 14px; height: 4px; border-radius: 4px; background: #33363D"></span>
+<span style="position: absolute; left: 0; top: 14px; height: 4px; border-radius: 4px; background: linear-gradient(90deg,#701C2B,#EF3349); width: {{s.pct}}%"></span>
+<span class="knob" style="position: absolute; top: 5px; left: calc({{s.pct}}% - 11px); width: 22px; height: 22px; border-radius: 50%; pointer-events: none"></span>
+<input id="{{s.key}}" type="range" min="{{s.min}}" max="{{s.max}}" step="{{s.step}}" value="{{s.value}}" onChange="{{s.on}}" style="position: absolute; inset: 0; width: 100%; height: 32px; opacity: 0; margin: 0; cursor: pointer">
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+<div style="padding: 12px 16px 14px; background: #0B0C0F; border-top: 1px solid #1A1C20; display: flex; gap: 10px">
+<button onClick="{{skipKaraoke}}" class="press {{skipKClass}}" style="flex: 1; height: 52px; border-radius: 16px; border: 1px solid #33363D; background: {{skipKBg}}; color: {{skipKFg}}; font-size: 15px; font-weight: 600">Skip Karaoke</button>
+<sc-if value="{{kReady}}" hint-placeholder-val="{{false}}"><button onClick="{{toVideoDecision}}" class="press gloss" style="flex: 1.3; height: 52px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600">Continue</button></sc-if>
+</div>
+</div>
+</sc-if>
+
+<!-- ============ SCREEN 08 · VIDEO DECISION ============ -->
+<sc-if value="{{fVideoDecision}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{backFromDecision}}" aria-label="Back" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.back}}"></path></svg></button>
+<div style="flex: 1; text-align: center; font-size: 15px; font-weight: 600; margin-right: 52px">Performance video</div>
+</div>
+<div style="display: flex; gap: 6px; padding: 4px 16px 8px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5"><button onClick="{{s.go}}" disabled="{{s.locked}}" style="flex: 1; background: none; border: 0; padding: 6px 0 0; display: flex; flex-direction: column; gap: 6px; align-items: stretch; color: {{s.fg}}; font-size: 11px; font-weight: 500"><span style="height: 3px; border-radius: 3px; background: {{s.bar}}"></span><span>{{s.label}}</span></button></sc-for>
+</div>
+<div style="padding: 20px 16px; display: flex; flex-direction: column; gap: 14px">
+<h1 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.02em">Want to film your performance?</h1>
+<p style="margin: 0; font-size: 15px; color: #A3A5AE; line-height: 1.5">Your audio is ready. You can add a video now, or export the song on its own. You can always come back.</p>
+<button onClick="{{chooseVideo}}" class="press" style="margin-top: 10px; text-align: left; padding: 20px; border-radius: 24px; background: #14161A; border: 1px solid #26282E; color: #F6F6F4; display: flex; flex-direction: column; gap: 14px">
+<span style="width: 52px; height: 52px; border-radius: 16px; background: #EF3349; color: #FFFFFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(239,51,73,.3)"><svg class="i" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.video}}"></path></svg></span>
+<span><span style="display: block; font-size: 18px; font-weight: 600">Add Performance Video</span><span style="display: block; font-size: 13px; color: #A3A5AE; margin-top: 4px; line-height: 1.45">Film yourself while your mix plays in your earphones. We'll sync it for you.</span></span>
+</button>
+<button onClick="{{skipVideo}}" class="press" style="text-align: left; padding: 20px; border-radius: 24px; background: #14161A; border: 1px solid #26282E; color: #F6F6F4; display: flex; flex-direction: column; gap: 14px">
+<span class="gloss" style="width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center"><svg class="i" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.music}}"></path></svg></span>
+<span><span style="display: block; font-size: 18px; font-weight: 600">Continue Without Video</span><span style="display: block; font-size: 13px; color: #A3A5AE; margin-top: 4px; line-height: 1.45">Go straight to export and save your audio.</span></span>
+</button>
+</div>
+</div>
+</sc-if>
+
+<!-- ============ SCREEN 09 · VIDEO RECORDER ============ -->
+<sc-if value="{{fVideo}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; background: #000000">
+<div style="position: absolute; inset: 0; background: radial-gradient(70% 45% at 50% 40%, #2A2C32 0%, #121317 60%, #050506 100%)" aria-hidden="true">
+<div style="position: absolute; left: 50%; top: 250px; width: 120px; height: 120px; margin-left: -60px; border-radius: 50%; background: #1D1F24; opacity: .8"></div>
+<div style="position: absolute; left: 50%; top: 384px; width: 240px; height: 300px; margin-left: -120px; border-radius: 120px 120px 30px 30px; background: #1D1F24; opacity: .8"></div>
+</div>
+<div style="position: absolute; left: 16px; right: 16px; top: 16px; display: flex; align-items: center; justify-content: space-between">
+<button onClick="{{backFromVideo}}" aria-label="Close camera" class="press" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(20,22,26,.7); color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.x}}"></path></svg></button>
+<span role="timer" style="display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 999px; background: rgba(20,22,26,.75); font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums"><span class="{{vDotClass}}" style="width: 8px; height: 8px; border-radius: 50%; background: {{vDot}}"></span>{{vTimeL}}</span>
+<button onClick="{{flipCam}}" aria-label="Switch camera" class="press" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(20,22,26,.7); color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.flip}}"></path></svg></button>
+</div>
+<div style="position: absolute; left: 0; right: 0; top: 80px; text-align: center; font-size: 12px; color: #A3A5AE">Camera preview · {{camL}}</div>
+<div style="position: absolute; left: 16px; right: 16px; bottom: 150px; display: flex; gap: 10px; padding: 12px 14px; border-radius: 16px; background: rgba(20,22,26,.8); border: 1px solid #26282E; font-size: 13px; line-height: 1.45"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF6370"><path d="{{ic.hp}}"></path></svg><span>{{vGuide}}</span></div>
+<sc-if value="{{vRecorded}}" hint-placeholder-val="{{false}}"><div class="pop" style="position: absolute; left: 50%; top: 300px; transform: translateX(-50%); padding: 10px 16px; border-radius: 999px; background: rgba(246,246,244,.95); color: #14161A; font-size: 14px; font-weight: 600; white-space: nowrap">Take recorded · {{vTimeL}}</div></sc-if>
+<div style="position: absolute; left: 0; right: 0; bottom: 36px; display: flex; align-items: center; justify-content: center; gap: 36px">
+<button onClick="{{retake}}" disabled="{{vNoTake}}" class="press" style="width: 72px; height: 48px; border-radius: 14px; border: 1px solid #33363D; background: rgba(20,22,26,.8); color: #F6F6F4; font-size: 13px; font-weight: 500; opacity: {{vTakeOpacity}}">Retake</button>
+<button onClick="{{vMain}}" aria-label="{{vMainL}}" class="press" style="width: 84px; height: 84px; border-radius: 50%; border: 4px solid #F6F6F4; background: transparent; display: flex; align-items: center; justify-content: center; padding: 0">
+<span style="display: block; width: {{vInner}}px; height: {{vInner}}px; border-radius: {{vInnerR}}px; background: #EF3349; transition: all 220ms cubic-bezier(.3,1.2,.5,1)"></span>
+</button>
+<button onClick="{{toSync}}" disabled="{{vNoTake}}" class="press gloss" style="width: 72px; height: 48px; border-radius: 14px; border: 0; font-size: 13px; font-weight: 600; opacity: {{vTakeOpacity}}">Next</button>
+</div>
+</div>
+</sc-if>
+
+<!-- ============ SCREEN 10 · VIDEO SYNC ============ -->
+<sc-if value="{{fSync}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{goVideo}}" aria-label="Back to camera" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.back}}"></path></svg></button>
+<div style="flex: 1; text-align: center"><div style="font-size: 15px; font-weight: 600">Sync &amp; preview</div><div style="font-size: 12px; color: #A3A5AE">Line up video with your song</div></div>
+<span style="width: 44px"></span>
+</div>
+<div class="noscroll" style="flex: 1; overflow-y: auto; padding: 8px 16px 16px; display: flex; flex-direction: column; gap: 12px">
+<button onClick="{{syncToggle}}" aria-label="{{syncPlayL}}" style="position: relative; height: 270px; border-radius: 22px; border: 1px solid #26282E; background: radial-gradient(70% 55% at 50% 40%, #2A2C32 0%, #121317 70%); overflow: hidden; padding: 0; flex-shrink: 0">
+<span style="position: absolute; left: 50%; top: 66px; width: 70px; height: 70px; margin-left: -35px; border-radius: 50%; background: #1D1F24"></span>
+<span style="position: absolute; left: 50%; top: 146px; width: 150px; height: 140px; margin-left: -75px; border-radius: 75px 75px 0 0; background: #1D1F24"></span>
+<span class="gloss" style="position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: {{syncOverlay}}; transition: opacity 200ms"><svg class="f" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.play}}"></path></svg></span>
+<span style="position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(8,9,11,.75); color: #F6F6F4; font-size: 12px; font-variant-numeric: tabular-nums">{{syncPosL}} / {{syncDurL}}</span>
+<span style="position: absolute; right: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(8,9,11,.75); color: {{syncBadgeFg}}; font-size: 12px; font-weight: 500">{{syncBadge}}</span>
+</button>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; color: #A3A5AE">Video</span>
+<div style="position: relative; height: 48px; border-radius: 12px; overflow: hidden; display: flex; gap: 2px">
+<sc-for list="{{frames}}" as="f" hint-placeholder-count="8"><span style="flex: 1; background: {{f.bg}}"></span></sc-for>
+<span style="position: absolute; top: 0; bottom: 0; left: 0; width: {{syncTrimPct}}%; background: rgba(8,9,11,.7); border-right: 3px solid #F6F6F4"></span>
+<span style="position: absolute; top: 0; bottom: 0; width: 2px; left: {{syncPlayPct}}%; background: #EF3349"></span>
+</div>
+<span style="font-size: 12px; color: #A3A5AE; margin-top: 4px">Audio</span>
+<div style="position: relative; height: 48px; border-radius: 12px; overflow: hidden; background: #F2F2F1">
+<svg width="358" height="48" viewBox="0 0 358 48" aria-hidden="true" style="transform: translateX({{syncShift}}px); transition: transform 160ms"><path d="{{syncWave.top}}" stroke="#EF3349" stroke-width="{{syncWave.sw}}" stroke-linecap="round"></path><path d="{{syncWave.bot}}" stroke="#701C2B" stroke-width="{{syncWave.sw}}" stroke-linecap="round" opacity="0.5"></path></svg>
+<span style="position: absolute; top: 0; bottom: 0; width: 2px; left: {{syncPlayPct}}%; background: #14161A"></span>
+</div>
+</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 18px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{syncSliders}}" as="s" hint-placeholder-count="2">
+<div>
+<div style="display: flex; justify-content: space-between; align-items: baseline"><label for="{{s.key}}" style="font-size: 13px; font-weight: 500">{{s.label}}</label><span style="font-size: 13px; font-variant-numeric: tabular-nums; font-weight: 600">{{s.disp}}</span></div>
+<div style="font-size: 12px; color: #A3A5AE; margin-top: 2px">{{s.hint}}</div>
+<div style="position: relative; height: 32px; margin-top: 2px">
+<span style="position: absolute; left: 0; right: 0; top: 14px; height: 4px; border-radius: 4px; background: #33363D"></span>
+<span style="position: absolute; left: 0; top: 14px; height: 4px; border-radius: 4px; background: linear-gradient(90deg,#701C2B,#EF3349); width: {{s.pct}}%"></span>
+<span class="knob" style="position: absolute; top: 5px; left: calc({{s.pct}}% - 11px); width: 22px; height: 22px; border-radius: 50%; pointer-events: none"></span>
+<input id="{{s.key}}" type="range" min="{{s.min}}" max="{{s.max}}" step="{{s.step}}" value="{{s.value}}" onChange="{{s.on}}" style="position: absolute; inset: 0; width: 100%; height: 32px; opacity: 0; margin: 0; cursor: pointer">
+</div>
+</div>
+</sc-for>
+<button onClick="{{autoSync}}" class="press" style="height: 44px; border-radius: 12px; border: 1px solid #33363D; background: #1D1F24; color: #F6F6F4; font-size: 14px; font-weight: 500">Auto-sync</button>
+</div>
+<div style="font-size: 12px; color: #A3A5AE; line-height: 1.5; padding: 0 4px">Bluetooth earphones and some phones add a small delay. If your lips look early or late, nudge the audio offset until it feels right.</div>
+</div>
+<div style="padding: 12px 16px 14px; background: #0B0C0F; border-top: 1px solid #1A1C20">
+<button onClick="{{toExport}}" class="press gloss" style="width: 100%; height: 54px; border-radius: 16px; border: 0; font-size: 16px; font-weight: 600">Continue to export</button>
+</div>
+</div>
+</sc-if>
+
+<!-- ============ SCREEN 11 · EXPORT ============ -->
+<sc-if value="{{fExport}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{backFromExport}}" disabled="{{exBusy}}" aria-label="Back" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.back}}"></path></svg></button>
+<div style="flex: 1; text-align: center; font-size: 15px; font-weight: 600; margin-right: 52px">Export</div>
+</div>
+<div style="display: flex; gap: 6px; padding: 4px 16px 8px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5"><button onClick="{{s.go}}" disabled="{{s.locked}}" style="flex: 1; background: none; border: 0; padding: 6px 0 0; display: flex; flex-direction: column; gap: 6px; align-items: stretch; color: {{s.fg}}; font-size: 11px; font-weight: 500"><span style="height: 3px; border-radius: 3px; background: {{s.bar}}"></span><span>{{s.label}}</span></button></sc-for>
+</div>
+
+<sc-if value="{{exForm}}" hint-placeholder-val="{{true}}">
+<div class="noscroll fade" style="flex: 1; overflow-y: auto; padding: 8px 16px 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="ex-name" style="font-size: 13px; color: #A3A5AE; font-weight: 500">File name</label>
+<input id="ex-name" type="text" value="{{exName}}" onChange="{{setExName}}" style="height: 52px; border-radius: 14px; background: #14161A; border: 1px solid #26282E; color: #F6F6F4; padding: 0 16px; font-size: 16px">
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #A3A5AE; font-weight: 500">What to export</span>
+<div role="radiogroup" aria-label="What to export" style="display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{kindSeg}}" as="o" hint-placeholder-count="2"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" disabled="{{o.dis}}" class="press" style="flex: 1; min-height: 42px; border: 0; border-radius: 10px; font-size: 14px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<sc-if value="{{noVideoNote}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #7C7F88">Video export appears once you've recorded a performance video.</span></sc-if>
+</div>
+<sc-if value="{{exAudio}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #A3A5AE; font-weight: 500">Format</span>
+<div role="radiogroup" aria-label="Audio format" style="display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{fmtSeg}}" as="o" hint-placeholder-count="2"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 42px; border: 0; border-radius: 10px; font-size: 14px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<span style="font-size: 12px; color: #7C7F88">{{fmtDesc}}</span>
+</div>
+</sc-if>
+<sc-if value="{{exVideo}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #A3A5AE; font-weight: 500">MP4 resolution</span>
+<div role="radiogroup" aria-label="Resolution" style="display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{resSeg}}" as="o" hint-placeholder-count="2"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 42px; border: 0; border-radius: 10px; font-size: 14px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+</div>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #A3A5AE; font-weight: 500">Quality</span>
+<div role="radiogroup" aria-label="Quality" style="display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{qSeg}}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 42px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+</div>
+<button onClick="{{cycleLoc}}" class="press" style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 16px; background: #14161A; border: 1px solid #26282E; color: #F6F6F4; text-align: left">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #A3A5AE"><path d="{{ic.folder}}"></path></svg>
+<span style="flex: 1"><span style="display: block; font-size: 12px; color: #A3A5AE">Save to</span><span style="display: block; font-size: 14px; font-weight: 500; margin-top: 2px">{{locL}}</span></span>
+<span style="font-size: 13px; color: #A3A5AE">Change</span>
+</button>
+<div style="padding: 14px 16px; border-radius: 16px; border: 1px solid #1F2126; background: #0E0F12; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div><div style="font-size: 11px; color: #7C7F88">Format</div><div style="font-size: 14px; font-weight: 600; margin-top: 3px">{{estFmt}}</div></div>
+<div><div style="font-size: 11px; color: #7C7F88">Length</div><div style="font-size: 14px; font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums">{{estDur}}</div></div>
+<div><div style="font-size: 11px; color: #7C7F88">Est. size</div><div style="font-size: 14px; font-weight: 600; margin-top: 3px; font-variant-numeric: tabular-nums">{{estSize}}</div></div>
+</div>
+<div style="font-size: 12px; color: #A3A5AE; line-height: 1.5">Your editable project stays in Projects, so you can come back and change it later.</div>
+<label style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #7C7F88; min-height: 44px"><input type="checkbox" checked="{{simFail}}" onChange="{{toggleSimFail}}" style="width: 18px; height: 18px; accent-color: #EF3349">Prototype: simulate a failed export</label>
+</div>
+<div style="padding: 12px 16px 14px; background: #0B0C0F; border-top: 1px solid #1A1C20">
+<button onClick="{{startExport}}" class="press gloss" style="width: 100%; height: 54px; border-radius: 16px; border: 0; font-size: 16px; font-weight: 600">{{exportBtnL}}</button>
+</div>
+</sc-if>
+
+<sc-if value="{{exRunning}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 24px">
+<div style="position: relative; width: 180px; height: 180px">
+<svg width="180" height="180" viewBox="0 0 180 180" aria-hidden="true" style="transform: rotate(-90deg)"><circle cx="90" cy="90" r="80" fill="none" stroke="#1D1F24" stroke-width="8"></circle><circle cx="90" cy="90" r="80" fill="none" stroke="#EF3349" stroke-width="8" stroke-linecap="round" stroke-dasharray="502.65" stroke-dashoffset="{{ringOffset}}" style="transition: stroke-dashoffset 120ms linear"></circle></svg>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center"><span role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{exPctInt}}" style="font-size: 40px; font-weight: 600; font-variant-numeric: tabular-nums">{{exPctInt}}%</span></div>
+</div>
+<div style="text-align: center"><div style="font-size: 18px; font-weight: 600">{{exPhaseL}}</div><div style="font-size: 13px; color: #A3A5AE; margin-top: 6px">{{exName}}.{{exExt}} · {{estSize}}</div></div>
+<sc-if value="{{canCancel}}" hint-placeholder-val="{{true}}"><button onClick="{{cancelExport}}" class="press" style="height: 46px; padding: 0 24px; border-radius: 14px; background: transparent; border: 1px solid #33363D; color: #F6F6F4; font-size: 14px">Cancel</button></sc-if>
+<sc-if value="{{savingNoCancel}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #7C7F88">Almost done — keep the app open</span></sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{exSuccess}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; text-align: center">
+<div class="pop gloss" style="width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center"><svg class="i" width="38" height="38" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.4"><path d="{{ic.check}}"></path></svg></div>
+<h2 style="margin: 0; font-size: 26px; font-weight: 600">Export complete</h2>
+<p style="margin: 0; font-size: 14px; color: #A3A5AE; line-height: 1.5; max-width: 300px">{{exName}}.{{exExt}} would now be in {{locL}}. This is a simulated export — no file was created by the prototype.</p>
+<button onClick="{{goExportsTab}}" class="press gloss" style="width: 100%; height: 52px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600; margin-top: 8px">View in Exports</button>
+<button onClick="{{goHomeTab}}" class="press" style="width: 100%; height: 52px; border-radius: 16px; background: #14161A; border: 1px solid #33363D; color: #F6F6F4; font-size: 15px">Back to Home</button>
+</div>
+</sc-if>
+
+<sc-if value="{{exFailed}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; text-align: center">
+<div class="pop" style="width: 84px; height: 84px; border-radius: 50%; background: #1D1F24; border: 1px solid #33363D; color: #FF6370; display: flex; align-items: center; justify-content: center"><svg class="i" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.alert}}"></path></svg></div>
+<h2 style="margin: 0; font-size: 26px; font-weight: 600">Export didn't finish</h2>
+<p style="margin: 0; font-size: 14px; color: #A3A5AE; line-height: 1.5; max-width: 300px">Something interrupted saving at 68%. Your project is safe and nothing was lost.</p>
+<button onClick="{{startExport}}" class="press gloss" style="width: 100%; height: 52px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600; margin-top: 8px">Try again</button>
+<button onClick="{{backToForm}}" class="press" style="width: 100%; height: 52px; border-radius: 16px; background: #14161A; border: 1px solid #33363D; color: #F6F6F4; font-size: 15px">Change settings</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ============ SCREEN 14 · SETTINGS ============ -->
+<sc-if value="{{fSettings}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{closeFlow}}" aria-label="Back" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.back}}"></path></svg></button>
+<div style="flex: 1; text-align: center; font-size: 15px; font-weight: 600; margin-right: 52px">Studio settings</div>
+</div>
+<div class="noscroll" style="flex: 1; overflow-y: auto; padding: 8px 16px 32px; display: flex; flex-direction: column; gap: 14px">
+<sc-for list="{{setSegs}}" as="g" hint-placeholder-count="3">
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 15px; font-weight: 600">{{g.title}}</div>
+<div role="radiogroup" aria-label="{{g.title}}" style="display: flex; padding: 4px; gap: 4px; background: #0E0F12; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{g.opts}}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 40px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<div style="font-size: 12px; color: #A3A5AE">{{g.desc}}</div>
+</div>
+</sc-for>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; overflow: hidden">
+<sc-for list="{{setToggles}}" as="t" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #1D1F24">
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 500">{{t.label}}</div><div style="font-size: 12px; color: #A3A5AE; margin-top: 2px; line-height: 1.4">{{t.desc}}</div></div>
+<button onClick="{{t.toggle}}" role="switch" aria-checked="{{t.on}}" aria-label="{{t.label}}" style="width: 52px; height: 32px; border-radius: 999px; border: 0; padding: 3px; background: {{t.track}}; transition: background 220ms; flex-shrink: 0"><span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: #F6F6F4; transform: translateX({{t.knob}}px); transition: transform 260ms cubic-bezier(.3,1.3,.5,1); box-shadow: 0 2px 4px rgba(0,0,0,.4)"></span></button>
+</div>
+</sc-for>
+</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 15px; font-weight: 600">Local data</div>
+<div style="font-size: 13px; color: #A3A5AE; line-height: 1.5">Projects 1.1 GB · Exports 0.1 GB · Cache 38 MB</div>
+<button onClick="{{askClearCache}}" class="press" style="height: 46px; border-radius: 14px; background: #1D1F24; border: 1px solid #33363D; color: #F6F6F4; font-size: 14px">Clear cache</button>
+</div>
+<div style="background: #0E0F12; border: 1px solid #1F2126; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 15px; font-weight: 600">Privacy</div>
+<div style="font-size: 13px; color: #A3A5AE; line-height: 1.55">Your recordings, karaoke files and videos are stored only on this phone. Sushifyyyy checks your Studio access when you sign in, but never uploads your audio or video.</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+</sc-if>
+
+<!-- ============ OVERLAYS · TOAST / SHEET / DIALOG ============ -->
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+<div class="pop" role="status" style="position: absolute; left: 16px; right: 16px; top: 14px; z-index: 60; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 16px; background: #1D1F24; border: 1px solid #33363D; box-shadow: 0 12px 30px rgba(0,0,0,.55); font-size: 14px">
+<span style="width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: {{toastBg}}; color: {{toastFg}}"><svg class="i" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.6"><path d="{{toastIcon}}"></path></svg></span>
+<span style="flex: 1">{{toastMsg}}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{hasSheet}}" hint-placeholder-val="{{false}}">
+<div style="position: absolute; inset: 0; z-index: 40">
+<button onClick="{{closeSheet}}" aria-label="Close" class="fade" style="position: absolute; inset: 0; border: 0; background: rgba(0,0,0,.6)"></button>
+<div class="sheet" role="dialog" aria-label="{{sheetTitle}}" style="position: absolute; left: 0; right: 0; bottom: 0; background: #14161A; border-top: 1px solid #26282E; border-radius: 28px 28px 0 0; padding: 10px 16px 28px; display: flex; flex-direction: column; gap: 6px">
+<span style="align-self: center; width: 40px; height: 5px; border-radius: 3px; background: #33363D; margin-bottom: 8px"></span>
+<div style="font-size: 18px; font-weight: 600; padding: 0 4px 6px">{{sheetTitle}}</div>
+<sc-if value="{{sheetRename}}" hint-placeholder-val="{{false}}">
+<label for="rn" style="font-size: 13px; color: #A3A5AE; padding: 0 4px">Project name</label>
+<input id="rn" type="text" value="{{renameVal}}" onChange="{{setRename}}" style="height: 52px; border-radius: 14px; background: #0E0F12; border: 1px solid #33363D; color: #F6F6F4; padding: 0 16px; font-size: 16px">
+<button onClick="{{doRename}}" class="press gloss" style="height: 52px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600; margin-top: 8px">Save name</button>
+</sc-if>
+<sc-if value="{{sheetInfo}}" hint-placeholder-val="{{false}}">
+<sc-for list="{{infoRows}}" as="r" hint-placeholder-count="5"><div style="display: flex; justify-content: space-between; padding: 12px 4px; border-bottom: 1px solid #1D1F24; font-size: 14px"><span style="color: #A3A5AE">{{r.k}}</span><span style="font-weight: 500">{{r.v}}</span></div></sc-for>
+</sc-if>
+<sc-for list="{{sheetActions}}" as="a" hint-placeholder-count="5">
+<button onClick="{{a.go}}" disabled="{{a.dis}}" class="press" style="display: flex; align-items: center; gap: 14px; min-height: 52px; padding: 0 12px; border-radius: 14px; border: 0; background: transparent; color: {{a.fg}}; font-size: 15px; text-align: left; opacity: {{a.op}}">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{a.icon}}"></path></svg>
+<span style="flex: 1"><span style="display: block">{{a.label}}</span><span style="display: block; font-size: 12px; color: #7C7F88">{{a.sub}}</span></span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{hasDialog}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="position: absolute; inset: 0; z-index: 50; background: rgba(0,0,0,.66); display: flex; align-items: center; justify-content: center; padding: 24px">
+<div class="modal" role="alertdialog" aria-label="{{dlgTitle}}" style="width: 100%; background: #14161A; border: 1px solid #26282E; border-radius: 26px; padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 20px 50px rgba(0,0,0,.6)">
+<div style="font-size: 20px; font-weight: 600">{{dlgTitle}}</div>
+<div style="font-size: 14px; color: #A3A5AE; line-height: 1.5">{{dlgBody}}</div>
+<div style="display: flex; gap: 10px; margin-top: 10px">
+<button onClick="{{dlgCancel}}" class="press" style="flex: 1; height: 50px; border-radius: 14px; background: #1D1F24; border: 1px solid #33363D; color: #F6F6F4; font-size: 15px">{{dlgCancelL}}</button>
+<button onClick="{{dlgOk}}" class="press" style="flex: 1; height: 50px; border-radius: 14px; border: 0; font-size: 15px; font-weight: 600; background: {{dlgOkBg}}; color: {{dlgOkFg}}">{{dlgOkL}}</button>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":null,"tsType":"string"},"frozen":{"editor":null,"tsType":"boolean"},"$preview":{"width":390,"height":844}}'>
+const IC = {
+  home: "M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z",
+  folder: "M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
+  exp: "M12 3v12M7 10l5 5 5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2",
+  user: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0",
+  plus: "M12 5v14M5 12h14",
+  back: "M15 18l-6-6 6-6",
+  chev: "M9 18l6-6-6-6",
+  mic: "M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3",
+  micOff: "M3 3l18 18M9 9v3a3 3 0 0 0 5 2.2M15 9.3V6a3 3 0 0 0-5.7-1.3M5 11a7 7 0 0 0 11.5 5.3M19 11a7 7 0 0 1-.6 2.8M12 18v3",
+  hp: "M4 15v-3a8 8 0 0 1 16 0v3M4 15a2 2 0 0 1 2-2h1v7H6a2 2 0 0 1-2-2zM20 15a2 2 0 0 0-2-2h-1v7h1a2 2 0 0 0 2-2z",
+  play: "M7 4.5v15l12-7.5z",
+  pause: "M8 5v14M16 5v14",
+  undo: "M9 14 4 9l5-5M4 9h11a5 5 0 0 1 0 10h-3",
+  redo: "M15 14l5-5-5-5M20 9H9a5 5 0 0 0 0 10h3",
+  more: "M12 6h.01M12 12h.01M12 18h.01",
+  search: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-3.5-3.5",
+  check: "M5 12.5l4.5 4.5L19 7",
+  x: "M6 6l12 12M18 6 6 18",
+  flip: "M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4",
+  music: "M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
+  video: "M3 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM16 10l5-3v10l-5-3",
+  gear: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1",
+  alert: "M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z",
+  file: "M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6",
+  trash: "M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3",
+  edit: "M4 20h4L19 9l-4-4L4 16zM14 6l4 4",
+  copy: "M9 9h10v10H9zM5 15V5h10",
+  share: "M12 3v12M8 7l4-4 4 4M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6",
+  info: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 11v5M12 8h.01",
+  lock: "M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4",
+  wave: "M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2",
+  wifiOff: "M3 3l18 18M8.5 16.5a5 5 0 0 1 7 0M5 13a10 10 0 0 1 5.2-2.8M19 13a10 10 0 0 0-2.6-1.9M12 20h.01",
+  shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  open: "M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+};
+function rnd(i, s) { const x = Math.sin(i * 12.9898 + s * 78.233) * 43758.5453; return x - Math.floor(x); }
+function amp(i, s) { const e = Math.abs(Math.sin(i / 7 + s) * 0.6 + Math.sin(i / 19 + s * 1.7) * 0.4); return Math.max(0.08, Math.min(1, 0.12 + e * 0.6 + rnd(i, s) * 0.34)); }
+function wave(samples, W, H, opt) {
+  const n = samples.length, step = W / Math.max(n, 1), mid = H / 2; let top = '', bot = '', hi = '', dim = '';
+  for (let k = 0; k < n; k++) {
+    const x = (k * step + step / 2).toFixed(1), h = samples[k] * mid * 0.88;
+    const seg = 'M' + x + ' ' + (mid - h).toFixed(1) + 'V' + mid;
+    bot += 'M' + x + ' ' + (mid + 1) + 'V' + (mid + h * 0.72).toFixed(1);
+    if (opt && opt.dim && opt.dim(k)) dim += seg; else if (opt && opt.hi && opt.hi(k)) hi += seg; else top += seg;
+  }
+  return { top, bot, hi, dim, sw: Math.max(1.2, step * 0.56).toFixed(2) };
+}
+function fmt(t) { t = Math.max(0, t || 0); const m = Math.floor(t / 60), s = Math.floor(t % 60); return m + ':' + (s < 10 ? '0' : '') + s; }
+function fmt2(t) { t = Math.max(0, t); const m = Math.floor(t / 60), s = Math.floor(t % 60); return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s; }
+function sgn(v, u, d) { return (v > 0 ? '+' : '') + v.toFixed(d == null ? 1 : d) + u; }
+const DEF = { gain: 0, reverb: 20, room: 40, warmth: 0, presence: 2, air: 1, comp: 30, fadeIn: 0.5, fadeOut: 1.5, trimS: 0, trimE: null, clean: 'clean' };
+const LOCS = ['Music › Sushifyyyy', 'Downloads', 'Movies › Sushifyyyy'];
+const PROJECTS = [
+  { id: 'p1', name: 'Monsoon Sessions', date: 'Today, 6:42 AM', dur: 184, status: 'Draft', media: 'audio', seed: 2 },
+  { id: 'p2', name: 'Late Night Acoustic', date: 'Yesterday', dur: 212, status: 'Completed', media: 'video', seed: 4 },
+  { id: 'p3', name: 'Fest Rehearsal — Take 3', date: 'Nov 22', dur: 158, status: 'Draft', media: 'audio', seed: 6 },
+  { id: 'p4', name: 'Lullaby Cover', date: 'Nov 18', dur: 241, status: 'Completed', media: 'audio', seed: 8 }
+];
+const EXPORTS = [
+  { id: 'e1', name: 'Late Night Acoustic', fmt: 'MP4 · 1080p', fmtShort: 'MP4', dur: 212, date: 'Nov 25', size: '254 MB', loc: 'Movies › Sushifyyyy' },
+  { id: 'e2', name: 'Lullaby Cover', fmt: 'WAV · 48 kHz / 24-bit', fmtShort: 'WAV', dur: 241, date: 'Nov 19', size: '66.6 MB', loc: 'Music › Sushifyyyy' },
+  { id: 'e3', name: 'Lullaby Cover', fmt: 'M4A · 256 kbps', fmtShort: 'M4A', dur: 241, date: 'Nov 19', size: '7.7 MB', loc: 'Music › Sushifyyyy' }
+];
+
+const P1 = PROJECTS[0];
+const REC_SAMPLES = () => Array.from({ length: 64 }, (_, i) => Math.max(0.06, amp(i + 60, 5) * (0.75 + 0.25 * Math.sin((i + 60) / 4))));
+const NEWCUR = () => ({ id: 'n1', name: 'Untitled Recording 1', dur: 0, status: 'Draft', media: 'audio' });
+const EDIT_HIST = () => [Object.assign({}, DEF), Object.assign({}, DEF, { reverb: 35, gain: 2, trimS: 4, trimE: 176 })];
+const FLOW = (flow, extra) => Object.assign({ screen: 'app', flow, cur: Object.assign({}, P1), rec: 'finished', elapsed: P1.dur, hist: EDIT_HIST(), hi: 1, exName: P1.name }, extra || {});
+const REC = (rec, extra) => Object.assign({ screen: 'app', flow: 'recorder', cur: NEWCUR(), rec, samples: REC_SAMPLES(), sampleCount: 124, elapsed: 12.4, level: 0.72, reached: 0 }, extra || {});
+const PRESETS = {
+  'splash': () => ({ screen: 'splash' }),
+  'login': () => ({ screen: 'login' }),
+  'login-invalid': () => ({ screen: 'login', loginState: 'invalid', outcome: 'invalid', pw: 'notright' }),
+  'login-noaccess': () => ({ screen: 'login', loginState: 'noaccess', outcome: 'noaccess' }),
+  'login-offline': () => ({ screen: 'login', loginState: 'network', outcome: 'network' }),
+  'home': () => ({ tab: 'home' }),
+  'home-toast': () => ({ tab: 'home', toast: { msg: 'Draft saved on this phone', kind: 'ok', id: 1 } }),
+  'projects': () => ({ tab: 'projects' }),
+  'projects-menu': () => ({ tab: 'projects', sheet: 'proj', sel: 'p1' }),
+  'projects-rename': () => ({ tab: 'projects', sheet: 'rename', sel: 'p1', renameVal: 'Monsoon Sessions' }),
+  'projects-delete': () => ({ tab: 'projects', dialog: { title: 'Delete "Monsoon Sessions"?', body: 'This removes the project and its original recording from this phone. Exported files are kept. This can\'t be undone.', ok: 'Delete', cancel: 'Cancel', danger: true } }),
+  'projects-empty': () => ({ tab: 'projects', projects: [] }),
+  'rec-idle': () => REC('idle', { samples: [], sampleCount: 0, elapsed: 0, level: 0 }),
+  'rec-preparing': () => REC('preparing', { samples: [], sampleCount: 0, elapsed: 0, level: 0 }),
+  'rec-recording': () => REC('recording'),
+  'rec-paused': () => REC('paused', { interrupted: true }),
+  'rec-processing': () => REC('processing'),
+  'rec-finished': () => REC('finished'),
+  'rec-denied': () => REC('denied', { samples: [], elapsed: 0 }),
+  'rec-nohp': () => REC('idle', { samples: [], sampleCount: 0, elapsed: 0, level: 0, headphones: false, monitoring: false, hpBanner: true, storageLow: true }),
+  'rec-sim': () => REC('recording', { sheet: 'sim' }),
+  'editor': () => FLOW('editor', { reached: 1, open: 'space', edPos: 52 }),
+  'editor-tone': () => FLOW('editor', { reached: 1, open: 'tone', edPos: 52, zoom: 2 }),
+  'editor-restore': () => FLOW('editor', { reached: 1, open: null, edPos: 52, dialog: { title: 'Restore default effects?', body: 'Resets level, reverb, tone, smoothing, fades and cleanup. Your trim is kept, and you can undo this.', ok: 'Restore', cancel: 'Cancel' } }),
+  'karaoke-import': () => FLOW('karaoke', { reached: 2, kStage: 'none' }),
+  'karaoke-importing': () => FLOW('karaoke', { reached: 2, kStage: 'importing' }),
+  'karaoke-mixer': () => FLOW('karaoke', { reached: 2, kStage: 'ready', kPos: 48, kOffset: 0.25, kTrim: 3, kGain: -5 }),
+  'video-decision': () => FLOW('videoDecision', { reached: 3 }),
+  'camera': () => FLOW('video', { reached: 3, vRec: 'idle' }),
+  'camera-recording': () => FLOW('video', { reached: 3, vRec: 'recording', vTime: 18.3 }),
+  'camera-done': () => FLOW('video', { reached: 3, vRec: 'recorded', vTime: 184, hasVideo: true }),
+  'sync': () => FLOW('sync', { reached: 3, hasVideo: true, vRec: 'recorded', syncOffset: 80, syncPos: 46, syncTrim: 1.5 }),
+  'export': () => FLOW('export', { reached: 4, exPhase: 'form' }),
+  'export-video': () => FLOW('export', { reached: 4, exPhase: 'form', hasVideo: true, vRec: 'recorded', exKind: 'video' }),
+  'exporting': () => FLOW('export', { reached: 4, exPhase: 'exporting', exProg: 54 }),
+  'export-success': () => FLOW('export', { reached: 4, exPhase: 'success', exProg: 100 }),
+  'export-failed': () => FLOW('export', { reached: 4, exPhase: 'failed', exProg: 68 }),
+  'exports': () => ({ tab: 'exports', playingExp: 'e2', expPos: 74 }),
+  'exports-info': () => ({ tab: 'exports', sheet: 'info', sel: 'e2' }),
+  'profile': () => ({ tab: 'profile' }),
+  'settings': () => ({ flow: 'settings' })
+};
+
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = {
+      screen: 'splash', tab: 'home', crossing: false, flow: null,
+      email: 'sushi@example.com', pw: '', outcome: 'ok', loginState: 'idle',
+      headphones: true, monitoring: true, hpBanner: false, noise: 'clean', rec: 'idle', elapsed: 0, samples: [], sampleCount: 0, level: 0, interrupted: false, storageLow: false,
+      hist: [Object.assign({}, DEF)], hi: 0, lastKey: null, lastPush: 0, compare: 'enh', open: 'volume', edPlay: false, edPos: 0, zoom: 1,
+      kStage: 'none', kPlay: false, kPos: 0, vMute: false, vSolo: false, kMute: false, kSolo: false, kGain: -4, vGainMix: 0, kOffset: 0, kTrim: 0,
+      vRec: 'idle', vTime: 0, front: true, hasVideo: false,
+      syncOffset: 0, syncTrim: 0, syncPlay: false, syncPos: 0,
+      exKind: 'audio', exFmt: 'wav', exQ: 'high', exRes: '1080', exName: '', exLoc: 0, exPhase: 'form', exProg: 0, simFail: false,
+      projects: PROJECTS.map(p => Object.assign({}, p)), exportsList: EXPORTS.map(e => Object.assign({}, e)),
+      query: '', pfilter: 'all', cur: null, sel: null, renameVal: '', playingExp: null, expPos: 0,
+      sheet: null, dialog: null, toast: null, reached: 0,
+      set: { quality: '48', noiseDef: 'clean', exDef: 'wav', monitorPref: true, rm: false, haptics: true }
+    };
+    const v = p && p.view;
+    if (v && PRESETS[v]) Object.assign(this.state, { screen: 'app' }, PRESETS[v]());
+  }
+  componentDidMount() {
+    this.iv = setInterval(() => { if (!this.props.frozen) this.tick(); }, 100);
+    if (!this.props.view) this.t1 = setTimeout(() => { if (this.state.screen === 'splash') this.setState({ screen: 'login' }); }, 1800);
+  }
+  componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.t1); }
+  toast(msg, kind) {
+    const id = Date.now(); this.setState({ toast: { msg, kind: kind || 'ok', id } });
+    setTimeout(() => { if (this.state.toast && this.state.toast.id === id) this.setState({ toast: null }); }, 2400);
+  }
+  buzz() { if (this.state.set.haptics && navigator.vibrate) { try { navigator.vibrate(8); } catch (e) {} } }
+  D() { const c = this.state.cur; return c && c.dur ? c.dur : 42; }
+  snap() { return this.state.hist[this.state.hi]; }
+  change(patch, key) {
+    const s = this.state, now = Date.now(); const cur = Object.assign({}, s.hist[s.hi], patch);
+    const hist = s.hist.slice(0, s.hi + 1);
+    if (key && s.lastKey === key && now - s.lastPush < 700) hist[hist.length - 1] = cur; else hist.push(cur);
+    this.setState({ hist, hi: hist.length - 1, lastKey: key, lastPush: now });
+  }
+  tick() {
+    const s = this.state, u = {}; let any = false;
+    if (s.rec === 'recording') {
+      const n = s.sampleCount + 1, a = amp(n, 5) * (0.75 + 0.25 * Math.sin(n / 4));
+      u.samples = s.samples.concat([Math.max(0.06, a)]).slice(-64); u.elapsed = s.elapsed + 0.1; u.sampleCount = n; u.level = a; any = true;
+    }
+    if (s.edPlay) { const sn = this.snap(), te = sn.trimE == null ? this.D() : sn.trimE; let p = s.edPos + 0.1; if (p >= te) p = sn.trimS; u.edPos = p; any = true; }
+    if (s.kPlay) { let p = s.kPos + 0.1; if (p >= this.D()) p = 0; u.kPos = p; any = true; }
+    if (s.vRec === 'recording') { u.vTime = s.vTime + 0.1; any = true; }
+    if (s.syncPlay) { let p = s.syncPos + 0.1; if (p >= this.D()) p = 0; u.syncPos = p; any = true; }
+    if (s.exPhase === 'exporting') {
+      const p = s.exProg + 1.5;
+      if (s.simFail && p >= 68) { u.exPhase = 'failed'; u.exProg = 68; }
+      else if (p >= 100) { u.exProg = 100; u.exPhase = 'success'; setTimeout(() => this.finishExport(), 0); }
+      else u.exProg = p;
+      any = true;
+    }
+    if (s.playingExp) { const e = s.exportsList.find(x => x.id === s.playingExp); let p = s.expPos + 0.1; if (!e || p >= e.dur) { u.playingExp = null; u.expPos = 0; } else u.expPos = p; any = true; }
+    if (any) this.setState(u);
+  }
+  finishExport() {
+    const s = this.state, c = s.cur; const ext = this.ext();
+    const e = { id: 'e' + Date.now(), name: s.exName || (c ? c.name : 'Recording'), fmt: this.fmtLong(), fmtShort: ext.toUpperCase(), dur: this.D(), date: 'Today', size: this.estSize(), loc: LOCS[s.exLoc] };
+    const projects = s.projects.map(p => c && p.id === c.id ? Object.assign({}, p, { status: 'Completed', media: s.exKind === 'video' ? 'video' : p.media, date: 'Today' }) : p);
+    this.setState({ exportsList: [e].concat(s.exportsList), projects, reached: 4 });
+  }
+  ext() { const s = this.state; return s.exKind === 'video' ? 'mp4' : (s.exFmt === 'wav' ? 'wav' : 'm4a'); }
+  fmtLong() {
+    const s = this.state;
+    if (s.exKind === 'video') return 'MP4 · ' + s.exRes + 'p';
+    if (s.exFmt === 'wav') return 'WAV · ' + ({ std: '44.1 kHz / 16-bit', high: '48 kHz / 24-bit', studio: '96 kHz / 24-bit' })[s.exQ];
+    return 'M4A · ' + ({ std: '128 kbps', high: '256 kbps', studio: '320 kbps' })[s.exQ];
+  }
+  estSize() {
+    const s = this.state, D = this.D(); let bps;
+    if (s.exKind === 'video') bps = (s.exRes === '1080' ? 9.5e6 : 5e6) * ({ std: 0.7, high: 1, studio: 1.4 })[s.exQ] / 8;
+    else if (s.exFmt === 'wav') bps = ({ std: 176400, high: 288000, studio: 576000 })[s.exQ];
+    else bps = ({ std: 128000, high: 256000, studio: 320000 })[s.exQ] / 8;
+    const mb = bps * D / 1048576; return (mb >= 100 ? mb.toFixed(0) : mb.toFixed(1)) + ' MB';
+  }
+  seg(list, cur, pick) {
+    return list.map(o => { const on = o.v === cur; return { label: o.l, on, dis: !!o.dis, pick: () => pick(o.v), bg: on ? 'linear-gradient(180deg,#FFFFFF,#E6E6E3)' : 'transparent', fg: on ? '#14161A' : (o.dis ? '#4A4D55' : '#A3A5AE'), fw: on ? 600 : 500 }; });
+  }
+  sl(key, label, hint, min, max, step, value, disp, on) {
+    return { key, label, hint, min, max, step, value, disp, pct: ((value - min) / (max - min) * 100).toFixed(1), on: (e) => on(parseFloat(e.target.value)) };
+  }
+  tog(on) { return { on, track: on ? '#EF3349' : '#33363D', knob: on ? 20 : 0 }; }
+
+  openProject(p) {
+    const fresh = Object.assign({}, DEF);
+    this.setState({ cur: Object.assign({}, p), flow: 'editor', rec: 'finished', elapsed: p.dur, samples: [], hist: [fresh], hi: 0, edPos: 0, edPlay: false, sheet: null,
+      reached: p.status === 'Completed' ? 4 : 1, hasVideo: p.media === 'video', vRec: p.media === 'video' ? 'recorded' : 'idle', vTime: p.media === 'video' ? p.dur : 0,
+      kStage: 'none', exPhase: 'form', exName: p.name, exKind: 'audio' });
+  }
+  goFlow(f) {
+    const order = { recorder: 0, editor: 1, karaoke: 2, videoDecision: 3, video: 3, sync: 3, export: 4 };
+    const u = { flow: f, edPlay: false, kPlay: false, syncPlay: false };
+    if (order[f] != null) u.reached = Math.max(this.state.reached, order[f]);
+    if (f === 'export' && this.state.exPhase !== 'exporting') { u.exPhase = 'form'; if (!this.state.exName) u.exName = this.state.cur ? this.state.cur.name : 'Recording'; }
+    this.setState(u);
+  }
+  addDraftIfNew() {
+    const s = this.state, c = s.cur; if (!c) return;
+    const dur = Math.max(1, Math.round(c.dur || s.elapsed));
+    if (!s.projects.find(p => p.id === c.id)) this.setState({ projects: [Object.assign({}, c, { dur, date: 'Just now', status: 'Draft', seed: 3 })].concat(s.projects) });
+  }
+
+  renderVals() {
+    const s = this.state, self = this, D = this.D(), sn = this.snap();
+    const trimE = sn.trimE == null ? D : Math.min(sn.trimE, D);
+    const flow = s.flow, isApp = s.screen === 'app';
+    const go = (patch) => () => this.setState(patch);
+    const dlg = (d) => this.setState({ dialog: d });
+
+    // splash & login
+    const splashBars = [14, 26, 38, 22, 44, 30, 18, 34, 12].map((h, i) => ({ h, c: i === 4 ? '#FF6370' : '#EF3349', d: i * 90 }));
+    const loginWave = wave(Array.from({ length: 70 }, (_, i) => amp(i, 11)), 330, 56, { hi: k => k > 30 && k < 40 });
+    const signIn = () => {
+      if (s.loginState === 'loading') return;
+      this.setState({ loginState: 'loading' });
+      setTimeout(() => {
+        const o = this.state.outcome;
+        if (o === 'ok') { this.setState({ loginState: 'idle', screen: 'app', tab: 'home', flow: null }); this.toast('Welcome back, Sushi'); }
+        else this.setState({ loginState: o });
+      }, 1100);
+    };
+
+    // tabs
+    const slots = { home: 0, projects: 1, exports: 3, profile: 4 };
+    const STUDIO = ['recorder', 'editor', 'karaoke', 'videoDecision', 'video', 'sync', 'export'];
+    const inStudio = STUDIO.indexOf(flow) >= 0;
+    const doTab = (t) => {
+      const a = slots[this.state.tab], b = slots[t];
+      const crossing = (a < 2) !== (b < 2);
+      this.setState({ tab: t, flow: null, crossing, edPlay: false, kPlay: false, syncPlay: false });
+      if (crossing) setTimeout(() => this.setState({ crossing: false }), 230);
+    };
+    const leaveStudio = (then) => {
+      const st = this.state;
+      if (STUDIO.indexOf(st.flow) < 0) { then(); return; }
+      if (st.flow === 'export' && st.exPhase === 'exporting') { this.toast('Wait for the export to finish', 'warn'); return; }
+      if (st.flow === 'recorder' && (st.rec === 'recording' || st.rec === 'paused')) {
+        if (st.rec === 'recording') this.setState({ rec: 'paused' });
+        dlg({ title: 'Leave this take?', body: 'You have an unsaved recording. Save it as a draft so you can finish it later.', ok: 'Save draft', cancel: 'Keep recording',
+          onOk: () => { const d = Math.max(1, Math.round(this.state.elapsed)); this.setState({ cur: Object.assign({}, this.state.cur, { dur: d }), rec: 'idle' }, () => { this.addDraftIfNew(); this.toast('Draft saved on this phone'); then(); }); } });
+        return;
+      }
+      if (st.cur && st.cur.dur) this.addDraftIfNew();
+      then();
+    };
+    const goTab = (t) => leaveStudio(() => doTab(t));
+    const mkTab = (id, label, d) => { const on = s.tab === id && !inStudio; return { label, d, cur: on ? 'page' : 'false', go: () => goTab(id), color: on ? '#14161A' : '#A3A5AE', lift: on ? -1.5 : 0, fw: on ? 600 : 500 }; };
+
+    const newRec = () => {
+      this.buzz();
+      const n = s.projects.filter(p => p.name.indexOf('Untitled') === 0).length + 1;
+      this.setState({ cur: { id: 'n' + Date.now(), name: 'Untitled Recording ' + n, dur: 0, status: 'Draft', media: 'audio' }, flow: 'recorder', rec: 'idle', elapsed: 0, samples: [], sampleCount: 0, level: 0,
+        interrupted: false, hist: [Object.assign({}, DEF, { clean: s.set.noiseDef })], hi: 0, noise: s.set.noiseDef, edPos: 0, reached: 0, kStage: 'none', vRec: 'idle', vTime: 0, hasVideo: false,
+        exPhase: 'form', exName: '', exKind: 'audio', exFmt: s.set.exDef, syncOffset: 0, syncTrim: 0, monitoring: s.headphones && s.set.monitorPref });
+    };
+
+    // projects
+    const q = s.query.trim().toLowerCase();
+    const mapP = (p) => ({ ...p, durL: fmt(p.dur), mediaL: p.media === 'video' ? 'Audio + video' : 'Audio', mediaIcon: p.media === 'video' ? IC.video : IC.mic,
+      badgeFg: p.status === 'Draft' ? '#A3A5AE' : '#F6F6F4', badgeDot: p.status === 'Draft' ? '#7C7F88' : '#EF3349',
+      wave: wave(Array.from({ length: 30 }, (_, i) => amp(i, p.seed || 3)), 150, 24), open: () => this.openProject(p), menu: () => this.setState({ sheet: 'proj', sel: p.id }) });
+    const filtered = s.projects.filter(p => (s.pfilter === 'all' || (s.pfilter === 'draft' ? p.status === 'Draft' : p.status === 'Completed')) && (!q || p.name.toLowerCase().indexOf(q) >= 0));
+    const projList = filtered.map(mapP);
+    const recentP = s.projects[0];
+    const recent = recentP ? mapP(recentP) : null;
+    const selP = s.projects.find(p => p.id === s.sel);
+
+    // exports
+    const expList = s.exportsList.map(e => { const playing = s.playingExp === e.id; const pos = playing ? s.expPos : 0;
+      return { ...e, durL: fmt(e.dur), posL: fmt(pos), pct: (pos / e.dur * 100).toFixed(2), icon: playing ? IC.pause : IC.play, iconClass: playing ? 'i' : 'f', playL: playing ? 'Pause preview' : 'Play preview',
+        play: () => this.setState({ playingExp: playing ? null : e.id, expPos: playing ? 0 : 0 }), info: () => this.setState({ sheet: 'info', sel: e.id }), share: () => this.toast('Share sheet would open here with the saved file') }; });
+    const selE = s.exportsList.find(e => e.id === s.sel);
+
+    // steps
+    const stepIdx = { recorder: 0, editor: 1, karaoke: 2, videoDecision: 3, video: 3, sync: 3, export: 4 }[flow];
+    const stepFlows = ['editor', 'editor', 'karaoke', 'videoDecision', 'export'];
+    const steps = ['Record', 'Enhance', 'Karaoke', 'Video', 'Export'].map((label, i) => {
+      const cur = i === stepIdx, done = i <= s.reached && !cur, locked = i > s.reached || cur || (s.exPhase === 'exporting');
+      return { label, locked, fg: cur ? '#F6F6F4' : (done ? '#A3A5AE' : '#4A4D55'), bar: cur ? '#EF3349' : (done ? '#A3A5AE' : '#26282E'),
+        go: () => { if (i === 0) this.setState({ flow: 'recorder', rec: this.state.rec === 'idle' ? 'idle' : 'finished' }); else if (i === 3 && this.state.hasVideo) this.goFlow('sync'); else this.goFlow(stepFlows[i]); } };
+    });
+
+    // recorder
+    const rec = s.rec, recording = rec === 'recording';
+    const step = 258 / 64, n = s.samples.length;
+    const recWave = wave(s.samples, n * step, 148, { hi: k => recording && k >= n - 5 });
+    const playX = Math.min(n, 64) * step;
+    const tLeft = Math.max(0, s.elapsed - 6.4);
+    const recGrid = [];
+    for (let t = Math.ceil(tLeft); t < tLeft + 9; t++) { const x = (t - tLeft) / 0.1 * step; if (x <= 352) recGrid.push({ x: x.toFixed(1), lx: (x + 4).toFixed(1), label: fmt(t), c: '#DEDEDB' }); }
+    const lit = rec === 'recording' ? Math.round(s.level * 28) : 0;
+    const meter = Array.from({ length: 28 }, (_, i) => ({ c: i < lit ? (i >= 24 ? '#EF3349' : i >= 19 ? '#FF6370' : '#F6F6F4') : '#1D1F24' }));
+    const recLabels = { idle: 'Ready to record', preparing: 'Preparing microphone…', recording: 'Recording', paused: 'Paused', processing: 'Processing', finished: 'Take saved', denied: 'Microphone blocked' };
+    const recMain = () => {
+      const r = this.state.rec; this.buzz();
+      if (r === 'idle') { this.setState({ rec: 'preparing' }); setTimeout(() => { if (this.state.rec === 'preparing') this.setState({ rec: 'recording' }); }, 900); }
+      else if (r === 'recording') this.setState({ rec: 'paused' });
+      else if (r === 'paused') this.setState({ rec: 'recording', interrupted: false });
+      else if (r === 'finished') this.goFlow('editor');
+    };
+    const stopRec = () => {
+      if (this.state.elapsed < 0.5) return;
+      const d = Math.max(1, Math.round(this.state.elapsed * 10) / 10);
+      this.setState({ rec: 'processing', interrupted: false, cur: Object.assign({}, this.state.cur, { dur: d }), hist: [Object.assign({}, DEF, { clean: this.state.noise })], hi: 0 });
+      setTimeout(() => { this.setState({ rec: 'finished' }); setTimeout(() => { if (this.state.flow === 'recorder' && this.state.rec === 'finished') this.goFlow('editor'); }, 1000); }, 1300);
+    };
+    const backRecorder = () => {
+      const r = this.state.rec;
+      if (r === 'recording' || r === 'paused') { if (r === 'recording') this.setState({ rec: 'paused' });
+        dlg({ title: 'Leave this take?', body: 'You have an unsaved recording. Save it as a draft so you can finish it later.', ok: 'Save draft', cancel: 'Keep recording', onOk: () => { const d = Math.max(1, Math.round(this.state.elapsed)); this.setState({ cur: Object.assign({}, this.state.cur, { dur: d }) }, () => { this.addDraftIfNew(); this.setState({ flow: null, rec: 'idle' }); this.toast('Draft saved on this phone'); }); } }); }
+      else if (r === 'finished') this.goFlow('editor');
+      else this.setState({ flow: null, rec: 'idle' });
+    };
+    const monAllowed = s.headphones;
+    const monOn = s.monitoring && monAllowed;
+    const noiseDescs = { natural: 'Natural keeps your voice untouched with very light cleanup.', clean: 'Clean gently reduces hiss and room hum.', strong: 'Strong Clean works harder on noisy rooms.' };
+    const timerT = rec === 'idle' || rec === 'preparing' ? 0 : s.elapsed;
+
+    // editor
+    const span = D / s.zoom;
+    const vs = Math.max(0, Math.min(D - span, s.edPos - span / 2));
+    const enh = s.compare === 'enh';
+    const gainF = Math.pow(10, sn.gain / 40), compE = 1 - sn.comp / 220;
+    const NB = 90;
+    const edSamples = Array.from({ length: NB }, (_, k) => {
+      const t = vs + (k + 0.5) * span / NB; let a = amp(Math.floor(t * 4), (s.cur && s.cur.seed) || 7);
+      if (enh) { a = Math.pow(a, compE) * gainF; const fi = sn.fadeIn > 0 ? Math.min(1, (t - sn.trimS) / sn.fadeIn) : 1, fo = sn.fadeOut > 0 ? Math.min(1, (trimE - t) / sn.fadeOut) : 1; a *= Math.max(0.05, Math.min(fi, fo)); }
+      return Math.max(0.05, Math.min(1, a));
+    });
+    const tOf = k => vs + (k + 0.5) * span / NB;
+    const edWave = wave(edSamples, 358, 130, { dim: k => tOf(k) < sn.trimS || tOf(k) > trimE, hi: k => tOf(k) <= s.edPos });
+    const pctOf = t => Math.max(0, Math.min(100, (t - vs) / span * 100));
+    const gstep = span > 60 ? 30 : span > 20 ? 10 : span > 8 ? 2 : 1;
+    const edGrid = []; for (let t = Math.ceil(vs / gstep) * gstep; t < vs + span; t += gstep) edGrid.push({ x: pctOf(t).toFixed(2), label: fmt(t) });
+    const setFx = (key) => (v) => this.change({ [key]: v }, key);
+    const db = v => sgn(v, ' dB');
+    const groups = [
+      { id: 'volume', title: 'Voice level', desc: 'How loud your voice sits', sub: db(sn.gain), sliders: [this.sl('fx-gain', 'Vocal gain', 'Turn up a quiet take, or calm a loud one.', -12, 12, 0.5, sn.gain, db(sn.gain), setFx('gain'))] },
+      { id: 'space', title: 'Reverb', desc: 'A sense of room around your voice', sub: sn.reverb + '%', sliders: [
+        this.sl('fx-rev', 'Amount', 'From dry and close to dreamy.', 0, 100, 1, sn.reverb, sn.reverb + '%', setFx('reverb')),
+        this.sl('fx-room', 'Room size', 'Small booth to a big hall.', 0, 100, 1, sn.room, sn.room < 34 ? 'Booth' : sn.room < 67 ? 'Studio' : 'Hall', setFx('room'))] },
+      { id: 'tone', title: 'Tone', desc: 'Basic EQ — shape how your voice sounds', sub: 'EQ', sliders: [
+        this.sl('fx-low', 'Warmth (lows)', 'Adds body. Lower it if the voice sounds boomy.', -6, 6, 0.5, sn.warmth, db(sn.warmth), setFx('warmth')),
+        this.sl('fx-mid', 'Presence (mids)', 'Brings your words forward.', -6, 6, 0.5, sn.presence, db(sn.presence), setFx('presence')),
+        this.sl('fx-high', 'Air (highs)', 'Sparkle and breath on top.', -6, 6, 0.5, sn.air, db(sn.air), setFx('air'))] },
+      { id: 'smooth', title: 'Smoothing', desc: 'Gentle compression evens out loud and soft parts', sub: sn.comp + '%', sliders: [this.sl('fx-comp', 'Amount', 'A little goes a long way.', 0, 100, 1, sn.comp, sn.comp + '%', setFx('comp'))] },
+      { id: 'fades', title: 'Fades', desc: 'Ease the start and end', sub: sn.fadeIn.toFixed(1) + 's · ' + sn.fadeOut.toFixed(1) + 's', sliders: [
+        this.sl('fx-fi', 'Fade in', 'Seconds at the start.', 0, 5, 0.1, sn.fadeIn, sn.fadeIn.toFixed(1) + ' s', setFx('fadeIn')),
+        this.sl('fx-fo', 'Fade out', 'Seconds at the end.', 0, 5, 0.1, sn.fadeOut, sn.fadeOut.toFixed(1) + ' s', setFx('fadeOut'))] },
+      { id: 'trim', title: 'Trim', desc: 'Cut silence before and after you sing', sub: fmt(trimE - sn.trimS), sliders: [
+        this.sl('fx-ts', 'Start', 'Drag to cut the beginning.', 0, D, 0.1, sn.trimS, fmt(sn.trimS), v => this.change({ trimS: Math.min(v, trimE - 1) }, 'trimS')),
+        this.sl('fx-te', 'End', 'Drag to cut the ending.', 0, D, 0.1, trimE, fmt(trimE), v => this.change({ trimE: Math.max(v, sn.trimS + 1) }, 'trimE'))] },
+      { id: 'cleanup', title: 'Noise cleanup', desc: 'Reduce background noise after recording', sub: ({ natural: 'Natural', clean: 'Clean', strong: 'Strong' })[sn.clean], sliders: [], isCleanup: true }
+    ].map(g => ({ ...g, open: s.open === g.id, rot: s.open === g.id ? 90 : 0, toggle: () => this.setState({ open: this.state.open === g.id ? null : g.id }) }));
+
+    // karaoke
+    const kShift = s.kOffset / D * 358;
+    const kvWave = wave(Array.from({ length: 80 }, (_, i) => amp(i * 2, 7) * Math.pow(10, s.vGainMix / 40)), 358, 72);
+    const kkWave = wave(Array.from({ length: 80 }, (_, i) => 0.35 + amp(i, 9) * 0.5), 358, 72);
+    const vAud = !s.vMute && !(s.kSolo && !s.vSolo), kAud = !s.kMute && !(s.vSolo && !s.kSolo);
+    const mixL = !vAud && !kAud ? 'Everything muted' : !kAud ? 'Vocals only' : !vAud ? 'Karaoke only' : 'Vocals + karaoke';
+    const kSliders = [
+      this.sl('k-vg', 'Vocal level', 'Your voice in the mix.', -12, 6, 0.5, s.vGainMix, db(s.vGainMix), v => this.setState({ vGainMix: v })),
+      this.sl('k-kg', 'Karaoke level', 'Keep it a little under your voice.', -18, 6, 0.5, s.kGain, db(s.kGain), v => this.setState({ kGain: v })),
+      this.sl('k-off', 'Align track', 'Slide the karaoke earlier or later to match your timing.', -2, 2, 0.05, s.kOffset, sgn(s.kOffset, ' s', 2), v => this.setState({ kOffset: v })),
+      this.sl('k-trim', 'Trim intro', 'Skip the start of the instrumental.', 0, 20, 0.5, s.kTrim, fmt(s.kTrim), v => this.setState({ kTrim: v }))
+    ];
+    const pressBtn = (on) => ({ bg: on ? '#F6F6F4' : '#14161A', fg: on ? '#14161A' : '#A3A5AE' });
+    const vM = pressBtn(s.vMute), vS = pressBtn(s.vSolo), kM = pressBtn(s.kMute), kS = pressBtn(s.kSolo);
+    const kReady = s.kStage === 'ready';
+    const skipKaraoke = () => { this.setState({ kPlay: false }); this.goFlow('videoDecision'); };
+
+    // video
+    const vRecording = s.vRec === 'recording', vRecorded = s.vRec === 'recorded';
+    const vMain = () => {
+      this.buzz();
+      if (vRecording) this.setState({ vRec: 'recorded', hasVideo: true });
+      else this.setState({ vRec: 'recording', vTime: 0 });
+    };
+
+    // sync
+    const syncShift = s.syncOffset / 1000 / D * 358 * 6;
+    const syncWave = wave(Array.from({ length: 70 }, (_, i) => amp(i * 2, 7)), 358, 48);
+    const frames = Array.from({ length: 8 }, (_, i) => ({ bg: 'linear-gradient(180deg,' + (i % 2 ? '#2A2C32' : '#24262B') + ',#1D1F24)' }));
+    const syncSliders = [
+      this.sl('sy-off', 'Audio offset', 'Move the audio earlier (−) or later (+).', -500, 500, 10, s.syncOffset, sgn(s.syncOffset, ' ms', 0), v => this.setState({ syncOffset: v })),
+      this.sl('sy-trim', 'Trim video start', 'Cut the moment before you begin.', 0, 10, 0.1, s.syncTrim, s.syncTrim.toFixed(1) + ' s', v => this.setState({ syncTrim: v }))
+    ];
+    const inSync = Math.abs(s.syncOffset - 80) <= 30;
+
+    // export
+    const exRunning = s.exPhase === 'exporting';
+    const exPhaseL = s.exProg < 40 ? 'Rendering your mix…' : s.exProg < 82 ? 'Encoding…' : 'Saving to your phone…';
+    const startExport = () => { this.buzz(); this.setState({ exPhase: 'exporting', exProg: 0 }); };
+
+    // settings
+    const setSet = (k, v) => this.setState({ set: Object.assign({}, this.state.set, { [k]: v }) });
+    const setSegs = [
+      { title: 'Default recording quality', desc: '48 kHz is studio standard. 44.1 kHz saves a little space.', opts: this.seg([{ v: '48', l: '48 kHz' }, { v: '44', l: '44.1 kHz' }], s.set.quality, v => setSet('quality', v)) },
+      { title: 'Noise cleanup default', desc: 'Used for every new recording.', opts: this.seg([{ v: 'natural', l: 'Natural' }, { v: 'clean', l: 'Clean' }, { v: 'strong', l: 'Strong Clean' }], s.set.noiseDef, v => setSet('noiseDef', v)) },
+      { title: 'Export default', desc: 'You can still change it for each export.', opts: this.seg([{ v: 'wav', l: 'WAV' }, { v: 'm4a', l: 'M4A' }], s.set.exDef, v => setSet('exDef', v)) }
+    ];
+    const setToggles = [
+      { key: 'monitorPref', label: 'Headphone monitoring', desc: 'Turn on live monitoring automatically when earphones are connected.' },
+      { key: 'rm', label: 'Reduce motion', desc: 'Minimise animations across the app.' },
+      { key: 'haptics', label: 'Haptic feedback', desc: 'Soft taps when you press record and key buttons.' }
+    ].map(t => ({ ...t, ...this.tog(s.set[t.key]), toggle: () => setSet(t.key, !this.state.set[t.key]) }));
+
+    // sheet
+    let sheetTitle = '', sheetActions = [], infoRows = [];
+    if (s.sheet === 'proj' && selP) {
+      sheetTitle = selP.name;
+      sheetActions = [
+        { label: 'Open', sub: 'Continue editing', icon: IC.open, go: () => this.openProject(selP) },
+        { label: 'Rename', sub: '', icon: IC.edit, go: () => this.setState({ sheet: 'rename', renameVal: selP.name }) },
+        { label: 'Duplicate', sub: 'Make a copy to try new ideas', icon: IC.copy, go: () => { const cp = Object.assign({}, selP, { id: 'c' + Date.now(), name: selP.name + ' (copy)', status: 'Draft', date: 'Just now' }); this.setState({ projects: [cp].concat(this.state.projects), sheet: null }); this.toast('Project duplicated'); } },
+        { label: 'Export', sub: selP.status === 'Completed' ? 'Save a new file' : 'Finish editing first, or export as is', icon: IC.exp, go: () => { this.openProject(selP); setTimeout(() => this.goFlow('export'), 0); } },
+        { label: 'Delete', sub: '', icon: IC.trash, fg: '#FF6370', go: () => this.setState({ sheet: null, dialog: { title: 'Delete "' + selP.name + '"?', body: 'This removes the project and its original recording from this phone. Exported files are kept. This can\'t be undone.', ok: 'Delete', cancel: 'Cancel', danger: true, onOk: () => { this.setState({ projects: this.state.projects.filter(p => p.id !== selP.id) }); this.toast('Project deleted'); } } }) }
+      ];
+    } else if (s.sheet === 'rename') { sheetTitle = 'Rename project'; }
+    else if (s.sheet === 'info' && selE) {
+      sheetTitle = selE.name;
+      infoRows = [{ k: 'Format', v: selE.fmt }, { k: 'Length', v: fmt(selE.dur) }, { k: 'Size', v: selE.size }, { k: 'Exported', v: selE.date }, { k: 'Location', v: selE.loc }];
+      sheetActions = [{ label: 'Save or share', sub: 'Opens your phone\'s share sheet', icon: IC.share, go: () => { this.setState({ sheet: null }); this.toast('Share sheet would open here with the saved file'); } }];
+    } else if (s.sheet === 'sim') {
+      sheetTitle = 'Prototype recorder states';
+      sheetActions = [
+        { label: 'Microphone permission denied', sub: 'Shows the blocked state', icon: IC.micOff, go: () => this.setState({ rec: 'denied', sheet: null }) },
+        { label: s.headphones ? 'Unplug earphones' : 'Plug in earphones', sub: s.headphones ? 'Monitoring turns off' : 'Monitoring becomes available', icon: IC.hp, go: () => { const h = !this.state.headphones; this.setState({ headphones: h, monitoring: h && this.state.set.monitorPref, hpBanner: !h, sheet: null }); if (h) this.toast('Wired earphones connected'); } },
+        { label: 'Audio interruption', sub: 'Like an incoming call', icon: IC.alert, dis: !(rec === 'recording' || rec === 'paused'), op: (rec === 'recording' || rec === 'paused') ? 1 : 0.4, go: () => this.setState({ rec: 'paused', interrupted: true, sheet: null }) },
+        { label: s.storageLow ? 'Clear storage warning' : 'Storage almost full', sub: '', icon: IC.folder, go: () => this.setState({ storageLow: !this.state.storageLow, sheet: null }) },
+        { label: 'Reset recorder', sub: 'Back to idle', icon: IC.undo, go: () => this.setState({ rec: 'idle', elapsed: 0, samples: [], sampleCount: 0, interrupted: false, sheet: null }) }
+      ];
+    }
+    sheetActions = sheetActions.map(a => ({ ...a, fg: a.fg || '#F6F6F4', op: a.op == null ? 1 : a.op, dis: !!a.dis }));
+
+    const d = s.dialog;
+    const t = s.toast;
+
+    return {
+      ic: IC, rmClass: s.set.rm ? 'rm' : '', artist: 'Sushi', email: s.email,
+      isSplash: s.screen === 'splash', skipSplash: go({ screen: 'login' }), splashBars,
+      isLogin: s.screen === 'login', loginWave, pw: s.pw,
+      setEmail: e => this.setState({ email: e.target.value }), setPw: e => this.setState({ pw: e.target.value }),
+      loginNoAccess: s.loginState === 'noaccess', loginForm: s.loginState !== 'noaccess', loginNetwork: s.loginState === 'network', loginInvalid: s.loginState === 'invalid',
+      loginLoading: s.loginState === 'loading', signInLabel: s.loginState === 'loading' ? 'Checking access…' : 'Sign in', loginBorder: s.loginState === 'invalid' ? '#EF3349' : '#26282E',
+      signIn, loginReset: go({ loginState: 'idle', outcome: 'ok', email: '' }),
+      outcomeSeg: this.seg([{ v: 'ok', l: 'Approved' }, { v: 'invalid', l: 'Wrong password' }, { v: 'noaccess', l: 'No access' }, { v: 'network', l: 'Offline' }], s.outcome, v => this.setState({ outcome: v, loginState: 'idle' })),
+
+      isApp, tabHome: isApp && !flow && s.tab === 'home', tabProjects: isApp && !flow && s.tab === 'projects', tabExports: isApp && !flow && s.tab === 'exports', tabProfile: isApp && !flow && s.tab === 'profile',
+      showDock: isApp, inStudio,
+      createPress: () => { if (this.state.flow === 'recorder' && this.state.rec === 'idle') return; leaveStudio(newRec); },
+      indX: slots[s.tab] * 100, indScale: inStudio ? 0.4 : s.crossing ? 0.5 : 1, indOpacity: inStudio ? 0 : s.crossing ? 0.35 : 1,
+      tabsLeft: [mkTab('home', 'Home', IC.home), mkTab('projects', 'Projects', IC.folder)],
+      tabsRight: [mkTab('exports', 'Exports', IC.exp), mkTab('profile', 'Profile', IC.user)],
+      goProfile: () => goTab('profile'), goProjects: () => goTab('projects'), goExports: () => goTab('exports'),
+      goDrafts: () => { this.setState({ pfilter: 'draft' }); goTab('projects'); },
+      newRec,
+      toggleHp: () => { const h = !s.headphones; this.setState({ headphones: h, monitoring: h && s.set.monitorPref }); this.toast(h ? 'Wired earphones connected (simulated)' : 'Earphones disconnected (simulated)', h ? 'ok' : 'warn'); },
+      hpTitle: s.headphones ? 'Wired earphones connected' : 'No earphones connected', hpSub: s.headphones ? 'Live monitoring is ready · tap to simulate' : 'Connect wired earphones to hear yourself live',
+      hpDot: s.headphones ? '#EF3349' : '#4A4D55', hpIconColor: s.headphones ? '#F6F6F4' : '#7C7F88',
+      hasRecent: !!recent, recent: recent || { name: '', date: '', durL: '', status: '', open: () => {} }, recentWave: wave(Array.from({ length: 60 }, (_, i) => amp(i, recentP ? recentP.seed || 3 : 3)), 306, 48, { hi: k => k < 22 }),
+      draftCount: s.projects.filter(p => p.status === 'Draft').length, exportCount: s.exportsList.length,
+      recentList: s.projects.slice(1, 4).map(mapP), storageL: '18.4 GB free of 64 GB', storagePct: 71,
+
+      projCountL: s.projects.length + (s.projects.length === 1 ? ' project' : ' projects'), query: s.query, setQuery: e => this.setState({ query: e.target.value }),
+      filterSeg: this.seg([{ v: 'all', l: 'All' }, { v: 'draft', l: 'Drafts' }, { v: 'done', l: 'Completed' }], s.pfilter, v => this.setState({ pfilter: v })),
+      projList, projEmpty: projList.length === 0,
+      emptyTitle: s.projects.length === 0 ? 'Your studio is quiet' : 'Nothing matches', emptyBody: s.projects.length === 0 ? 'Every take you record is saved here as a project you can come back to.' : 'Try another name or filter.',
+
+      expList, expEmpty: expList.length === 0,
+      qualitySeg: this.seg([{ v: '48', l: 'Studio · 48 kHz' }, { v: '44', l: 'Standard · 44.1 kHz' }], s.set.quality, v => setSet('quality', v)),
+      profileRows: [
+        { label: 'Studio settings', icon: IC.gear, go: () => this.setState({ flow: 'settings' }) },
+        { label: 'Personal preferences', icon: IC.user, go: () => this.setState({ flow: 'settings' }) },
+        { label: 'Privacy', icon: IC.shield, go: () => this.setState({ flow: 'settings' }) },
+        { label: 'About Sushifyyyy', icon: IC.info, go: () => dlg({ title: 'About Sushifyyyy', body: 'A private recording studio made for a few talented singers. Your Voice. Your Vibe. Your Stage. Version 1.0 prototype.', ok: 'Close', cancel: 'Back' }) }
+      ],
+      askSignOut: () => dlg({ title: 'Sign out?', body: 'Your projects stay on this phone. You\'ll need your approved account to get back into the Studio.', ok: 'Sign out', cancel: 'Cancel', danger: true, onOk: () => this.setState({ screen: 'login', loginState: 'idle', pw: '', flow: null }) }),
+
+      // flow
+      curName: s.cur ? s.cur.name : '', steps,
+      fRecorder: isApp && flow === 'recorder', fEditor: isApp && flow === 'editor', fKaraoke: isApp && flow === 'karaoke', fVideoDecision: isApp && flow === 'videoDecision',
+      fVideo: isApp && flow === 'video', fSync: isApp && flow === 'sync', fExport: isApp && flow === 'export', fSettings: isApp && flow === 'settings',
+      closeFlow: go({ flow: null }),
+      saveDraft: () => { const d = Math.max(1, Math.round(this.state.elapsed)); this.setState({ cur: Object.assign({}, this.state.cur, { dur: this.state.cur.dur || d }) }, () => { this.addDraftIfNew(); this.toast('Draft saved on this phone'); }); },
+      backRecorder, openSim: go({ sheet: 'sim' }),
+      recLabel: recLabels[rec], recDot: recording ? '#EF3349' : rec === 'paused' ? '#FF6370' : rec === 'denied' ? '#FF6370' : rec === 'finished' ? '#F6F6F4' : '#7C7F88', recChipClass: recording || rec === 'preparing' ? 'pulse' : '',
+      showHpBanner: s.hpBanner && !s.headphones, dismissHp: go({ hpBanner: false }), interrupted: s.interrupted, storageLow: s.storageLow,
+      micDenied: rec === 'denied', micOk: rec !== 'denied', grantMic: () => { this.setState({ rec: 'idle' }); this.toast('Microphone allowed'); },
+      timerL: fmt2(timerT), timerCs: '.' + Math.floor((timerT * 10) % 10), timerColor: recording ? '#F6F6F4' : rec === 'paused' ? '#FF6370' : '#A3A5AE',
+      qualityL: s.set.quality === '48' ? '48 kHz' : '44.1 kHz', noiseL: ({ natural: 'Natural', clean: 'Clean', strong: 'Strong Clean' })[s.noise],
+      recGrid, recWave, playX: playX.toFixed(1), recIdleHint: rec === 'idle', recProcessing: rec === 'processing', recFinished: rec === 'finished', takeL: fmt(s.elapsed),
+      meter, levelPct: Math.round(s.level * 100), levelDb: rec === 'recording' ? (-40 + s.level * 37).toFixed(0) + ' dB' : '—',
+      isRecording: recording, recMain, recMainDisabled: rec === 'preparing' || rec === 'processing', recMainL: rec === 'recording' ? 'Pause' : rec === 'paused' ? 'Resume' : rec === 'finished' ? 'Open editor' : 'Start recording',
+      recShowSpinner: rec === 'preparing' || rec === 'processing', recShowIcon: !(rec === 'preparing' || rec === 'processing'),
+      recIcon: rec === 'recording' ? IC.pause : rec === 'paused' ? IC.mic : rec === 'finished' ? IC.check : IC.mic, recIconClass: 'i',
+      stopRec, stopDisabled: !(recording || rec === 'paused'), stopOpacity: (recording || rec === 'paused') ? 1 : 0.4,
+      recHint: rec === 'idle' ? 'Tap to record' : rec === 'recording' ? 'Tap to pause · square to finish' : rec === 'paused' ? 'Tap to resume · square to finish' : rec === 'preparing' ? 'Getting your mic ready…' : rec === 'finished' ? 'Opening the editor…' : ' ',
+      toggleMonitor: () => { if (!this.state.headphones) return; this.setState({ monitoring: !this.state.monitoring }); },
+      monDisabled: !monAllowed, monOn, monBg: monOn ? '#F6F6F4' : '#14161A', monFg: monOn ? '#14161A' : '#A3A5AE', monOpacity: monAllowed ? 1 : 0.45,
+      monTrack: monOn ? '#EF3349' : '#33363D', monKnob: monOn ? 20 : 0,
+      monSub: !monAllowed ? 'Connect wired earphones to hear yourself while you sing. It\'s off without them to avoid echo and feedback.' : monOn ? 'You\'ll hear your voice in your earphones as you sing.' : 'Turn on to hear yourself in your earphones.',
+      noiseSeg: this.seg([{ v: 'natural', l: 'Natural' }, { v: 'clean', l: 'Clean' }, { v: 'strong', l: 'Strong Clean' }], s.noise, v => this.setState({ noise: v })), noiseDesc: noiseDescs[s.noise],
+
+      backEditor: () => this.setState({ flow: 'recorder', rec: 'finished', edPlay: false }),
+      undo: () => { if (this.state.hi > 0) this.setState({ hi: this.state.hi - 1, lastKey: null }); }, redo: () => { if (this.state.hi < this.state.hist.length - 1) this.setState({ hi: this.state.hi + 1, lastKey: null }); },
+      noUndo: s.hi === 0, noRedo: s.hi >= s.hist.length - 1, undoFg: s.hi === 0 ? '#4A4D55' : '#F6F6F4', redoFg: s.hi >= s.hist.length - 1 ? '#4A4D55' : '#F6F6F4',
+      compareSeg: this.seg([{ v: 'orig', l: 'Original' }, { v: 'enh', l: 'Enhanced' }], s.compare, v => this.setState({ compare: v })),
+      zoomIn: () => this.setState({ zoom: Math.min(8, this.state.zoom * 2) }), zoomOut: () => this.setState({ zoom: Math.max(1, this.state.zoom / 2) }), zoomL: s.zoom + '×',
+      seek: (e) => { const r = e.currentTarget.getBoundingClientRect(); const ratio = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); this.setState({ edPos: vs + ratio * span }); },
+      edGrid, edWave, trimLPct: pctOf(sn.trimS).toFixed(2), trimRPct: (100 - pctOf(trimE)).toFixed(2), edPlayPct: pctOf(s.edPos).toFixed(2),
+      edPosL: fmt(s.edPos), edToggle: () => this.setState({ edPlay: !this.state.edPlay, edPos: this.state.edPos < sn.trimS ? sn.trimS : this.state.edPos }),
+      edPlayL: s.edPlay ? 'Pause' : 'Play', edIcon: s.edPlay ? IC.pause : IC.play, edIconClass: s.edPlay ? 'i' : 'f',
+      trimInfo: 'Length ' + fmt(trimE - sn.trimS) + ' of ' + fmt(D) + (s.compare === 'orig' ? ' · hearing original' : ''),
+      askRestore: () => dlg({ title: 'Restore default effects?', body: 'Resets level, reverb, tone, smoothing, fades and cleanup. Your trim is kept, and you can undo this.', ok: 'Restore', cancel: 'Cancel', onOk: () => { this.change(Object.assign({}, DEF, { trimS: this.snap().trimS, trimE: this.snap().trimE }), null); this.toast('Effects restored to defaults'); } }),
+      groups, cleanSeg: this.seg([{ v: 'natural', l: 'Natural' }, { v: 'clean', l: 'Clean' }, { v: 'strong', l: 'Strong Clean' }], sn.clean, v => this.change({ clean: v }, null)),
+      skipToVideo: () => this.goFlow('videoDecision'), toKaraoke: () => this.goFlow('karaoke'), goEditor: () => this.goFlow('editor'),
+
+      kNone: s.kStage === 'none', kImporting: s.kStage === 'importing', kReady,
+      importK: () => { this.setState({ kStage: 'importing' }); setTimeout(() => { this.setState({ kStage: 'ready' }); this.toast('Karaoke track added'); }, 1200); },
+      askRemoveK: () => dlg({ title: 'Remove karaoke track?', body: 'Your vocals stay as they are. The file on your phone isn\'t deleted.', ok: 'Remove', cancel: 'Keep', danger: true, onOk: () => this.setState({ kStage: 'none', kPlay: false }) }),
+      toggleVM: go({ vMute: !s.vMute }), toggleVS: go({ vSolo: !s.vSolo }), toggleKM: go({ kMute: !s.kMute }), toggleKS: go({ kSolo: !s.kSolo }),
+      vMute: s.vMute, vSolo: s.vSolo, kMute: s.kMute, kSolo: s.kSolo,
+      vMBg: vM.bg, vMFg: vM.fg, vSBg: vS.bg, vSFg: vS.fg, kMBg: kM.bg, kMFg: kM.fg, kSBg: kS.bg, kSFg: kS.fg,
+      vOpacity: vAud ? 1 : 0.35, kOpacity: kAud ? 1 : 0.35, kvWave, kkWave, kShift: kShift.toFixed(1), kTrimPct: (s.kTrim / 222 * 100).toFixed(2), kPlayPct: (s.kPos / D * 100).toFixed(2),
+      kToggle: go({ kPlay: !s.kPlay }), kPlayL: s.kPlay ? 'Pause mix preview' : 'Play mix preview', kIcon: s.kPlay ? IC.pause : IC.play, kIconClass: s.kPlay ? 'i' : 'f', kPosL: fmt(s.kPos) + ' / ' + fmt(D), mixL,
+      kSliders, skipKaraoke, toVideoDecision: () => { this.setState({ kPlay: false }); this.goFlow('videoDecision'); },
+      skipKClass: kReady ? '' : 'gloss', skipKBg: kReady ? '#14161A' : 'linear-gradient(180deg,#FFFFFF,#E2E2DF)', skipKFg: kReady ? '#F6F6F4' : '#14161A',
+
+      backFromDecision: () => this.goFlow(this.state.kStage === 'ready' ? 'karaoke' : 'editor'),
+      chooseVideo: () => this.goFlow(this.state.hasVideo ? 'sync' : 'video'),
+      skipVideo: () => this.setState({ exKind: 'audio' }, () => this.goFlow('export')),
+
+      backFromVideo: () => { if (this.state.vRec === 'recording') this.setState({ vRec: 'idle', vTime: 0 }); this.goFlow('videoDecision'); },
+      vTimeL: fmt2(s.vTime), vDot: vRecording ? '#EF3349' : '#7C7F88', vDotClass: vRecording ? 'pulse' : '',
+      flipCam: () => this.setState({ front: !this.state.front }), camL: s.front ? 'Front camera' : 'Back camera',
+      vGuide: vRecording ? 'Your mix is playing in your earphones — sing along.' : s.headphones ? 'When you start, your finished mix plays in your earphones so you can perform in sync.' : 'Connect earphones for the best sync. Without them, the mix plays quietly from your speaker.',
+      vRecorded, vNoTake: !vRecorded, vTakeOpacity: vRecorded ? 1 : 0.4,
+      retake: () => this.setState({ vRec: 'idle', vTime: 0 }), vMain, vMainL: vRecording ? 'Stop video' : 'Record video',
+      vInner: vRecording ? 30 : 64, vInnerR: vRecording ? 8 : 32,
+      toSync: () => this.goFlow('sync'), goVideo: () => this.goFlow('video'),
+
+      syncToggle: go({ syncPlay: !s.syncPlay }), syncPlayL: s.syncPlay ? 'Pause preview' : 'Play preview', syncOverlay: s.syncPlay ? 0 : 1,
+      syncPosL: fmt(s.syncPos), syncDurL: fmt(D), syncBadge: inSync ? 'In sync' : 'Check sync', syncBadgeFg: inSync ? '#F6F6F4' : '#FF6370',
+      frames, syncTrimPct: (s.syncTrim / D * 100).toFixed(2), syncPlayPct: (s.syncPos / D * 100).toFixed(2), syncShift: syncShift.toFixed(1), syncWave, syncSliders,
+      autoSync: () => { this.setState({ syncOffset: 80 }); this.toast('Synced — audio moved +80 ms'); },
+      toExport: () => this.setState({ exKind: 'video', syncPlay: false }, () => this.goFlow('export')),
+
+      backFromExport: () => this.goFlow(this.state.hasVideo ? 'sync' : 'videoDecision'),
+      exBusy: exRunning, exForm: s.exPhase === 'form', exRunning, exSuccess: s.exPhase === 'success', exFailed: s.exPhase === 'failed',
+      exName: s.exName, setExName: e => this.setState({ exName: e.target.value }),
+      kindSeg: this.seg([{ v: 'audio', l: 'Audio only' }, { v: 'video', l: 'Video', dis: !s.hasVideo }], s.exKind, v => { if (v === 'video' && !this.state.hasVideo) return; this.setState({ exKind: v }); }),
+      noVideoNote: !s.hasVideo, exAudio: s.exKind === 'audio', exVideo: s.exKind === 'video',
+      fmtSeg: this.seg([{ v: 'wav', l: 'WAV' }, { v: 'm4a', l: 'AAC / M4A' }], s.exFmt, v => this.setState({ exFmt: v })),
+      fmtDesc: s.exFmt === 'wav' ? 'Lossless — best for further mixing. Bigger files.' : 'Smaller files that sound great for sharing.',
+      resSeg: this.seg([{ v: '720', l: '720p' }, { v: '1080', l: '1080p' }], s.exRes, v => this.setState({ exRes: v })),
+      qSeg: this.seg([{ v: 'std', l: 'Standard' }, { v: 'high', l: 'High' }, { v: 'studio', l: 'Studio' }], s.exQ, v => this.setState({ exQ: v })),
+      locL: LOCS[s.exLoc], cycleLoc: () => this.setState({ exLoc: (this.state.exLoc + 1) % LOCS.length }),
+      estFmt: this.fmtLong().split(' · ')[0], estDur: fmt(trimE - sn.trimS), estSize: this.estSize(), exExt: this.ext(),
+      simFail: s.simFail, toggleSimFail: () => this.setState({ simFail: !this.state.simFail }),
+      exportBtnL: s.exKind === 'video' ? 'Export video' : 'Export audio', startExport,
+      ringOffset: (502.65 * (1 - s.exProg / 100)).toFixed(1), exPctInt: Math.floor(s.exProg), exPhaseL,
+      canCancel: exRunning && s.exProg < 82, savingNoCancel: exRunning && s.exProg >= 82,
+      cancelExport: () => { this.setState({ exPhase: 'form', exProg: 0 }); this.toast('Export cancelled', 'warn'); },
+      backToForm: go({ exPhase: 'form', exProg: 0 }),
+      goExportsTab: () => { this.setState({ flow: null }); goTab('exports'); }, goHomeTab: () => { this.setState({ flow: null }); goTab('home'); },
+
+      setSegs, setToggles, askClearCache: () => dlg({ title: 'Clear cache?', body: 'Frees 38 MB of temporary waveform previews. Your projects and exports are not touched.', ok: 'Clear', cancel: 'Cancel', onOk: () => this.toast('Cache cleared') }),
+
+      hasToast: !!t, toastMsg: t ? t.msg : '', toastBg: t && t.kind === 'warn' ? '#701C2B' : '#F6F6F4', toastFg: t && t.kind === 'warn' ? '#FF6370' : '#14161A', toastIcon: t && t.kind === 'warn' ? IC.alert : IC.check,
+      hasSheet: !!s.sheet, closeSheet: go({ sheet: null }), sheetTitle, sheetActions, infoRows, sheetRename: s.sheet === 'rename', sheetInfo: s.sheet === 'info',
+      renameVal: s.renameVal, setRename: e => this.setState({ renameVal: e.target.value }),
+      doRename: () => { const v = this.state.renameVal.trim(); if (!v) return; this.setState({ projects: this.state.projects.map(p => p.id === this.state.sel ? Object.assign({}, p, { name: v }) : p), sheet: null }); this.toast('Renamed'); },
+      hasDialog: !!d, dlgTitle: d ? d.title : '', dlgBody: d ? d.body : '', dlgOkL: d ? d.ok : '', dlgCancelL: d ? d.cancel : '',
+      dlgOkBg: d && d.danger ? '#EF3349' : 'linear-gradient(180deg,#FFFFFF,#E2E2DF)', dlgOkFg: d && d.danger ? '#FFFFFF' : '#14161A',
+      dlgOk: () => { const f = d && d.onOk; this.setState({ dialog: null }); if (f) f(); }, dlgCancel: go({ dialog: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

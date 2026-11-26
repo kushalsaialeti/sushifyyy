@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sushifyyyy admin app</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#08090B}
+.adm,.adm *{box-sizing:border-box}.adm{font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.tex2{background-color:#08090B;background-image:radial-gradient(rgba(246,246,244,.045) .6px,transparent .8px),radial-gradient(rgba(163,165,174,.035) .5px,transparent .7px),radial-gradient(120% 60% at 50% 0%,rgba(51,54,61,.22),transparent 70%);background-size:3px 3px,7px 7px,100% 100%}
+.gloss{background:linear-gradient(180deg,#FFFFFF 0%,#F6F6F4 48%,#E2E2DF 100%);color:#14161A;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.10),0 8px 20px rgba(0,0,0,.45)}
+.adm button{font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}.adm button:disabled{cursor:default}
+.press{transition:transform 140ms ease,opacity 140ms,background 200ms,color 200ms}.press:active:not(:disabled){transform:scale(.96)}
+svg.i{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.scr{animation:scrIn 280ms cubic-bezier(.2,.8,.2,1) both}@keyframes scrIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sheet{animation:sheetUp 340ms cubic-bezier(.2,.9,.25,1) both}@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.fade{animation:fadeIn 250ms ease both}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{animation:modalIn 250ms cubic-bezier(.2,.9,.3,1) both}@keyframes modalIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.pop{animation:pop 360ms cubic-bezier(.3,1.4,.5,1) both}@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.noscroll::-webkit-scrollbar{display:none}.noscroll{scrollbar-width:none}
+.adm input{font-family:inherit;outline:none}.adm input::placeholder{color:#7C7F88}
+.adm input:focus-visible,.adm button:focus-visible{outline:2px solid #FF6370;outline-offset:2px}
+</style>
+</helmet>
+<div class="adm tex2" style="position: relative; width: 390px; height: 844px; overflow: hidden; color: #F6F6F4; background-color: #08090B">
+
+<!-- ADMIN · OVERVIEW -->
+<sc-if value="{{tOverview}}" hint-placeholder-val="{{true}}">
+<div class="scr noscroll" style="position: absolute; inset: 0 0 88px 0; overflow-y: auto; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<div><div style="font-size: 14px; color: #A3A5AE">Super Admin</div><h1 style="margin: 2px 0 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">Studio overview</h1></div>
+<span style="display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 999px; background: #14161A; border: 1px solid #26282E; font-size: 12px; color: #A3A5AE"><svg class="i" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.shield}}"></path></svg>Admin</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{stats}}" as="st" hint-placeholder-count="3">
+<button onClick="{{st.go}}" class="press" style="background: #14161A; border: 1px solid #1F2126; border-radius: 18px; padding: 14px 12px; color: #F6F6F4; text-align: left">
+<span style="display: block; font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums">{{st.n}}</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px">{{st.label}}</span>
+</button>
+</sc-for>
+</div>
+<section style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; justify-content: space-between"><h2 style="margin: 0; font-size: 18px; font-weight: 600">Waiting for you</h2><button onClick="{{goPendingList}}" style="background: none; border: 0; color: #A3A5AE; font-size: 13px; min-height: 44px">See all</button></div>
+<sc-for list="{{pendingList}}" as="c" hint-placeholder-count="2">
+<div class="fade" style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 12px">
+<span style="width: 42px; height: 42px; border-radius: 50%; background: #1D1F24; border: 1px solid #33363D; display: flex; align-items: center; justify-content: center; font-weight: 600">{{c.initial}}</span>
+<span style="flex: 1; min-width: 0"><span style="display: block; font-size: 15px; font-weight: 600">{{c.name}}</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{c.email}} · {{c.kind}} · {{c.when}}</span></span>
+</div>
+<div style="display: flex; gap: 8px">
+<button onClick="{{c.decline}}" class="press" style="flex: 1; height: 42px; border-radius: 12px; background: transparent; border: 1px solid #33363D; color: #A3A5AE; font-size: 14px">Decline</button>
+<button onClick="{{c.grant}}" class="press gloss" style="flex: 1.4; height: 42px; border-radius: 12px; border: 0; font-size: 14px; font-weight: 600">Grant access</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{noPending}}" hint-placeholder-val="{{false}}"><div style="padding: 18px; border-radius: 18px; border: 1px dashed #33363D; text-align: center; font-size: 13px; color: #A3A5AE">No requests waiting. Invite a singer with the + button.</div></sc-if>
+</section>
+<section style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; justify-content: space-between"><span style="font-size: 15px; font-weight: 600">Feature visibility</span><button onClick="{{goFeatures}}" style="background: none; border: 0; color: #A3A5AE; font-size: 13px; min-height: 36px">Manage</button></div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{featChips}}" as="f" hint-placeholder-count="6"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 6px 10px; border-radius: 999px; background: #0E0F12; border: 1px solid #26282E; color: {{f.fg}}"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{f.dot}}"></span>{{f.name}}</span></sc-for>
+</div>
+</section>
+<section style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; justify-content: space-between"><h2 style="margin: 0; font-size: 18px; font-weight: 600">Recent activity</h2><button onClick="{{goAudit}}" style="background: none; border: 0; color: #A3A5AE; font-size: 13px; min-height: 44px">Audit log</button></div>
+<sc-for list="{{logShort}}" as="l" hint-placeholder-count="3">
+<div style="display: flex; gap: 12px; padding: 10px 2px; border-top: 1px solid #16181C"><span style="width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; background: {{l.dot}}; flex-shrink: 0"></span><div><div style="font-size: 14px">{{l.text}}</div><div style="font-size: 12px; color: #7C7F88; margin-top: 2px">{{l.when}}</div></div></div>
+</sc-for>
+</section>
+</div>
+</sc-if>
+
+<!-- ADMIN · CREATORS -->
+<sc-if value="{{tCreators}}" hint-placeholder-val="{{false}}">
+<div class="scr noscroll" style="position: absolute; inset: 0 0 88px 0; overflow-y: auto; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 14px">
+<div><h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">Creators</h1><div style="font-size: 13px; color: #A3A5AE; margin-top: 4px">Who can use the Studio, and what they can use</div></div>
+<div style="position: relative">
+<svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="position: absolute; left: 14px; top: 15px; color: #7C7F88"><path d="{{ic.search}}"></path></svg>
+<input type="search" aria-label="Search creators" value="{{query}}" onChange="{{setQuery}}" placeholder="Search by name or email" style="width: 100%; height: 48px; border-radius: 14px; background: #14161A; border: 1px solid #26282E; color: #F6F6F4; padding: 0 14px 0 42px; font-size: 15px">
+</div>
+<div role="radiogroup" aria-label="Filter creators" style="display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{statusSeg}}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 38px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<sc-for list="{{creatorList}}" as="c" hint-placeholder-count="3">
+<button onClick="{{c.open}}" class="press fade" style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 14px; color: #F6F6F4; text-align: left; display: flex; flex-direction: column; gap: 12px">
+<span style="display: flex; align-items: center; gap: 12px; width: 100%">
+<span style="width: 44px; height: 44px; border-radius: 50%; background: #1D1F24; border: 1px solid #33363D; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px">{{c.initial}}</span>
+<span style="flex: 1; min-width: 0"><span style="display: block; font-size: 16px; font-weight: 600">{{c.name}}</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{c.email}}</span></span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; padding: 5px 9px; border-radius: 8px; border: 1px solid #33363D; color: {{c.badgeFg}}"><span style="width: 6px; height: 6px; border-radius: 50%; background: {{c.badgeDot}}"></span>{{c.statusL}}</span>
+</span>
+<span style="font-size: 12px; color: #A3A5AE; line-height: 1.4">{{c.summary}}</span>
+</button>
+</sc-for>
+<sc-if value="{{creatorEmpty}}" hint-placeholder-val="{{false}}"><div style="padding: 40px 16px; text-align: center; font-size: 14px; color: #A3A5AE">No creators here.</div></sc-if>
+</div>
+</sc-if>
+
+<!-- ADMIN · CREATOR PERMISSIONS -->
+<sc-if value="{{fCreator}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{closeFlow}}" aria-label="Back" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.back}}"></path></svg></button>
+<div style="flex: 1; text-align: center; font-size: 15px; font-weight: 600; margin-right: 52px">Permissions</div>
+</div>
+<div class="noscroll" style="flex: 1; overflow-y: auto; padding: 8px 16px 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 22px; padding: 18px; display: flex; align-items: center; gap: 14px">
+<span style="width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #3A3D44, #1D1F24); border: 1px solid #33363D; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 600">{{cd.initial}}</span>
+<div style="flex: 1; min-width: 0"><div style="font-size: 19px; font-weight: 600">{{cd.name}}</div><div style="font-size: 13px; color: #A3A5AE; margin-top: 2px">{{cd.email}}</div><div style="font-size: 12px; color: #7C7F88; margin-top: 6px">{{cd.meta}}</div></div>
+</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 14px 16px; display: flex; align-items: center; gap: 12px">
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 600">Studio access</div><div style="font-size: 12px; color: #A3A5AE; margin-top: 2px; line-height: 1.4">{{accessSub}}</div></div>
+<button onClick="{{toggleAccess}}" role="switch" aria-checked="{{accessOn}}" aria-label="Studio access" style="width: 52px; height: 32px; border-radius: 999px; border: 0; padding: 3px; background: {{accessTrack}}; transition: background 220ms; flex-shrink: 0"><span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: #F6F6F4; transform: translateX({{accessKnob}}px); transition: transform 260ms cubic-bezier(.3,1.3,.5,1)"></span></button>
+</div>
+<div style="font-size: 13px; color: #A3A5AE; font-weight: 500; padding: 4px 4px 0">Features for {{cd.name}}</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; overflow: hidden; opacity: {{permOpacity}}">
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #1D1F24">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #A3A5AE"><path d="{{ic.mic}}"></path></svg>
+<div style="flex: 1"><div style="font-size: 15px; font-weight: 500">Voice recording &amp; editing</div><div style="font-size: 12px; color: #A3A5AE; margin-top: 2px">Always included with Studio access</div></div>
+<span style="font-size: 12px; color: #7C7F88">Included</span>
+</div>
+<sc-for list="{{perms}}" as="p" hint-placeholder-count="6">
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #1D1F24">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #A3A5AE"><path d="{{p.icon}}"></path></svg>
+<div style="flex: 1; min-width: 0"><div style="font-size: 15px; font-weight: 500">{{p.name}}</div><div style="font-size: 12px; color: {{p.subFg}}; margin-top: 2px; line-height: 1.4">{{p.sub}}</div></div>
+<button onClick="{{p.toggle}}" disabled="{{p.dis}}" role="switch" aria-checked="{{p.on}}" aria-label="{{p.name}}" style="width: 52px; height: 32px; border-radius: 999px; border: 0; padding: 3px; background: {{p.track}}; opacity: {{p.op}}; transition: background 220ms; flex-shrink: 0"><span style="display: block; width: 26px; height: 26px; border-radius: 50%; background: #F6F6F4; transform: translateX({{p.knob}}px); transition: transform 260ms cubic-bezier(.3,1.3,.5,1)"></span></button>
+</div>
+</sc-for>
+</div>
+<button onClick="{{askRevoke}}" class="press" style="height: 50px; border-radius: 16px; background: transparent; border: 1px solid #33363D; color: #FF6370; font-size: 15px; font-weight: 500">{{revokeL}}</button>
+<div style="font-size: 12px; color: #7C7F88; line-height: 1.5; padding: 0 4px">Changes are checked by the server before they apply, and recorded in the audit log. {{cd.name}} sees them the next time the app opens.</div>
+</div>
+<div style="padding: 12px 16px 14px; background: #0B0C0F; border-top: 1px solid #1A1C20">
+<button onClick="{{savePerms}}" disabled="{{permsClean}}" class="press gloss" style="width: 100%; height: 52px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600; opacity: {{saveOpacity}}">{{saveL}}</button>
+</div>
+</div>
+</sc-if>
+
+<!-- ADMIN · INVITE -->
+<sc-if value="{{fInvite}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div style="display: flex; align-items: center; gap: 8px; padding: 14px 16px 6px">
+<button onClick="{{closeFlow}}" aria-label="Close" class="press" style="width: 44px; height: 44px; border-radius: 12px; border: 1px solid #23252B; background: #14161A; color: #F6F6F4; display: flex; align-items: center; justify-content: center"><svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="{{ic.x}}"></path></svg></button>
+<div style="flex: 1; text-align: center; font-size: 15px; font-weight: 600; margin-right: 52px">Invite a creator</div>
+</div>
+<div class="noscroll" style="flex: 1; overflow-y: auto; padding: 8px 16px 16px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 14px; color: #A3A5AE; line-height: 1.5">They'll get an email to sign in. Access starts as soon as they accept.</p>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="inv-name" style="font-size: 13px; color: #A3A5AE; font-weight: 500">Display name</label><input id="inv-name" type="text" value="{{invName}}" onChange="{{setInvName}}" placeholder="e.g. Ananya" style="height: 52px; border-radius: 14px; background: #14161A; border: 1px solid #26282E; color: #F6F6F4; padding: 0 16px; font-size: 16px"></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><label for="inv-email" style="font-size: 13px; color: #A3A5AE; font-weight: 500">Email</label><input id="inv-email" type="email" value="{{invEmail}}" onChange="{{setInvEmail}}" placeholder="name@example.com" style="height: 52px; border-radius: 14px; background: #14161A; border: 1px solid {{invBorder}}; color: #F6F6F4; padding: 0 16px; font-size: 16px"><sc-if value="{{invBad}}" hint-placeholder-val="{{false}}"><span style="font-size: 12px; color: #FF6370">Enter a valid email address.</span></sc-if></div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #A3A5AE; font-weight: 500">Starting features</span>
+<div role="radiogroup" aria-label="Starting features" style="display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{presetSeg}}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 40px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<span style="font-size: 12px; color: #7C7F88; line-height: 1.45">{{presetDesc}}</span>
+</div>
+<div style="background: #0E0F12; border: 1px solid #1F2126; border-radius: 16px; padding: 14px 16px; display: flex; gap: 10px; font-size: 12px; line-height: 1.5; color: #A3A5AE"><svg class="i" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 1px"><path d="{{ic.shield}}"></path></svg><span>You can change their features or remove access at any time from Creators.</span></div>
+</div>
+<div style="padding: 12px 16px 14px; background: #0B0C0F; border-top: 1px solid #1A1C20">
+<button onClick="{{sendInvite}}" class="press gloss" style="width: 100%; height: 52px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600">Send invite</button>
+</div>
+</div>
+</sc-if>
+
+<!-- ADMIN · FEATURES -->
+<sc-if value="{{tFeatures}}" hint-placeholder-val="{{false}}">
+<div class="scr" style="position: absolute; inset: 0 0 88px 0; display: flex; flex-direction: column">
+<div class="noscroll" style="flex: 1; overflow-y: auto; padding: 24px 16px 20px; display: flex; flex-direction: column; gap: 14px">
+<div><h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">Features</h1><div style="font-size: 13px; color: #A3A5AE; margin-top: 4px; line-height: 1.45">Show or hide parts of the Studio for every creator. Hidden features disappear from the app — they aren't just greyed out.</div></div>
+<sc-for list="{{featRows}}" as="f" hint-placeholder-count="7">
+<button onClick="{{f.open}}" class="press" style="background: #14161A; border: 1px solid {{f.border}}; border-radius: 18px; padding: 14px; color: #F6F6F4; text-align: left; display: flex; align-items: center; gap: 12px">
+<span style="width: 40px; height: 40px; border-radius: 12px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: {{f.iconFg}}"><svg class="i" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{f.icon}}"></path></svg></span>
+<span style="flex: 1; min-width: 0"><span style="display: block; font-size: 15px; font-weight: 600">{{f.name}}</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px">{{f.desc}}</span></span>
+<span style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px"><span style="font-size: 12px; font-weight: 600; padding: 4px 9px; border-radius: 8px; background: {{f.pillBg}}; color: {{f.pillFg}}">{{f.visL}}</span><sc-if value="{{f.changed}}" hint-placeholder-val="{{false}}"><span style="font-size: 10.5px; color: #FF6370">Unpublished</span></sc-if></span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{featDirty}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="padding: 12px 16px 14px; background: #0B0C0F; border-top: 1px solid #1A1C20; display: flex; gap: 10px">
+<button onClick="{{discardFeat}}" class="press" style="flex: 1; height: 50px; border-radius: 16px; background: #14161A; border: 1px solid #33363D; color: #F6F6F4; font-size: 14px">Discard</button>
+<button onClick="{{askPublish}}" class="press gloss" style="flex: 1.5; height: 50px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600">{{publishL}}</button>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ADMIN · AUDIT -->
+<sc-if value="{{tAudit}}" hint-placeholder-val="{{false}}">
+<div class="scr noscroll" style="position: absolute; inset: 0 0 88px 0; overflow-y: auto; padding: 24px 16px 28px; display: flex; flex-direction: column; gap: 14px">
+<div><h1 style="margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.02em">Audit log</h1><div style="font-size: 13px; color: #A3A5AE; margin-top: 4px">Every access and feature change, newest first</div></div>
+<div role="radiogroup" aria-label="Filter log" style="display: flex; padding: 4px; gap: 4px; background: #14161A; border: 1px solid #26282E; border-radius: 14px">
+<sc-for list="{{logSeg}}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="flex: 1; min-height: 38px; border: 0; border-radius: 10px; font-size: 13px; font-weight: {{o.fw}}; background: {{o.bg}}; color: {{o.fg}}">{{o.label}}</button></sc-for>
+</div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 4px 16px">
+<sc-for list="{{logList}}" as="l" hint-placeholder-count="6">
+<div style="display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #1D1F24">
+<span style="width: 32px; height: 32px; border-radius: 10px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: {{l.dot}}; flex-shrink: 0"><svg class="i" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="{{l.icon}}"></path></svg></span>
+<div style="flex: 1; min-width: 0"><div style="font-size: 14px; line-height: 1.4">{{l.text}}</div><div style="font-size: 12px; color: #7C7F88; margin-top: 3px">{{l.when}} · by Super Admin</div></div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<!-- ADMIN · BOTTOM NAV -->
+<nav aria-label="Admin" style="position: absolute; left: 0; right: 0; bottom: 0; height: 88px; z-index: 20">
+<div style="position: absolute; inset: 0; background: #14161A; border-top: 1px solid #23252B; box-shadow: 0 -12px 30px rgba(0,0,0,.45)"></div>
+<div style="position: absolute; left: 0; top: 8px; width: 20%; height: 52px; z-index: 1; transform: translateX({{indX}}%); transition: transform 460ms cubic-bezier(.34,1.42,.56,1); pointer-events: none" aria-hidden="true">
+<div class="gloss" style="margin: 0 auto; width: 62px; height: 52px; border-radius: 18px; transform: scaleX({{indScale}}); opacity: {{indOpacity}}; transition: transform 240ms cubic-bezier(.3,.8,.3,1), opacity 240ms; box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.35)"></div>
+</div>
+<div style="position: absolute; left: 0; right: 0; top: 8px; height: 52px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); z-index: 2">
+<sc-for list="{{tabsLeft}}" as="t" hint-placeholder-count="2">
+<button onClick="{{t.go}}" aria-label="{{t.label}}" aria-current="{{t.cur}}" style="background: transparent; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: {{t.color}}; transition: color 260ms; position: relative">
+<svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="transform: translateY({{t.lift}}px); transition: transform 300ms"><path d="{{t.d}}"></path></svg>
+<span style="font-size: 10.5px; font-weight: {{t.fw}}">{{t.label}}</span>
+<sc-if value="{{t.badge}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 4px; left: 50%; margin-left: 6px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: #EF3349; color: #FFFFFF; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{t.badgeN}}</span></sc-if>
+</button>
+</sc-for>
+<span aria-hidden="true"></span>
+<sc-for list="{{tabsRight}}" as="t" hint-placeholder-count="2">
+<button onClick="{{t.go}}" aria-label="{{t.label}}" aria-current="{{t.cur}}" style="background: transparent; border: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: {{t.color}}; transition: color 260ms; position: relative">
+<svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="transform: translateY({{t.lift}}px); transition: transform 300ms"><path d="{{t.d}}"></path></svg>
+<span style="font-size: 10.5px; font-weight: {{t.fw}}">{{t.label}}</span>
+<sc-if value="{{t.badge}}" hint-placeholder-val="{{false}}"><span style="position: absolute; top: 4px; left: 50%; margin-left: 6px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: #EF3349; color: #FFFFFF; font-size: 10px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{t.badgeN}}</span></sc-if>
+</button>
+</sc-for>
+</div>
+<div style="position: absolute; left: 50%; top: -24px; width: 80px; height: 25px; margin-left: -40px; overflow: hidden; z-index: 3" aria-hidden="true"><div style="width: 80px; height: 80px; border-radius: 50%; background: #14161A; border: 1px solid #23252B"></div></div>
+<sc-if value="{{fInvite}}" hint-placeholder-val="{{false}}"><span aria-hidden="true" style="position: absolute; left: 50%; top: -23px; width: 70px; height: 70px; margin-left: -35px; border-radius: 50%; border: 2px solid rgba(246,246,244,.85); z-index: 4; pointer-events: none"></span></sc-if>
+<button onClick="{{openInvite}}" aria-label="Invite a creator" class="press" style="position: absolute; left: 50%; top: -18px; width: 60px; height: 60px; margin-left: -30px; border-radius: 50%; border: 0; z-index: 4; color: #FFFFFF; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 36% 28%, #FF7C88 0%, #EF3349 46%, #CF2A3F 100%); box-shadow: 0 0 22px rgba(239,51,73,.38), 0 8px 16px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.35), inset 0 -2px 4px rgba(112,28,43,.45)">
+<svg class="i" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.4"><path d="{{ic.plus}}"></path></svg>
+</button>
+</nav>
+
+<!-- OVERLAYS -->
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{false}}">
+<div class="pop" role="status" style="position: absolute; left: 16px; right: 16px; top: 14px; z-index: 60; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 16px; background: #1D1F24; border: 1px solid #33363D; box-shadow: 0 12px 30px rgba(0,0,0,.55); font-size: 14px">
+<span style="width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #F6F6F4; color: #14161A"><svg class="i" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.6"><path d="{{ic.check}}"></path></svg></span>
+<span style="flex: 1">{{toastMsg}}</span>
+</div>
+</sc-if>
+
+<sc-if value="{{hasSheet}}" hint-placeholder-val="{{false}}">
+<div style="position: absolute; inset: 0; z-index: 40">
+<button onClick="{{closeSheet}}" aria-label="Close" class="fade" style="position: absolute; inset: 0; border: 0; background: rgba(0,0,0,.6)"></button>
+<div class="sheet" role="dialog" aria-label="{{sf.name}}" style="position: absolute; left: 0; right: 0; bottom: 0; max-height: 760px; overflow-y: auto; background: #14161A; border-top: 1px solid #26282E; border-radius: 28px 28px 0 0; padding: 10px 16px 28px; display: flex; flex-direction: column; gap: 12px">
+<span style="align-self: center; width: 40px; height: 5px; border-radius: 3px; background: #33363D"></span>
+<div><div style="font-size: 20px; font-weight: 600">{{sf.name}}</div><div style="font-size: 13px; color: #A3A5AE; margin-top: 4px; line-height: 1.45">{{sf.long}}</div></div>
+<div role="radiogroup" aria-label="Who can see this feature" style="display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{visOpts}}" as="o" hint-placeholder-count="3">
+<button role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" class="press" style="display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 16px; background: {{o.bg}}; border: 1px solid {{o.border}}; color: #F6F6F4; text-align: left">
+<span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid {{o.ring}}; display: flex; align-items: center; justify-content: center"><span style="width: 10px; height: 10px; border-radius: 50%; background: {{o.dot}}"></span></span>
+<span style="flex: 1"><span style="display: block; font-size: 15px; font-weight: 500">{{o.label}}</span><span style="display: block; font-size: 12px; color: #A3A5AE; margin-top: 2px">{{o.sub}}</span></span>
+</button>
+</sc-for>
+</div>
+<sc-if value="{{showSelected}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="display: flex; flex-direction: column; gap: 4px; background: #0E0F12; border: 1px solid #1F2126; border-radius: 16px; padding: 6px 14px">
+<sc-for list="{{selCreators}}" as="c" hint-placeholder-count="3">
+<button onClick="{{c.toggle}}" role="checkbox" aria-checked="{{c.on}}" style="display: flex; align-items: center; gap: 12px; min-height: 48px; background: none; border: 0; color: #F6F6F4; text-align: left; font-size: 14px">
+<span style="width: 22px; height: 22px; border-radius: 7px; border: 2px solid {{c.ring}}; background: {{c.fill}}; color: #14161A; display: flex; align-items: center; justify-content: center"><sc-if value="{{c.on}}" hint-placeholder-val="{{false}}"><svg class="i" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 3"><path d="{{ic.check}}"></path></svg></sc-if></span>
+<span style="flex: 1">{{c.name}}</span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<button onClick="{{closeSheet}}" class="press gloss" style="height: 50px; border-radius: 16px; border: 0; font-size: 15px; font-weight: 600">Done</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{hasDialog}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="position: absolute; inset: 0; z-index: 50; background: rgba(0,0,0,.66); display: flex; align-items: center; justify-content: center; padding: 24px">
+<div class="modal" role="alertdialog" aria-label="{{dlgTitle}}" style="width: 100%; background: #14161A; border: 1px solid #26282E; border-radius: 26px; padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 20px 50px rgba(0,0,0,.6)">
+<div style="font-size: 20px; font-weight: 600">{{dlgTitle}}</div>
+<div style="font-size: 14px; color: #A3A5AE; line-height: 1.5; white-space: pre-line">{{dlgBody}}</div>
+<div style="display: flex; gap: 10px; margin-top: 10px">
+<button onClick="{{dlgCancel}}" class="press" style="flex: 1; height: 50px; border-radius: 14px; background: #1D1F24; border: 1px solid #33363D; color: #F6F6F4; font-size: 15px">{{dlgCancelL}}</button>
+<button onClick="{{dlgOk}}" class="press" style="flex: 1; height: 50px; border-radius: 14px; border: 0; font-size: 15px; font-weight: 600; background: {{dlgOkBg}}; color: {{dlgOkFg}}">{{dlgOkL}}</button>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":null,"tsType":"string"},"frozen":{"editor":null,"tsType":"boolean"},"$preview":{"width":390,"height":844}}'>
+const IC = {
+  grid: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
+  users: "M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 21a7 7 0 0 1 14 0M16 3.5a4 4 0 0 1 0 7.5M22 21a7 7 0 0 0-4-6.3",
+  sliders: "M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M14 4v4M8 10v4M16 16v4",
+  list: "M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01",
+  plus: "M12 5v14M5 12h14", back: "M15 18l-6-6 6-6", x: "M6 6l12 12M18 6 6 18", check: "M5 12.5l4.5 4.5L19 7",
+  search: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-3.5-3.5",
+  shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  mic: "M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3",
+  hp: "M4 15v-3a8 8 0 0 1 16 0v3M4 15a2 2 0 0 1 2-2h1v7H6a2 2 0 0 1-2-2zM20 15a2 2 0 0 0-2-2h-1v7h1a2 2 0 0 0 2-2z",
+  music: "M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
+  video: "M3 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM16 10l5-3v10l-5-3",
+  wave: "M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2",
+  sparkle: "M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6",
+  file: "M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6",
+  gauge: "M12 14l4-4M3.5 18a9 9 0 1 1 17 0",
+  lock: "M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4",
+  key: "M15 7a4 4 0 1 1-3.9 5H9v2H7v2H4v-3l6.1-6.1A4 4 0 0 1 15 7z",
+  eye: "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+};
+const FEATURES = [
+  { id: 'karaoke', name: 'Karaoke import', desc: 'Sing over an instrumental', long: 'Lets creators import their own karaoke or instrumental file and mix it with their vocals.', icon: IC.music },
+  { id: 'video', name: 'Performance video', desc: 'Camera, sync and MP4 export', long: 'Adds the optional video step: filming, syncing and exporting MP4.', icon: IC.video },
+  { id: 'monitor', name: 'Live monitoring', desc: 'Hear yourself in earphones', long: 'Lets creators hear their voice live while recording with wired earphones.', icon: IC.hp },
+  { id: 'noise', name: 'Noise reduction', desc: 'Natural and Clean modes', long: 'Noise cleanup while recording and in the editor.', icon: IC.wave },
+  { id: 'strong', name: 'Strong Clean mode', desc: 'Heavier noise cleanup', long: 'An extra-strong cleanup option. Can make voices sound thin, so it is hidden while we tune it.', icon: IC.sparkle },
+  { id: 'wav', name: 'WAV export', desc: 'Lossless audio files', long: 'Lets creators export uncompressed WAV files alongside AAC/M4A.', icon: IC.file },
+  { id: 'studio', name: 'Studio quality (96 kHz)', desc: 'Highest export quality', long: 'Unlocks the Studio quality option on export. Files are much larger.', icon: IC.gauge }
+];
+const PUB = { karaoke: { vis: 'all', sel: [] }, video: { vis: 'selected', sel: ['c1', 'c3'] }, monitor: { vis: 'all', sel: [] }, noise: { vis: 'all', sel: [] }, strong: { vis: 'hidden', sel: [] }, wav: { vis: 'all', sel: [] }, studio: { vis: 'hidden', sel: [] } };
+const ALLP = { karaoke: true, video: true, monitor: true, noise: true, strong: true, wav: true, studio: true };
+const CREATORS = [
+  { id: 'c1', name: 'Sushi', email: 'sushi@example.com', status: 'approved', since: 'Oct 2026', projects: 4, perms: Object.assign({}, ALLP) },
+  { id: 'c2', name: 'Meera', email: 'meera@example.com', status: 'approved', since: 'Nov 12', projects: 2, perms: Object.assign({}, ALLP, { video: false, wav: false }) },
+  { id: 'c3', name: 'Kabir', email: 'kabir@example.com', status: 'approved', since: 'Nov 24', projects: 1, perms: Object.assign({}, ALLP, { karaoke: false }) },
+  { id: 'c4', name: 'Ananya', email: 'ananya@example.com', status: 'pending', kind: 'Requested access', when: '2h ago', perms: Object.assign({}, ALLP) },
+  { id: 'c5', name: 'Rohan', email: 'rohan@example.com', status: 'pending', kind: 'Invitation sent', when: 'Yesterday', perms: Object.assign({}, ALLP, { video: false }) },
+  { id: 'c6', name: 'Test account', email: 'test@example.com', status: 'revoked', since: 'Nov 3', projects: 0, perms: Object.assign({}, ALLP) }
+];
+const LOG = [
+  { text: 'Granted access to Kabir', when: 'Nov 24, 6:10 PM', kind: 'access' },
+  { text: 'Turned off Karaoke import for Kabir', when: 'Nov 24, 6:11 PM', kind: 'feature' },
+  { text: 'Invited Rohan', when: 'Nov 23, 9:02 AM', kind: 'access' },
+  { text: 'Hid Studio quality (96 kHz) for everyone', when: 'Nov 20, 8:40 PM', kind: 'feature' },
+  { text: 'Granted access to Meera', when: 'Nov 12, 4:15 PM', kind: 'access' },
+  { text: 'Hid Strong Clean mode for everyone', when: 'Nov 8, 11:30 AM', kind: 'feature' },
+  { text: 'Revoked access for Test account', when: 'Nov 3, 7:05 PM', kind: 'revoke' }
+].reverse().reverse();
+const clone = o => JSON.parse(JSON.stringify(o));
+const APRESETS = {
+  'overview': () => ({}),
+  'creators': () => ({ tab: 'creators' }),
+  'creators-pending': () => ({ tab: 'creators', filter: 'pending' }),
+  'creator': () => ({ tab: 'creators', flow: 'creator', sel: 'c2' }),
+  'creator-edited': () => ({ tab: 'creators', flow: 'creator', sel: 'c2', edit: Object.assign({}, CREATORS[1].perms, { video: true }), editAccess: true }),
+  'creator-revoke': () => ({ tab: 'creators', flow: 'creator', sel: 'c2', dialog: 'revoke' }),
+  'invite': () => ({ flow: 'invite', invName: 'Ananya', invEmail: 'ananya@example.com' }),
+  'features': () => ({ tab: 'features' }),
+  'features-sheet': () => ({ tab: 'features', sheet: 'video' }),
+  'features-dirty': () => { const d = clone(PUB); d.studio = { vis: 'all', sel: [] }; d.karaoke = { vis: 'hidden', sel: [] }; return { tab: 'features', draft: d }; },
+  'features-publish': () => { const d = clone(PUB); d.studio = { vis: 'all', sel: [] }; d.karaoke = { vis: 'hidden', sel: [] }; return { tab: 'features', draft: d, dialog: 'publish' }; },
+  'audit': () => ({ tab: 'audit' }),
+  'toast': () => ({ tab: 'creators', toast: { msg: 'Meera\'s permissions updated', id: 1 } })
+};
+
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = { tab: 'overview', flow: null, crossing: false, creators: clone(CREATORS), pub: clone(PUB), draft: clone(PUB), log: clone(LOG),
+      query: '', filter: 'approved', sel: null, edit: null, editAccess: true, sheet: null, dialog: null, toast: null, logFilter: 'all',
+      invName: '', invEmail: '', invPreset: 'full', invTried: false };
+    const v = p && p.view;
+    if (v && APRESETS[v]) Object.assign(this.state, APRESETS[v]());
+    if (this.state.flow === 'creator' && !this.state.edit) { const c = this.state.creators.find(x => x.id === this.state.sel); this.state.edit = Object.assign({}, c.perms); this.state.editAccess = c.status === 'approved'; }
+  }
+  toast(msg) { const id = Date.now(); this.setState({ toast: { msg, id } }); setTimeout(() => { if (this.state.toast && this.state.toast.id === id) this.setState({ toast: null }); }, 2400); }
+  log(text, kind) { this.setState({ log: [{ text, when: 'Just now', kind }].concat(this.state.log) }); }
+  seg(list, cur, pick) { return list.map(o => { const on = o.v === cur; return { label: o.l, on, pick: () => pick(o.v), bg: on ? 'linear-gradient(180deg,#FFFFFF,#E6E6E3)' : 'transparent', fg: on ? '#14161A' : '#A3A5AE', fw: on ? 600 : 500 }; }); }
+  tog(on) { return { on, track: on ? '#EF3349' : '#33363D', knob: on ? 20 : 0 }; }
+  renderVals() {
+    const s = this.state, ini = n => n.charAt(0).toUpperCase();
+    const slots = { overview: 0, creators: 1, features: 3, audit: 4 };
+    const goTab = (t) => { const a = slots[s.tab], b = slots[t]; const crossing = (a < 2) !== (b < 2); this.setState({ tab: t, flow: null, crossing }); if (crossing) setTimeout(() => this.setState({ crossing: false }), 230); };
+    const pendingN = s.creators.filter(c => c.status === 'pending').length;
+    const mkTab = (id, label, d, badgeN) => { const on = s.tab === id && s.flow !== 'invite'; return { label, d, cur: on ? 'page' : 'false', go: () => goTab(id), color: on ? '#14161A' : '#A3A5AE', lift: on ? -1.5 : 0, fw: on ? 600 : 500, badge: !!badgeN, badgeN: badgeN || 0 }; };
+    const grant = (c) => { this.setState({ creators: this.state.creators.map(x => x.id === c.id ? Object.assign({}, x, { status: 'approved', since: 'Today', projects: 0 }) : x) }); this.log('Granted access to ' + c.name, 'access'); this.toast(c.name + ' can now use the Studio'); };
+    const decline = (c) => { this.setState({ creators: this.state.creators.filter(x => x.id !== c.id) }); this.log('Declined ' + c.name, 'access'); };
+    const openCreator = (c) => this.setState({ flow: 'creator', sel: c.id, edit: Object.assign({}, c.perms), editAccess: c.status === 'approved' });
+    const pendingList = s.creators.filter(c => c.status === 'pending').map(c => ({ ...c, initial: ini(c.name), grant: () => grant(c), decline: () => decline(c) }));
+    const visL = { all: 'Everyone', selected: 'Selected', hidden: 'Hidden' };
+    const dirtyIds = FEATURES.filter(f => JSON.stringify(s.draft[f.id]) !== JSON.stringify(s.pub[f.id])).map(f => f.id);
+
+    // creators list
+    const q = s.query.trim().toLowerCase();
+    const creatorList = s.creators.filter(c => c.status === s.filter && (!q || (c.name + c.email).toLowerCase().indexOf(q) >= 0)).map(c => {
+      const off = FEATURES.filter(f => !c.perms[f.id] && s.pub[f.id].vis !== 'hidden').map(f => f.name);
+      const summary = c.status === 'pending' ? c.kind + ' · ' + c.when + ' · tap to review' : c.status === 'revoked' ? 'Access removed ' + c.since : (off.length ? 'Off: ' + off.join(', ') : 'Every available feature') + ' · ' + c.projects + ' projects';
+      return { ...c, initial: ini(c.name), open: () => openCreator(c), summary, statusL: ({ approved: 'Active', pending: 'Pending', revoked: 'Revoked' })[c.status], badgeFg: c.status === 'approved' ? '#F6F6F4' : '#A3A5AE', badgeDot: c.status === 'approved' ? '#EF3349' : c.status === 'pending' ? '#FF6370' : '#4A4D55' };
+    });
+
+    // creator detail
+    const cd0 = s.creators.find(c => c.id === s.sel);
+    const cd = cd0 ? { ...cd0, initial: ini(cd0.name), meta: cd0.status === 'approved' ? 'Creator since ' + cd0.since + ' · ' + cd0.projects + ' projects' : cd0.status === 'pending' ? cd0.kind + ' · ' + cd0.when : 'Access removed ' + cd0.since } : { name: '', email: '', initial: '', meta: '' };
+    const edit = s.edit || {};
+    const perms = FEATURES.map(f => {
+      const hidden = s.pub[f.id].vis === 'hidden', on = !!edit[f.id] && !hidden;
+      return { ...f, ...this.tog(on), dis: hidden || !s.editAccess, op: hidden || !s.editAccess ? 0.4 : 1, sub: hidden ? 'Hidden for everyone in Features' : f.desc, subFg: hidden ? '#FF6370' : '#A3A5AE',
+        toggle: () => this.setState({ edit: Object.assign({}, this.state.edit, { [f.id]: !this.state.edit[f.id] }) }) };
+    });
+    const permsChanged = cd0 ? (JSON.stringify(edit) !== JSON.stringify(cd0.perms) || s.editAccess !== (cd0.status === 'approved')) : false;
+    const nChanges = cd0 ? FEATURES.filter(f => !!edit[f.id] !== !!cd0.perms[f.id]).length + (s.editAccess !== (cd0.status === 'approved') ? 1 : 0) : 0;
+
+    // features
+    const featRows = FEATURES.map(f => { const v = s.draft[f.id].vis; const changed = dirtyIds.indexOf(f.id) >= 0;
+      return { ...f, visL: v === 'selected' ? s.draft[f.id].sel.length + ' creators' : visL[v], changed, border: changed ? '#701C2B' : '#1F2126', iconFg: v === 'hidden' ? '#4A4D55' : '#F6F6F4',
+        pillBg: v === 'all' ? '#F6F6F4' : v === 'hidden' ? '#1D1F24' : '#33363D', pillFg: v === 'all' ? '#14161A' : v === 'hidden' ? '#7C7F88' : '#F6F6F4', open: () => this.setState({ sheet: f.id }) }; });
+    const sf0 = FEATURES.find(f => f.id === s.sheet);
+    const sd = sf0 ? s.draft[sf0.id] : null;
+    const setVis = (v) => { const d = clone(this.state.draft); d[sf0.id].vis = v; if (v === 'selected' && d[sf0.id].sel.length === 0) d[sf0.id].sel = this.state.creators.filter(c => c.status === 'approved').map(c => c.id); this.setState({ draft: d }); };
+    const visOpts = sf0 ? [{ v: 'all', l: 'Everyone', sub: 'Every approved creator sees it' }, { v: 'selected', l: 'Selected creators', sub: 'Only the people you choose' }, { v: 'hidden', l: 'Hidden', sub: 'Removed from the app for everyone' }].map(o => {
+      const on = sd.vis === o.v; return { label: o.l, sub: o.sub, on, pick: () => setVis(o.v), bg: on ? '#1D1F24' : '#0E0F12', border: on ? '#F6F6F4' : '#26282E', ring: on ? '#F6F6F4' : '#4A4D55', dot: on ? '#EF3349' : 'transparent' }; }) : [];
+    const selCreators = sf0 ? s.creators.filter(c => c.status === 'approved').map(c => { const on = sd.sel.indexOf(c.id) >= 0;
+      return { name: c.name, on, ring: on ? '#F6F6F4' : '#4A4D55', fill: on ? '#F6F6F4' : 'transparent', toggle: () => { const d = clone(this.state.draft); const arr = d[sf0.id].sel; const i = arr.indexOf(c.id); if (i >= 0) arr.splice(i, 1); else arr.push(c.id); this.setState({ draft: d }); } }; }) : [];
+
+    // log
+    const logIcon = { access: IC.key, feature: IC.eye, revoke: IC.lock };
+    const logDot = { access: '#F6F6F4', feature: '#A3A5AE', revoke: '#EF3349' };
+    const logList = s.log.filter(l => s.logFilter === 'all' || (s.logFilter === 'access' ? l.kind !== 'feature' : l.kind === 'feature')).map(l => ({ ...l, icon: logIcon[l.kind], dot: logDot[l.kind] }));
+
+    // dialog
+    let dlg = null;
+    if (s.dialog === 'revoke' && cd0) dlg = { title: 'Revoke ' + cd0.name + '\'s access?', body: 'They\'ll be signed out of the Studio the next time the app checks in. Their projects stay on their own phone. You can grant access again later.', ok: 'Revoke access', cancel: 'Cancel', danger: true,
+      onOk: () => { this.setState({ creators: this.state.creators.map(x => x.id === cd0.id ? Object.assign({}, x, { status: 'revoked', since: 'today' }) : x), flow: null, filter: 'approved' }); this.log('Revoked access for ' + cd0.name, 'revoke'); this.toast(cd0.name + '\'s access removed'); } };
+    if (s.dialog === 'publish') { const lines = dirtyIds.map(id => '• ' + FEATURES.find(f => f.id === id).name + ' → ' + visL[s.draft[id].vis]).join('\n');
+      dlg = { title: 'Publish ' + dirtyIds.length + (dirtyIds.length === 1 ? ' change?' : ' changes?'), body: lines + '\n\nCreators see this the next time their app opens.', ok: 'Publish', cancel: 'Cancel',
+        onOk: () => { dirtyIds.forEach(id => this.log((this.state.draft[id].vis === 'hidden' ? 'Hid ' : 'Showed ') + FEATURES.find(f => f.id === id).name + (this.state.draft[id].vis === 'selected' ? ' for selected creators' : this.state.draft[id].vis === 'all' ? ' for everyone' : ' for everyone'), 'feature')); this.setState({ pub: clone(this.state.draft) }); this.toast('Feature changes published'); } }; }
+
+    const emailOk = /.+@.+\..+/.test(s.invEmail);
+    const presetDescs = { full: 'Every feature that is currently visible.', audio: 'Recording, editing and audio export. No karaoke or video.', custom: 'Start with recording only, then choose features on their profile.' };
+
+    return {
+      ic: IC,
+      tOverview: !s.flow && s.tab === 'overview', tCreators: !s.flow && s.tab === 'creators', tFeatures: !s.flow && s.tab === 'features', tAudit: !s.flow && s.tab === 'audit',
+      fCreator: s.flow === 'creator', fInvite: s.flow === 'invite',
+      indX: slots[s.tab] * 100, indScale: s.flow === 'invite' ? 0.4 : s.crossing ? 0.5 : 1, indOpacity: s.flow === 'invite' ? 0 : s.crossing ? 0.35 : 1,
+      tabsLeft: [mkTab('overview', 'Overview', IC.grid), mkTab('creators', 'Creators', IC.users, pendingN)],
+      tabsRight: [mkTab('features', 'Features', IC.sliders, dirtyIds.length), mkTab('audit', 'Audit', IC.list)],
+      openInvite: () => this.setState({ flow: 'invite', invName: '', invEmail: '', invTried: false, invPreset: 'full' }),
+      closeFlow: () => this.setState({ flow: null }),
+      stats: [
+        { n: s.creators.filter(c => c.status === 'approved').length, label: 'Active creators', go: () => { this.setState({ filter: 'approved' }); goTab('creators'); } },
+        { n: pendingN, label: 'Pending', go: () => { this.setState({ filter: 'pending' }); goTab('creators'); } },
+        { n: FEATURES.filter(f => s.pub[f.id].vis === 'hidden').length, label: 'Hidden features', go: () => goTab('features') }
+      ],
+      pendingList, noPending: pendingList.length === 0, goPendingList: () => { this.setState({ filter: 'pending' }); goTab('creators'); },
+      featChips: FEATURES.map(f => ({ name: f.name, dot: s.pub[f.id].vis === 'all' ? '#F6F6F4' : s.pub[f.id].vis === 'selected' ? '#FF6370' : '#4A4D55', fg: s.pub[f.id].vis === 'hidden' ? '#7C7F88' : '#F6F6F4' })),
+      goFeatures: () => goTab('features'), goAudit: () => goTab('audit'), logShort: logList.slice(0, 3),
+      query: s.query, setQuery: e => this.setState({ query: e.target.value }),
+      statusSeg: this.seg([{ v: 'approved', l: 'Active' }, { v: 'pending', l: 'Pending' + (pendingN ? ' · ' + pendingN : '') }, { v: 'revoked', l: 'Revoked' }], s.filter, v => this.setState({ filter: v })),
+      creatorList, creatorEmpty: creatorList.length === 0,
+      cd, perms, permOpacity: s.editAccess ? 1 : 0.5,
+      accessOn: s.editAccess, accessTrack: s.editAccess ? '#EF3349' : '#33363D', accessKnob: s.editAccess ? 20 : 0,
+      accessSub: s.editAccess ? 'Can sign in and use the Studio' : cd0 && cd0.status === 'pending' ? 'Turn on to approve this creator' : 'Can\'t sign in to the Studio',
+      toggleAccess: () => this.setState({ editAccess: !this.state.editAccess }),
+      askRevoke: () => { if (cd0 && cd0.status === 'approved') this.setState({ dialog: 'revoke' }); else if (cd0 && cd0.status === 'pending') { decline(cd0); this.setState({ flow: null }); } },
+      revokeL: cd0 && cd0.status === 'pending' ? 'Decline request' : cd0 && cd0.status === 'revoked' ? 'Access already removed' : 'Revoke Studio access',
+      permsClean: !permsChanged, saveOpacity: permsChanged ? 1 : 0.45, saveL: permsChanged ? 'Save ' + nChanges + (nChanges === 1 ? ' change' : ' changes') : 'No changes',
+      savePerms: () => { if (!cd0) return; const st = this.state.editAccess ? 'approved' : (cd0.status === 'approved' ? 'revoked' : cd0.status);
+        this.setState({ creators: this.state.creators.map(x => x.id === cd0.id ? Object.assign({}, x, { perms: Object.assign({}, this.state.edit), status: st, since: st !== cd0.status ? 'Today' : x.since }) : x), flow: null });
+        this.log('Updated ' + cd0.name + '\'s permissions (' + nChanges + ')', 'access'); this.toast(cd0.name + '\'s permissions updated'); },
+      invName: s.invName, invEmail: s.invEmail, setInvName: e => this.setState({ invName: e.target.value }), setInvEmail: e => this.setState({ invEmail: e.target.value }),
+      invBad: s.invTried && !emailOk, invBorder: s.invTried && !emailOk ? '#EF3349' : '#26282E',
+      presetSeg: this.seg([{ v: 'full', l: 'Full studio' }, { v: 'audio', l: 'Audio only' }, { v: 'custom', l: 'Custom' }], s.invPreset, v => this.setState({ invPreset: v })), presetDesc: presetDescs[s.invPreset],
+      sendInvite: () => { if (!emailOk) { this.setState({ invTried: true }); return; } const nm = this.state.invName.trim() || this.state.invEmail.split('@')[0];
+        const perms = Object.assign({}, ALLP, this.state.invPreset === 'audio' ? { karaoke: false, video: false } : this.state.invPreset === 'custom' ? { karaoke: false, video: false, monitor: false, noise: false, strong: false, wav: false, studio: false } : {});
+        this.setState({ creators: this.state.creators.concat([{ id: 'c' + Date.now(), name: nm, email: this.state.invEmail, status: 'pending', kind: 'Invitation sent', when: 'Just now', perms }]), flow: null, tab: 'creators', filter: 'pending' });
+        this.log('Invited ' + nm, 'access'); this.toast('Invite sent to ' + this.state.invEmail); },
+      featRows, featDirty: dirtyIds.length > 0, publishL: 'Publish ' + dirtyIds.length + (dirtyIds.length === 1 ? ' change' : ' changes'),
+      discardFeat: () => this.setState({ draft: clone(this.state.pub) }), askPublish: () => this.setState({ dialog: 'publish' }),
+      hasSheet: !!sf0, sf: sf0 || { name: '', long: '' }, visOpts, showSelected: !!sd && sd.vis === 'selected', selCreators, closeSheet: () => this.setState({ sheet: null }),
+      logSeg: this.seg([{ v: 'all', l: 'All' }, { v: 'access', l: 'Access' }, { v: 'features', l: 'Features' }], s.logFilter, v => this.setState({ logFilter: v })), logList,
+      hasToast: !!s.toast, toastMsg: s.toast ? s.toast.msg : '',
+      hasDialog: !!dlg, dlgTitle: dlg ? dlg.title : '', dlgBody: dlg ? dlg.body : '', dlgOkL: dlg ? dlg.ok : '', dlgCancelL: dlg ? dlg.cancel : '',
+      dlgOkBg: dlg && dlg.danger ? '#EF3349' : 'linear-gradient(180deg,#FFFFFF,#E2E2DF)', dlgOkFg: dlg && dlg.danger ? '#FFFFFF' : '#14161A',
+      dlgOk: () => { const f = dlg && dlg.onOk; this.setState({ dialog: null }); if (f) f(); }, dlgCancel: () => this.setState({ dialog: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

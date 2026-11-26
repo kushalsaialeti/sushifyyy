@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sushifyyyy common states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.st,.st *{box-sizing:border-box}.st{font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.gloss{background:linear-gradient(180deg,#FFFFFF 0%,#F6F6F4 48%,#E2E2DF 100%);color:#14161A;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.10),0 8px 20px rgba(0,0,0,.45)}
+.sk{background:linear-gradient(90deg,#14161A 0%,#1D1F24 50%,#14161A 100%);background-size:200% 100%;animation:sk 1.4s ease-in-out infinite}@keyframes sk{from{background-position:100% 0}to{background-position:-100% 0}}
+svg.i{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.st button{font-family:inherit}
+</style>
+</helmet>
+<div class="st" style="width: 1240px; padding: 56px; background: #08090B; color: #F6F6F4; display: flex; flex-direction: column; gap: 32px">
+<div>
+<h1 style="margin: 0; font-size: 30px; font-weight: 600; letter-spacing: -0.02em">Common states</h1>
+<p style="margin: 8px 0 0; font-size: 15px; color: #A3A5AE">Reusable feedback, empty, permission and access states shared by every Sushifyyyy screen.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px">
+
+<section style="background: #0E0F12; border: 1px solid #1A1C20; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; color: #7C7F88; font-weight: 500">LoadingSkeleton · project list</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{three}}" as="x" hint-placeholder-count="3">
+<div style="display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 18px; background: #14161A; border: 1px solid #1F2126"><span class="sk" style="width: 44px; height: 44px; border-radius: 14px"></span><span style="flex: 1; display: flex; flex-direction: column; gap: 8px"><span class="sk" style="height: 12px; width: 70%; border-radius: 6px"></span><span class="sk" style="height: 10px; width: 45%; border-radius: 5px"></span></span></div>
+</sc-for>
+</div>
+</section>
+
+<section style="background: #0E0F12; border: 1px solid #1A1C20; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; color: #7C7F88; font-weight: 500">EmptyState · no projects</div>
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; padding: 16px 8px">
+<div style="width: 60px; height: 60px; border-radius: 18px; background: #14161A; border: 1px solid #26282E; display: flex; align-items: center; justify-content: center; color: #EF3349"><svg class="i" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2"></path></svg></div>
+<div style="font-size: 17px; font-weight: 600">Your studio is quiet</div>
+<div style="font-size: 13px; color: #A3A5AE; line-height: 1.5">Every take you record is saved here as a project.</div>
+<button class="gloss" style="height: 44px; padding: 0 18px; border: 0; border-radius: 13px; font-size: 14px; font-weight: 600; margin-top: 4px">Start recording</button>
+</div>
+</section>
+
+<section style="background: #0E0F12; border: 1px solid #1A1C20; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; color: #7C7F88; font-weight: 500">StatusToast · success / error</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 16px; background: #1D1F24; border: 1px solid #33363D; font-size: 14px"><span style="width: 26px; height: 26px; border-radius: 50%; background: #F6F6F4; color: #14161A; display: flex; align-items: center; justify-content: center"><svg class="i" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.6"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></span>Draft saved on this phone</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 16px; background: #1D1F24; border: 1px solid #33363D; font-size: 14px"><span style="width: 26px; height: 26px; border-radius: 50%; background: #701C2B; color: #FF6370; display: flex; align-items: center; justify-content: center"><svg class="i" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 2.6"><path d="M12 8v5M12 17h.01"></path></svg></span>Couldn't save the export. Try again.</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 999px; background: #14161A; border: 1px solid #26282E; font-size: 13px; color: #A3A5AE; align-self: flex-start"><span style="width: 8px; height: 8px; border-radius: 50%; background: #7C7F88"></span>Offline · recording still works</div>
+</section>
+
+<section style="background: #0E0F12; border: 1px solid #1A1C20; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; color: #7C7F88; font-weight: 500">ConfirmationDialog · destructive</div>
+<div style="background: #14161A; border: 1px solid #26282E; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 18px; font-weight: 600">Delete "Monsoon Sessions"?</div>
+<div style="font-size: 13px; color: #A3A5AE; line-height: 1.5">Removes the project and its original recording from this phone. This can't be undone.</div>
+<div style="display: flex; gap: 8px; margin-top: 8px"><button style="flex: 1; height: 44px; border-radius: 13px; background: #1D1F24; border: 1px solid #33363D; color: #F6F6F4; font-size: 14px">Cancel</button><button style="flex: 1; height: 44px; border-radius: 13px; background: #EF3349; border: 0; color: #FFFFFF; font-size: 14px; font-weight: 600">Delete</button></div>
+</div>
+</section>
+
+<section style="background: #0E0F12; border: 1px solid #1A1C20; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; color: #7C7F88; font-weight: 500">Permission dialog · microphone (pre-prompt)</div>
+<div style="background: #14161A; border: 1px solid #26282E; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: #1D1F24; display: flex; align-items: center; justify-content: center; color: #F6F6F4"><svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></div>
+<div style="font-size: 18px; font-weight: 600">Allow your microphone</div>
+<div style="font-size: 13px; color: #A3A5AE; line-height: 1.5">Sushifyyyy records your voice on this phone only. Nothing is uploaded.</div>
+<button class="gloss" style="width: 100%; height: 44px; border: 0; border-radius: 13px; font-size: 14px; font-weight: 600; margin-top: 4px">Continue</button>
+</div>
+</section>
+
+<section style="background: #0E0F12; border: 1px solid #1A1C20; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; color: #7C7F88; font-weight: 500">Unsaved changes alert</div>
+<div style="background: #14161A; border: 1px solid #26282E; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 18px; font-weight: 600">Leave without saving?</div>
+<div style="font-size: 13px; color: #A3A5AE; line-height: 1.5">You changed the reverb and trim. Save them to this draft first?</div>
+<button class="gloss" style="height: 44px; border: 0; border-radius: 13px; font-size: 14px; font-weight: 600; margin-top: 8px">Save &amp; leave</button>
+<div style="display: flex; gap: 8px"><button style="flex: 1; height: 44px; border-radius: 13px; background: #1D1F24; border: 1px solid #33363D; color: #F6F6F4; font-size: 14px">Keep editing</button><button style="flex: 1; height: 44px; border-radius: 13px; background: transparent; border: 1px solid #33363D; color: #FF6370; font-size: 14px">Discard</button></div>
+</div>
+</section>
+
+<section style="background: #0E0F12; border: 1px solid #1A1C20; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; color: #7C7F88; font-weight: 500">Access revoked · full screen</div>
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 12px 6px">
+<div style="width: 60px; height: 60px; border-radius: 50%; background: #1D1F24; border: 1px solid #33363D; display: flex; align-items: center; justify-content: center; color: #FF6370"><svg class="i" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4"></path></svg></div>
+<div style="font-size: 17px; font-weight: 600">Studio access was removed</div>
+<div style="font-size: 13px; color: #A3A5AE; line-height: 1.5">Your projects are still on this phone, but recording and exporting are paused. Contact the Super Admin if this is a mistake.</div>
+<button style="height: 44px; padding: 0 18px; border-radius: 13px; background: #14161A; border: 1px solid #33363D; color: #F6F6F4; font-size: 14px; margin-top: 4px">Sign out</button>
+</div>
+</section>
+
+<section style="background: #0E0F12; border: 1px solid #1A1C20; border-radius: 24px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; color: #7C7F88; font-weight: 500">Device incompatibility warning</div>
+<div style="display: flex; gap: 10px; padding: 14px; border-radius: 16px; background: #1D1F24; border: 1px solid #33363D">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #FF6370; flex-shrink: 0"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+<div><div style="font-size: 14px; font-weight: 600">Live monitoring isn't supported here</div><div style="font-size: 13px; color: #A3A5AE; line-height: 1.5; margin-top: 4px">This phone adds too much delay for live monitoring. You can still record — you'll just hear yourself on playback.</div></div>
+</div>
+<div style="display: flex; gap: 10px; padding: 14px; border-radius: 16px; background: #14161A; border: 1px solid #26282E">
+<svg class="i" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="color: #A3A5AE; flex-shrink: 0"><path d="M3 3l18 18M8.5 16.5a5 5 0 0 1 7 0M5 13a10 10 0 0 1 5.2-2.8M19 13a10 10 0 0 0-2.6-1.9M12 20h.01"></path></svg>
+<div><div style="font-size: 14px; font-weight: 600">You're offline</div><div style="font-size: 13px; color: #A3A5AE; line-height: 1.5; margin-top: 4px">Recording, editing and exporting work offline. Sign-in needs a connection.</div></div>
+</div>
+</section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1240,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return { three: [1, 2, 3] }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sushifyyyy Super Admin</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#08090B}
+.ad,.ad *{box-sizing:border-box}.ad{font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.ad button{font-family:inherit;cursor:pointer}.ad button:focus-visible{outline:2px solid #FF6370;outline-offset:2px}
+.gloss{background:linear-gradient(180deg,#FFFFFF 0%,#F6F6F4 48%,#E2E2DF 100%);color:#14161A;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(0,0,0,.10),0 6px 16px rgba(0,0,0,.4)}
+.fade{animation:f 260ms ease both}@keyframes f{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+svg.i{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+</style>
+</helmet>
+<div class="ad" style="min-height: 860px; background: #08090B; color: #F6F6F4; padding: 40px 32px; position: relative">
+<div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px">
+<header style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; justify-content: space-between">
+<div style="display: flex; align-items: center; gap: 14px">
+<div style="width: 44px; height: 44px; border-radius: 14px; background: #14161A; border: 1px solid #26282E; display: flex; align-items: center; justify-content: center; color: #EF3349"><svg class="i" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h2M7 8v8M11 5v14M15 9v6M19 11v2"></path></svg></div>
+<div><h1 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.02em">Studio access</h1><div style="font-size: 13px; color: #A3A5AE; margin-top: 2px">Sushifyyyy · Super Admin console (concept)</div></div>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #14161A; border: 1px solid #26282E; font-size: 12px; color: #A3A5AE"><svg class="i" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path></svg>Every change is verified and logged server-side</div>
+</header>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 18px"><div style="font-size: 13px; color: #A3A5AE">Approved creators</div><div style="font-size: 30px; font-weight: 600; margin-top: 6px; font-variant-numeric: tabular-nums">{{approvedCount}}</div></div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 18px"><div style="font-size: 13px; color: #A3A5AE">Pending requests</div><div style="font-size: 30px; font-weight: 600; margin-top: 6px; font-variant-numeric: tabular-nums">{{pendingCount}}</div></div>
+<div style="background: #14161A; border: 1px solid #1F2126; border-radius: 20px; padding: 18px"><div style="font-size: 13px; color: #A3A5AE">Access changes this week</div><div style="font-size: 30px; font-weight: 600; margin-top: 6px; font-variant-numeric: tabular-nums">{{logCount}}</div></div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<section style="background: #14161A; border: 1px solid #1F2126; border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 600">Pending requests &amp; invitations</h2>
+<sc-for list="{{pending}}" as="p" hint-placeholder-count="2">
+<div class="fade" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px; border-radius: 16px; background: #0E0F12; border: 1px solid #1D1F24">
+<span style="width: 40px; height: 40px; border-radius: 50%; background: #1D1F24; display: flex; align-items: center; justify-content: center; font-weight: 600">{{p.initial}}</span>
+<div style="flex: 1; min-width: 160px"><div style="font-size: 15px; font-weight: 500">{{p.name}}</div><div style="font-size: 12px; color: #A3A5AE; margin-top: 2px">{{p.email}} · {{p.kind}} · {{p.when}}</div></div>
+<button onClick="{{p.decline}}" style="height: 40px; padding: 0 14px; border-radius: 12px; background: transparent; border: 1px solid #33363D; color: #A3A5AE; font-size: 13px">Decline</button>
+<button onClick="{{p.grant}}" class="gloss" style="height: 40px; padding: 0 16px; border-radius: 12px; border: 0; font-size: 13px; font-weight: 600">Grant access</button>
+</div>
+</sc-for>
+<sc-if value="{{noPending}}" hint-placeholder-val="{{false}}"><div style="font-size: 13px; color: #7C7F88; padding: 8px 2px">No pending requests.</div></sc-if>
+</section>
+
+<section style="background: #14161A; border: 1px solid #1F2126; border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0 0 8px; font-size: 18px; font-weight: 600">Approved creators</h2>
+<div style="overflow-x: auto">
+<div style="min-width: 560px">
+<div style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 110px; gap: 12px; padding: 8px 12px; font-size: 12px; color: #7C7F88"><span>Creator</span><span>Email</span><span>Since</span><span>Status</span><span></span></div>
+<sc-for list="{{approved}}" as="c" hint-placeholder-count="4">
+<div class="fade" style="display: grid; grid-template-columns: 2fr 2fr 1fr 1fr 110px; gap: 12px; align-items: center; padding: 12px; border-top: 1px solid #1D1F24; font-size: 14px">
+<span style="display: flex; align-items: center; gap: 10px; font-weight: 500"><span style="width: 32px; height: 32px; border-radius: 50%; background: #1D1F24; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">{{c.initial}}</span>{{c.name}}</span>
+<span style="color: #A3A5AE; overflow: hidden; text-overflow: ellipsis">{{c.email}}</span>
+<span style="color: #A3A5AE">{{c.since}}</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #EF3349"></span>Active</span>
+<button onClick="{{c.revoke}}" style="height: 36px; border-radius: 10px; background: transparent; border: 1px solid #33363D; color: #FF6370; font-size: 13px">Revoke</button>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+</div>
+
+<aside style="flex: 1 1 320px; min-width: 0; background: #14161A; border: 1px solid #1F2126; border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0 0 8px; font-size: 18px; font-weight: 600">Audit history</h2>
+<sc-for list="{{log}}" as="l" hint-placeholder-count="5">
+<div class="fade" style="display: flex; gap: 12px; padding: 10px 0; border-top: 1px solid #1D1F24">
+<span style="width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; background: {{l.dot}}; flex-shrink: 0"></span>
+<div><div style="font-size: 14px">{{l.text}}</div><div style="font-size: 12px; color: #7C7F88; margin-top: 2px">{{l.when}} · by Super Admin</div></div>
+</div>
+</sc-for>
+</aside>
+</div>
+<p style="margin: 0; font-size: 12px; color: #7C7F88; line-height: 1.5">Concept only. In production, grant and revoke run through a server function that checks the Super Admin role before changing a creator's access; the app never trusts the client for this.</p>
+</div>
+
+<sc-if value="{{hasConfirm}}" hint-placeholder-val="{{false}}">
+<div class="fade" style="position: absolute; inset: 0; background: rgba(0,0,0,.66); display: flex; align-items: flex-start; justify-content: center; padding: 160px 24px 24px">
+<div role="alertdialog" aria-label="Revoke access" style="width: 100%; max-width: 420px; background: #14161A; border: 1px solid #26282E; border-radius: 24px; padding: 22px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 20px; font-weight: 600">Revoke {{confirmName}}'s access?</div>
+<div style="font-size: 14px; color: #A3A5AE; line-height: 1.5">They'll be signed out of the Studio. Their projects stay on their own phone. You can grant access again later.</div>
+<div style="display: flex; gap: 10px; margin-top: 8px"><button onClick="{{cancelRevoke}}" style="flex: 1; height: 46px; border-radius: 14px; background: #1D1F24; border: 1px solid #33363D; color: #F6F6F4; font-size: 14px">Cancel</button><button onClick="{{confirmRevoke}}" style="flex: 1; height: 46px; border-radius: 14px; background: #EF3349; border: 0; color: #FFFFFF; font-size: 14px; font-weight: 600">Revoke access</button></div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":860}}'>
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.state = {
+      approved: [
+        { id: 'a1', name: 'Sushi', email: 'sushi@example.com', since: 'Oct 2026' },
+        { id: 'a2', name: 'Meera', email: 'meera@example.com', since: 'Nov 2026' },
+        { id: 'a3', name: 'Kabir', email: 'kabir@example.com', since: 'Nov 2026' }
+      ],
+      pending: [
+        { id: 'r1', name: 'Ananya', email: 'ananya@example.com', kind: 'Requested access', when: '2h ago' },
+        { id: 'r2', name: 'Rohan', email: 'rohan@example.com', kind: 'Invitation sent', when: 'Yesterday' }
+      ],
+      log: [
+        { text: 'Granted access to Kabir', when: 'Nov 24', kind: 'grant' },
+        { text: 'Invited Rohan', when: 'Nov 23', kind: 'info' },
+        { text: 'Granted access to Meera', when: 'Nov 12', kind: 'grant' },
+        { text: 'Revoked access for a test account', when: 'Nov 3', kind: 'revoke' }
+      ],
+      confirm: null
+    };
+  }
+  addLog(text, kind) { this.setState({ log: [{ text, when: 'Just now', kind }].concat(this.state.log) }); }
+  renderVals() {
+    const s = this.state;
+    const ini = n => n.charAt(0).toUpperCase();
+    const c = s.approved.find(a => a.id === s.confirm);
+    return {
+      approvedCount: s.approved.length, pendingCount: s.pending.length, logCount: s.log.length,
+      pending: s.pending.map(p => ({ ...p, initial: ini(p.name),
+        grant: () => { this.setState({ pending: this.state.pending.filter(x => x.id !== p.id), approved: this.state.approved.concat([{ id: 'a' + Date.now(), name: p.name, email: p.email, since: 'Today' }]) }); this.addLog('Granted access to ' + p.name, 'grant'); },
+        decline: () => { this.setState({ pending: this.state.pending.filter(x => x.id !== p.id) }); this.addLog('Declined ' + p.name, 'info'); } })),
+      noPending: s.pending.length === 0,
+      approved: s.approved.map(a => ({ ...a, initial: ini(a.name), revoke: () => this.setState({ confirm: a.id }) })),
+      log: s.log.map(l => ({ ...l, dot: l.kind === 'grant' ? '#F6F6F4' : l.kind === 'revoke' ? '#EF3349' : '#7C7F88' })),
+      hasConfirm: !!c, confirmName: c ? c.name : '',
+      cancelRevoke: () => this.setState({ confirm: null }),
+      confirmRevoke: () => { if (!c) return; this.setState({ approved: this.state.approved.filter(a => a.id !== c.id), confirm: null }); this.addLog('Revoked access for ' + c.name, 'revoke'); }
+    };
+  }
+}
+</script>
+</body>
+</html>
